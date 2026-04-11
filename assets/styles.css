@@ -981,6 +981,14 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   line-height: 1.8;
 }
 
+.comments-note {
+  margin-bottom: 0;
+}
+
+.comments-embed {
+  min-height: 8rem;
+}
+
 .cta-panel {
   padding: 1.45rem;
   border-radius: 24px;

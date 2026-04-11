@@ -4,14 +4,17 @@
   var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
   var toggle = document.querySelector('[data-theme-toggle]');
 
-  function syncUtterancesTheme(mode) {
-    var iframe = document.querySelector('.utterances-frame');
+  function syncCommentsTheme(mode) {
+    var iframe = document.querySelector('iframe.giscus-frame');
     if (!iframe || !iframe.contentWindow) return;
 
     iframe.contentWindow.postMessage({
-      type: 'set-theme',
-      theme: mode === 'dark' ? 'github-dark' : 'github-light'
-    }, 'https://utteranc.es');
+      giscus: {
+        setConfig: {
+          theme: mode === 'dark' ? 'dark' : 'light'
+        }
+      }
+    }, 'https://giscus.app');
   }
 
   function storedMode() {
@@ -51,7 +54,7 @@
     }
 
     updateToggle(mode);
-    syncUtterancesTheme(mode);
+    syncCommentsTheme(mode);
   }
 
   if (toggle) {
@@ -62,7 +65,7 @@
   }
 
   window.addEventListener('load', function () {
-    syncUtterancesTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+    syncCommentsTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
   });
 
   applyTheme(storedMode(), false);

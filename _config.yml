@@ -18,10 +18,17 @@ social:
   og_image_height: 1024
 
 comments:
-  provider: utterances
-  repo: openleafsupport/openleaf
-  issue_term: pathname
-  label: feedback
+  provider: giscus
+  repo: openleafsupport/openleafsupport.github.io
+  repo_id: "R_kgDOR_ksSQ"
+  category: General
+  category_id: "DIC_kwDOR_ksSc4C6oJR"
+  mapping: pathname
+  strict: 0
+  reactions_enabled: 1
+  emit_metadata: 0
+  input_position: top
+  lang: en
 
 defaults:
   - scope:

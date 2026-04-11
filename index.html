@@ -198,15 +198,29 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       </div>
       <div class="comments-block">
         <p class="comments-title">Public comments</p>
-        <p class="comments-text">Prefer to leave a public note? You can comment here using GitHub-backed discussions via Utterances.</p>
-        <script src="https://utteranc.es/client.js"
-          repo="{{ site.comments.repo }}"
-          issue-term="{{ site.comments.issue_term }}"
-          label="{{ site.comments.label }}"
-          theme="github-light"
-          crossorigin="anonymous"
-          async>
-        </script>
+        <p class="comments-text">Prefer to leave a public note? You can comment here using GitHub Discussions via Giscus.</p>
+        {% if site.comments.repo and site.comments.repo_id != '' and site.comments.category_id != '' %}
+        <div class="comments-embed">
+          <script src="https://giscus.app/client.js"
+            data-repo="{{ site.comments.repo }}"
+            data-repo-id="{{ site.comments.repo_id }}"
+            data-category="{{ site.comments.category }}"
+            data-category-id="{{ site.comments.category_id }}"
+            data-mapping="{{ site.comments.mapping }}"
+            data-strict="{{ site.comments.strict }}"
+            data-reactions-enabled="{{ site.comments.reactions_enabled }}"
+            data-emit-metadata="{{ site.comments.emit_metadata }}"
+            data-input-position="{{ site.comments.input_position }}"
+            data-theme="preferred_color_scheme"
+            data-lang="{{ site.comments.lang }}"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+          </script>
+        </div>
+        {% else %}
+        <p class="comments-text comments-note">Giscus is ready in the site code, but it still needs your GitHub Discussions repository ID and category ID in <code>_config.yml</code> before the comment box can appear.</p>
+        {% endif %}
       </div>
     </article>
   </div>
