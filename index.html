@@ -2,16 +2,105 @@
 layout: default
 ---
 
-<h1>Amit</h1>
-<p>Writing about reading, attention, and living with intent.</p>
+<style>
+  .hero {
+    text-align: center;
+    margin-bottom: 50px;
+  }
 
-<h2>Articles</h2>
+  .hero img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
 
-<ul>
+  .hero h1 {
+    font-size: 2.6rem;
+    margin-bottom: 10px;
+  }
+
+  .hero p {
+    color: #6b7280;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .section {
+    margin-top: 60px;
+  }
+
+  .post {
+    margin-bottom: 40px;
+  }
+
+  .post h3 {
+    margin-bottom: 5px;
+  }
+
+  .meta {
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+
+  .quote {
+    margin-top: 60px;
+    font-style: italic;
+    text-align: center;
+    color: #6b7280;
+  }
+</style>
+
+<div class="hero">
+  <img src="/assets/og-image.png" alt="Reading vs Doomscrolling" />
+
+  <h1>OpenLeaf</h1>
+
+  <p>
+    A quiet space for thinking about reading, attention,
+    and living a slower, more deliberate life.
+  </p>
+</div>
+
+<div class="section">
+  <h2>Latest Writing</h2>
+
   {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-      ({{ post.date | date: "%b %Y" }})
-    </li>
+    <div class="post">
+      <h3>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </h3>
+
+      <div class="meta">
+        {{ post.date | date: "%B %Y" }}
+      </div>
+
+      <p>{{ post.excerpt }}</p>
+    </div>
   {% endfor %}
-</ul>
+</div>
+
+<div class="section">
+  <h2>Why this space exists</h2>
+
+  <p>
+    The internet is full of noise. Fast opinions. Endless scrolling.
+    But very little stays.
+  </p>
+
+  <p>
+    This space is an attempt to do the opposite.
+    To slow down. To think clearly. To write things that are meant to be read, not skimmed.
+  </p>
+
+  <p>
+    Not more content. Just better attention.
+  </p>
+</div>
+
+<div class="quote">
+  “Where the mind is led forward by quiet thought,
+  not restless impulse, there begins clarity.”
+</div>
