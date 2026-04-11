@@ -186,27 +186,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 </section>
 
 <section class="cta-section">
-  <div class="cta-grid">
-    <article id="newsletter" class="cta-panel">
-      <p class="section-label">Newsletter</p>
-      <h2 class="cta-title">A quiet reading letter, delivered occasionally.</h2>
-      <p class="cta-text">Subscribe for essays, release notes, and thoughtful updates from <span class="brand-name">OpenLeaf</span>.</p>
-      <form class="newsletter-form" data-listmonk-form data-listmonk-url="{{ site.newsletter.url }}" data-listmonk-list="{{ site.newsletter.list_uuid }}">
-        <div class="newsletter-grid">
-          <label class="newsletter-field">
-            <span>Name</span>
-            <input type="text" name="name" placeholder="Your name" autocomplete="name" />
-          </label>
-          <label class="newsletter-field newsletter-field-wide">
-            <span>Email</span>
-            <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
-          </label>
-        </div>
-        <button class="cta-button cta-button-primary" type="submit">Join the newsletter</button>
-        <p class="newsletter-status" data-newsletter-status aria-live="polite"></p>
-      </form>
-    </article>
-
+  <div class="cta-grid cta-grid-single">
     <article id="feedback" class="cta-panel cta-panel-contrast">
       <p class="section-label">Feedback</p>
       <h2 class="cta-title">No social links, by design.</h2>
@@ -254,4 +234,3 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 ]
 </script>
 <script src="{{ '/assets/blog-index.js' | relative_url }}" defer></script>
-<script src="{{ '/assets/newsletter.js' | relative_url }}" defer></script>

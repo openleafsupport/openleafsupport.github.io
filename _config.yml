@@ -23,11 +23,6 @@ comments:
   issue_term: pathname
   label: feedback
 
-newsletter:
-  provider: listmonk
-  url: ""
-  list_uuid: ""
-
 defaults:
   - scope:
       path: ""
