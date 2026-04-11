@@ -5,3 +5,12 @@ baseurl: ""
 url: "https://openleafsupport.github.io"
 
 markdown: kramdown
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      categories:
+        - Reflections
+      cover_image: "/assets/images/og_image.png"

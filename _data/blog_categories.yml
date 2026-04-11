@@ -1,0 +1,15 @@
+- name: Reflections
+  slug: reflections
+  description: Essays on attention, reading, and the inward life.
+
+- name: Book Reviews
+  slug: book-reviews
+  description: Considered notes on books worth returning to.
+
+- name: Updates
+  slug: updates
+  description: Product notes, improvements, and work in progress.
+
+- name: Announcements
+  slug: announcements
+  description: Launch news, milestones, and important notices.

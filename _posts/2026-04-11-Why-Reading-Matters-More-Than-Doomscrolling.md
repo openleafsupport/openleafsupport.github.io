@@ -2,6 +2,10 @@
 layout: post
 title: "Why Reading Matters More Than Doomscrolling"
 description: "We live in the most information-rich era in human history, yet feel perpetually uninformed. A case for reclaiming your attention through the one act that truly demands it."
+categories:
+  - Reflections
+cover_image: "/assets/images/og_image.png"
+cover_image_alt: "OpenLeaf cover image for Why Reading Matters More Than Doomscrolling"
 ---
 
 We live in the most information-rich era in human history. And yet, many of us end the day feeling strangely empty — aware of a hundred things, clear about none of them.
@@ -11,8 +15,6 @@ This is not an accident. It is the predictable result of how we spend our attent
 Every morning, millions of people reach for their phones before they have spoken a word, before they have made a single deliberate choice. They enter a current of alerts, arguments, and algorithmically amplified outrage. And they call it staying informed.
 
 There is a word for this now: doomscrolling. But the word undersells the problem.
-
-![OpenLeaf cover image for Why Reading Matters More Than Doomscrolling]({{ '/og_image.png' | relative_url }})
 
 ## What Doomscrolling Actually Does to the Mind
 

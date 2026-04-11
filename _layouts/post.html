@@ -4,9 +4,11 @@ layout: default
 
 <article class="post-wrapper">
 
+  {% assign primary_category = page.categories | first | default: 'Reflections' %}
+
   <a class="post-back" href="{{ '/' | relative_url }}">&#8592; All posts</a>
 
-  <div class="post-eyebrow">Reading &amp; Attention</div>
+  <div class="post-eyebrow">{{ primary_category }}</div>
 
   <h1 class="post-title">{{ page.title }}</h1>
 
@@ -14,6 +16,12 @@ layout: default
     <span>{{ page.date | date: "%B %d, %Y" }}</span>
     <span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
   </div>
+
+  {% if page.cover_image %}
+  <figure class="post-cover">
+    <img src="{{ page.cover_image | relative_url }}" alt="{{ page.cover_image_alt | default: page.title }}" />
+  </figure>
+  {% endif %}
 
   <hr class="post-divider" />
 

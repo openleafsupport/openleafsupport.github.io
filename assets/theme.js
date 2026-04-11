@@ -2,35 +2,35 @@
   var root = document.documentElement;
   var storageKey = 'theme_mode';
   var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  var buttons = document.querySelectorAll('[data-theme-control]');
+  var toggle = document.querySelector('[data-theme-toggle]');
 
   function storedMode() {
     try {
-      return localStorage.getItem(storageKey) || root.getAttribute('data-theme-mode') || 'system';
+      var stored = localStorage.getItem(storageKey);
+      if (stored === 'dark' || stored === 'light') return stored;
     } catch (error) {
-      return root.getAttribute('data-theme-mode') || 'system';
+      // Ignore storage errors.
     }
-  }
 
-  function resolveMode(mode) {
-    if (mode === 'dark') return 'dark';
-    if (mode === 'light') return 'light';
+    var current = root.getAttribute('data-theme');
+    if (current === 'dark' || current === 'light') return current;
     return mediaQuery.matches ? 'dark' : 'light';
   }
 
-  function updateButtons(mode) {
-    buttons.forEach(function (button) {
-      var active = button.getAttribute('data-theme-control') === mode;
-      button.classList.toggle('is-active', active);
-      button.setAttribute('aria-pressed', active ? 'true' : 'false');
-    });
+  function updateToggle(mode) {
+    if (!toggle) return;
+
+    var nextMode = mode === 'dark' ? 'light' : 'dark';
+    var label = nextMode === 'dark' ? 'Switch to dark theme' : 'Switch to light theme';
+
+    toggle.setAttribute('aria-label', label);
+    toggle.setAttribute('title', label);
   }
 
   function applyTheme(mode, persist) {
-    var resolved = resolveMode(mode);
     root.setAttribute('data-theme-mode', mode);
-    root.setAttribute('data-theme', resolved);
-    root.style.colorScheme = resolved;
+    root.setAttribute('data-theme', mode);
+    root.style.colorScheme = mode;
 
     if (persist) {
       try {
@@ -40,18 +40,13 @@
       }
     }
 
-    updateButtons(mode);
+    updateToggle(mode);
   }
 
-  buttons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      applyTheme(button.getAttribute('data-theme-control'), true);
-    });
-  });
-
-  if (typeof mediaQuery.addEventListener === 'function') {
-    mediaQuery.addEventListener('change', function () {
-      if (storedMode() === 'system') applyTheme('system', false);
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark', true);
     });
   }
 
