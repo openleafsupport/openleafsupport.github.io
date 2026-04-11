@@ -953,6 +953,73 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   gap: 0.8rem;
 }
 
+.error-actions {
+  margin-top: 1rem;
+}
+
+.newsletter-form {
+  margin-top: 1rem;
+}
+
+.newsletter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 0.95rem;
+}
+
+.newsletter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.newsletter-field span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.newsletter-field input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.newsletter-field-wide {
+  grid-column: span 1;
+}
+
+.newsletter-status {
+  margin-top: 0.8rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.comments-block {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-secondary);
+}
+
+.comments-title {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.comments-text {
+  margin: 0.45rem 0 1rem;
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+
 .cta-panel {
   padding: 1.45rem;
   border-radius: 24px;
@@ -1125,6 +1192,9 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 
   .hero { padding-top: 3.5rem; }
   .hero-layout {
+    grid-template-columns: 1fr;
+  }
+  .newsletter-grid {
     grid-template-columns: 1fr;
   }
   .blog-toolbar,

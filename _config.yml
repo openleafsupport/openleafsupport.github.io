@@ -1,10 +1,32 @@
 title: OpenLeaf
 description: Thoughts on reading, attention, and deliberate living
+email: openleaf.support@gmail.com
 
 baseurl: ""
 url: "https://openleafsupport.github.io"
 
 markdown: kramdown
+
+author:
+  name: Amit
+  email: openleaf.support@gmail.com
+
+social:
+  og_image: "/assets/images/og_image.png"
+  og_image_alt: "OpenLeaf reading preview image"
+  og_image_width: 1536
+  og_image_height: 1024
+
+comments:
+  provider: utterances
+  repo: openleafsupport/openleaf
+  issue_term: pathname
+  label: feedback
+
+newsletter:
+  provider: listmonk
+  url: ""
+  list_uuid: ""
 
 defaults:
   - scope:

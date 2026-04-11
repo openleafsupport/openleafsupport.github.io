@@ -4,29 +4,52 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <meta name="description" content="{{ page.description | default: site.description }}" />
-  <meta name="author" content="Amit" />
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PCNP4WCC');</script>
+  <!-- End Google Tag Manager -->
 
-  <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+  {% assign page_title = page.title | default: site.title %}
+  {% assign page_description = page.description | default: site.description %}
+  {% assign social_image = page.cover_image | default: site.social.og_image | default: '/assets/images/og_image.png' %}
+  {% assign social_image_alt = page.cover_image_alt | default: page_title | default: site.social.og_image_alt %}
+  {% assign page_url = page.url | absolute_url %}
+
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page_description }}" />
+  <meta name="author" content="{{ site.author.name }}" />
+  <meta name="robots" content="{% if page.noindex %}noindex, nofollow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}" />
+  <meta name="theme-color" content="#f7f5f0" />
+
+  <link rel="canonical" href="{{ page_url }}" />
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="{{ '/feed.xml' | absolute_url }}" />
 
   <meta property="og:site_name" content="{{ site.title }}" />
-  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
-  <meta property="og:description" content="{{ page.description | default: site.description }}" />
+  <meta property="og:title" content="{{ page_title }}" />
+  <meta property="og:description" content="{{ page_description }}" />
   <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}" />
-  {% assign social_image = page.cover_image | default: '/assets/images/og_image.png' %}
-  <meta property="og:image" content="{{ site.url }}{{ social_image }}" />
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:image" content="{{ social_image | absolute_url }}" />
+  <meta property="og:image:secure_url" content="{{ social_image | absolute_url }}" />
+  <meta property="og:image:alt" content="{{ social_image_alt }}" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="{{ site.social.og_image_width }}" />
+  <meta property="og:image:height" content="{{ site.social.og_image_height }}" />
+  <meta property="og:url" content="{{ page_url }}" />
   <meta property="og:locale" content="en_US" />
   {% if page.layout == 'post' %}
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
-  <meta property="article:author" content="Amit" />
+  <meta property="article:author" content="{{ site.author.name }}" />
+  <meta property="article:section" content="{{ page.categories | first | default: 'Reflections' }}" />
   {% endif %}
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
-  <meta name="twitter:description" content="{{ page.description | default: site.description }}" />
-  <meta name="twitter:image" content="{{ site.url }}{{ social_image }}" />
+  <meta name="twitter:title" content="{{ page_title }}" />
+  <meta name="twitter:description" content="{{ page_description }}" />
+  <meta name="twitter:image" content="{{ social_image | absolute_url }}" />
+  <meta name="twitter:image:alt" content="{{ social_image_alt }}" />
   <link rel="icon" type="image/jpeg" href="{{ '/assets/images/favicon.jpeg' | relative_url }}" />
   <link rel="apple-touch-icon" href="{{ '/assets/images/favicon.jpeg' | relative_url }}" />
 
@@ -55,24 +78,30 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": {{ page.title | jsonify }},
-    "description": {{ page.description | default: site.description | jsonify }},
+    "headline": {{ page_title | jsonify }},
+    "description": {{ page_description | jsonify }},
     "datePublished": "{{ page.date | date_to_xmlschema }}",
     "dateModified": "{{ page.date | date_to_xmlschema }}",
+    "isAccessibleForFree": true,
+    "articleSection": {{ page.categories | first | default: 'Reflections' | jsonify }},
     "author": {
       "@type": "Person",
-      "name": "Amit"
+      "name": {{ site.author.name | jsonify }}
     },
     "publisher": {
       "@type": "Organization",
       "name": {{ site.title | jsonify }},
-      "url": {{ site.url | jsonify }}
+      "url": {{ site.url | jsonify }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ '/assets/images/icon.jpeg' | absolute_url | jsonify }}
+      }
     },
-    "url": {{ site.url | append: page.url | jsonify }},
-    "image": {{ site.url | append: social_image | jsonify }},
+    "url": {{ page_url | jsonify }},
+    "image": {{ social_image | absolute_url | jsonify }},
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": {{ site.url | append: page.url | jsonify }}
+      "@id": {{ page_url | jsonify }}
     }
   }
   </script>
@@ -80,10 +109,22 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": {{ site.title | jsonify }},
-    "description": {{ site.description | jsonify }},
-    "url": {{ site.url | jsonify }}
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": {{ site.title | jsonify }},
+        "description": {{ site.description | jsonify }},
+        "url": {{ site.url | jsonify }},
+        "image": {{ social_image | absolute_url | jsonify }}
+      },
+      {
+        "@type": "Organization",
+        "name": {{ site.title | jsonify }},
+        "url": {{ site.url | jsonify }},
+        "email": {{ site.email | jsonify }},
+        "logo": {{ '/assets/images/icon.jpeg' | absolute_url | jsonify }}
+      }
+    ]
   }
   </script>
   {% endif %}
@@ -94,6 +135,11 @@
   <link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}" />
 </head>
 <body class="{% if page.layout == 'post' %}page-post{% else %}page-standard{% endif %}">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PCNP4WCC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <nav class="site-nav">
   <div class="wrap">

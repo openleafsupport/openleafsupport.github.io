@@ -189,9 +189,22 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   <div class="cta-grid">
     <article id="newsletter" class="cta-panel">
       <p class="section-label">Newsletter</p>
-      <h2 class="cta-title">A future letter for serious readers.</h2>
-      <p class="cta-text">The newsletter button is here now. The actual subscription flow will follow later, quietly and without clutter.</p>
-      <button class="cta-button cta-button-primary" type="button" disabled aria-disabled="true">Newsletter subscription · Coming soon</button>
+      <h2 class="cta-title">A quiet reading letter, delivered occasionally.</h2>
+      <p class="cta-text">Subscribe for essays, release notes, and thoughtful updates from <span class="brand-name">OpenLeaf</span>.</p>
+      <form class="newsletter-form" data-listmonk-form data-listmonk-url="{{ site.newsletter.url }}" data-listmonk-list="{{ site.newsletter.list_uuid }}">
+        <div class="newsletter-grid">
+          <label class="newsletter-field">
+            <span>Name</span>
+            <input type="text" name="name" placeholder="Your name" autocomplete="name" />
+          </label>
+          <label class="newsletter-field newsletter-field-wide">
+            <span>Email</span>
+            <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+          </label>
+        </div>
+        <button class="cta-button cta-button-primary" type="submit">Join the newsletter</button>
+        <p class="newsletter-status" data-newsletter-status aria-live="polite"></p>
+      </form>
     </article>
 
     <article id="feedback" class="cta-panel cta-panel-contrast">
@@ -202,6 +215,18 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       <div class="cta-actions">
         <a class="cta-button cta-button-secondary" href="mailto:openleaf.support@gmail.com?subject=OpenLeaf%20feedback">Send feedback by email</a>
         <a class="cta-button cta-button-secondary" href="https://github.com/openleafsupport/openleaf/issues" target="_blank" rel="noopener noreferrer">Open a GitHub issue</a>
+      </div>
+      <div class="comments-block">
+        <p class="comments-title">Public comments</p>
+        <p class="comments-text">Prefer to leave a public note? You can comment here using GitHub-backed discussions via Utterances.</p>
+        <script src="https://utteranc.es/client.js"
+          repo="{{ site.comments.repo }}"
+          issue-term="{{ site.comments.issue_term }}"
+          label="{{ site.comments.label }}"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
       </div>
     </article>
   </div>
@@ -229,3 +254,4 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 ]
 </script>
 <script src="{{ '/assets/blog-index.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/newsletter.js' | relative_url }}" defer></script>

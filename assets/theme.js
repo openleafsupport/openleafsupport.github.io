@@ -4,6 +4,16 @@
   var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
   var toggle = document.querySelector('[data-theme-toggle]');
 
+  function syncUtterancesTheme(mode) {
+    var iframe = document.querySelector('.utterances-frame');
+    if (!iframe || !iframe.contentWindow) return;
+
+    iframe.contentWindow.postMessage({
+      type: 'set-theme',
+      theme: mode === 'dark' ? 'github-dark' : 'github-light'
+    }, 'https://utteranc.es');
+  }
+
   function storedMode() {
     try {
       var stored = localStorage.getItem(storageKey);
@@ -41,6 +51,7 @@
     }
 
     updateToggle(mode);
+    syncUtterancesTheme(mode);
   }
 
   if (toggle) {
@@ -49,6 +60,10 @@
       applyTheme(current === 'dark' ? 'light' : 'dark', true);
     });
   }
+
+  window.addEventListener('load', function () {
+    syncUtterancesTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  });
 
   applyTheme(storedMode(), false);
 })();
