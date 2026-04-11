@@ -1,36 +1,123 @@
 ---
 layout: default
+title: OpenLeaf — Reading in the Age of Distraction
+description: OpenLeaf is a free, ad-free, local-first reading app inspired by Project Gutenberg and built for people who want to read deeply in a distracted age.
 ---
 
 <section class="hero">
-  <span class="hero-eyebrow">A reading journal</span>
-  <h1>Thoughts on reading,<br>attention, and<br>deliberate living.</h1>
+  <span class="hero-eyebrow">OpenLeaf</span>
+  <h1>Read deeply in an age<br>designed for distraction.</h1>
   <p class="hero-desc">
-    A quiet corner of the internet dedicated to the art of reading deeply,
-    thinking slowly, and living with more intention.
+    OpenLeaf is a free, ad-free, local-first reading app built for people who
+    still believe books can sharpen the mind, steady attention, and open up an
+    inner life that endless scrolling never can.
   </p>
 </section>
 
-<section class="posts-section">
+<section class="content-section">
+  <p class="section-label">Why OpenLeaf exists</p>
+  <div class="section-content">
+    <p class="section-lead">
+      We live in a time when attention is constantly interrupted, fragmented,
+      and sold. The modern internet is full of feeds that reward speed,
+      outrage, and repetition. Reading asks for something else. It asks us to
+      slow down, stay with a thought, and let the mind become deeper instead of
+      noisier.
+    </p>
+    <p class="section-text">
+      That belief is at the heart of OpenLeaf. I built it because I increasingly
+      felt that reading is not just a hobby anymore; it is a form of mental
+      clarity in a culture of doomscrolling. Where endless scrolling leaves the
+      mind restless, reading makes it more patient, more precise, and more alive.
+    </p>
+    <p class="section-text">
+      OpenLeaf is my attempt to create a calm space for reading again — no ads,
+      no subscriptions, no pressure to buy, and no attention traps. Just a
+      peaceful reading experience built around the simple idea that books should
+      remain accessible to anyone who wants to read.
+    </p>
+  </div>
+</section>
+
+<section id="about" class="content-section">
+  <p class="section-label">My story</p>
+  <div class="section-content">
+    <p class="section-lead">
+      I have always been an immersive reader. Today I proudly keep a personal
+      collection of more than 500 books, but my relationship with reading began
+      long before I could afford to buy any of them.
+    </p>
+    <p class="section-text">
+      During my school and college years, money was limited, but the hunger to
+      read was not. I borrowed books from friends, spent long hours in
+      libraries, and read whatever I could get my hands on. Libraries were not
+      just buildings to me; they were doors into wider worlds.
+    </p>
+    <p class="section-text">
+      In recent years, I have watched more and more people get pulled into the
+      habit of doomscrolling — consuming more information, but reflecting less.
+      That contrast affected me deeply. Over the last two to three years, I
+      stepped away from social networking sites and turned even more seriously
+      toward reading. The result was simple but powerful: more calm, more depth,
+      and a clearer mind.
+    </p>
+    <p class="section-text">
+      OpenLeaf comes from that journey. It is built for anyone who wants books
+      to be accessible without friction — no subscription, no purchase wall, no
+      advertising layer between the reader and the page. Just the quiet freedom
+      to read.
+    </p>
+  </div>
+</section>
+
+<section class="content-section">
+  <p class="section-label">Why Project Gutenberg mattered</p>
+  <div class="section-content">
+    <p class="section-lead">
+      OpenLeaf was inspired by Project Gutenberg — one of the most generous and
+      quietly revolutionary ideas on the internet.
+    </p>
+    <p class="section-text">
+      Gutenberg proved that literature can be preserved, shared, and made
+      available freely to people everywhere. It turned public domain books into
+      a living library for the digital age. That vision stayed with me.
+    </p>
+    <p class="section-text">
+      I wanted to build a reading experience around that same spirit: a
+      local-first, ad-free app where free books remain genuinely free and the
+      reading experience remains calm, convenient, and respectful of the user.
+      No tracking. No manipulative engagement loops. No monetised distraction.
+    </p>
+    <p class="section-text">
+      If Project Gutenberg preserved access to books, OpenLeaf is my way of
+      preserving the experience of reading them well.
+    </p>
+  </div>
+</section>
+
+<section class="content-section">
+  <p class="section-label">A promise</p>
+  <div class="section-content">
+    <p class="section-lead">
+      OpenLeaf will remain free and ad-free forever.
+    </p>
+    <p class="section-text">
+      This app exists for readers who want peace, access, and depth. It exists
+      for students who cannot buy every book they want. It exists for people who
+      miss the stillness of libraries. And it exists for anyone trying to reclaim
+      attention from a digital world that profits by scattering it. If reading
+      can still enlarge the mind, then access to reading should feel simple,
+      generous, and free.
+    </p>
+  </div>
+</section>
+
+<section class="essays-section">
   <p class="section-label">Essays</p>
   {% for post in site.posts %}
   <div class="post-item">
-    <a class="post-item-title" href="{{ post.url }}">{{ post.title }}</a>
+    <a class="post-item-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
     <span class="post-item-meta">{{ post.date | date: "%b %Y" }}</span>
   </div>
   {% endfor %}
-</section>
-
-<section id="about" style="padding: 3rem 0 5rem;">
-  <p class="section-label">About</p>
-  <div style="padding-top: 1.75rem; max-width: 560px;">
-    <p style="font-family: 'Lora', serif; font-size: 1.1rem; color: #1c1c1e; margin-bottom: 1.25rem; line-height: 1.7;">
-      Hi, I'm Amit. I write about what it means to read carefully in a world
-      designed to scatter your attention.
-    </p>
-    <p style="color: #6b7280; font-size: 0.975rem; line-height: 1.75;">
-      These essays are personal, research-backed, and written slowly. They are
-      not optimised for virality. They are written to be worth returning to.
-    </p>
-  </div>
 </section>
