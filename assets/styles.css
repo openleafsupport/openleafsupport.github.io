@@ -178,7 +178,8 @@ button, input, textarea, select { font: inherit; }
 }
 
 .content-section,
-.essays-section { padding: 0.5rem 0 5rem; }
+.posts-showcase,
+.archive-section { padding: 0.5rem 0 5rem; }
 
 .section-label {
   width: 100%;
@@ -209,6 +210,71 @@ button, input, textarea, select { font: inherit; }
 
 .section-text:last-child { margin-bottom: 0; }
 
+.section-actions {
+  margin-top: 1.5rem;
+}
+
+.external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
+
+.external-link::after {
+  content: '↗';
+  font-size: 0.95em;
+}
+
+.external-link:hover {
+  color: var(--accent-strong);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.promise-card {
+  position: relative;
+  padding: 1.6rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, var(--accent-soft), transparent 55%),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.promise-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  border-radius: 20px 0 0 20px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+}
+
+.promise-title {
+  margin-bottom: 0.9rem;
+  padding-left: 0.35rem;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.promise-text {
+  padding-left: 0.35rem;
+  font-size: 1.02rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
 .post-item {
   display: flex;
   align-items: baseline;
@@ -231,6 +297,104 @@ button, input, textarea, select { font: inherit; }
   white-space: nowrap;
   font-size: 0.82rem;
   color: var(--text-tertiary);
+}
+
+.posts-head {
+  margin-bottom: 1.5rem;
+}
+
+.posts-intro {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.featured-post-card {
+  padding: 1.8rem;
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: linear-gradient(135deg, var(--accent-soft), transparent 48%), var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.featured-post-meta,
+.archive-card-meta {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.featured-post-title {
+  margin: 0.7rem 0 0.9rem;
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.25;
+  color: var(--text);
+}
+
+.featured-post-title a,
+.archive-card-title a {
+  color: inherit;
+}
+
+.featured-post-desc {
+  max-width: 42rem;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.featured-post-link,
+.archive-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+  font-size: 0.93rem;
+  font-weight: 600;
+}
+
+.featured-post-link::after,
+.archive-card-link::after {
+  content: '→';
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.archive-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.35rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.archive-card-title {
+  margin: 0.7rem 0 0.75rem;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.archive-card-desc {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.85;
+}
+
+.archive-card-link {
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .post-wrapper { padding: 3rem 0 5rem; }
@@ -302,6 +466,17 @@ button, input, textarea, select { font: inherit; }
   line-height: 1.65;
 }
 
+.post-body img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 2rem 0;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
 .site-footer {
   padding: 2rem 0;
   border-top: 1px solid var(--border-secondary);
@@ -323,6 +498,7 @@ button, input, textarea, select { font: inherit; }
 
   .theme-switcher { order: 3; }
   .hero { padding-top: 3.5rem; }
+  .archive-grid { grid-template-columns: 1fr; }
   .post-item { flex-direction: column; gap: 0.25rem; }
   .post-item-meta { white-space: normal; }
 }

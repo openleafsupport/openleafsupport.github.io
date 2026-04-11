@@ -12,6 +12,8 @@ Every morning, millions of people reach for their phones before they have spoken
 
 There is a word for this now: doomscrolling. But the word undersells the problem.
 
+![OpenLeaf cover image for Why Reading Matters More Than Doomscrolling]({{ '/og_image.png' | relative_url }})
+
 ## What Doomscrolling Actually Does to the Mind
 
 Attention is not a passive resource. It is a trained capacity — and like any capacity, it is shaped by how you use it.
@@ -81,3 +83,10 @@ Reading is not a cure. It is a practice of resistance — small, quiet, and cumu
 In a world that constantly asks for your attention, it is one of the few acts by which you choose, deliberately, where that attention goes.
 
 That choice, made daily, is not trivial. Over time, it shapes the kind of mind you have. And the kind of mind you have shapes everything else.
+
+## Sources and further reading
+
+- [American Psychological Association — Potential risks of content, features, and functions: The science of how social media affects youth](https://www.apa.org/topics/social-media-internet/youth-social-media-2024)
+- [Microsoft Canada — Attention Spans: Consumer Insights (2015 report PDF)](https://dl.motamem.org/microsoft-attention-spans-research-report.pdf)
+- [Stanford Arts — This is your brain on Jane Austen, and Stanford researchers are taking notes](https://arts.stanford.edu/this-is-your-brain-on-jane-austen-and-stanford-researchers-are-taking-notes/)
+- [Reading can help reduce stress, according to University of Sussex research](https://www.theargus.co.uk/news/4245076.Reading_can_help_reduce_stress__according_to_University_of_Sussex_research/)

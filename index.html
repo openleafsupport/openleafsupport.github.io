@@ -4,6 +4,8 @@ title: OpenLeaf — Reading in the Age of Distraction
 description: OpenLeaf is a free, ad-free, local-first reading app inspired by Project Gutenberg and built for people who want to read deeply in a distracted age.
 ---
 
+{% assign recent_post = site.posts.first %}
+
 <section class="hero">
   <span class="hero-eyebrow">OpenLeaf</span>
   <h1>Read deeply in an age<br>designed for distraction.</h1>
@@ -92,16 +94,19 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       If Project Gutenberg preserved access to books, OpenLeaf is my way of
       preserving the experience of reading them well.
     </p>
+    <p class="section-actions">
+      <a class="external-link" href="https://www.gutenberg.org/" target="_blank" rel="noopener noreferrer">
+        Visit Project Gutenberg
+      </a>
+    </p>
   </div>
 </section>
 
 <section class="content-section">
   <p class="section-label">A promise</p>
-  <div class="section-content">
-    <p class="section-lead">
-      OpenLeaf will remain free and ad-free forever.
-    </p>
-    <p class="section-text">
+  <div class="section-content promise-card">
+    <p class="promise-title">OpenLeaf will remain free and ad-free forever.</p>
+    <p class="promise-text">
       This app exists for readers who want peace, access, and depth. It exists
       for students who cannot buy every book they want. It exists for people who
       miss the stillness of libraries. And it exists for anyone trying to reclaim
@@ -112,12 +117,44 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   </div>
 </section>
 
-<section class="essays-section">
-  <p class="section-label">Essays</p>
-  {% for post in site.posts %}
-  <div class="post-item">
-    <a class="post-item-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    <span class="post-item-meta">{{ post.date | date: "%b %Y" }}</span>
+{% if recent_post %}
+<section class="posts-showcase">
+  <div class="posts-head">
+    <div>
+      <p class="section-label">Recent post</p>
+      <p class="posts-intro">Start with the latest essay, then explore the full archive below.</p>
+    </div>
   </div>
-  {% endfor %}
+
+  <article class="featured-post-card">
+    <div class="featured-post-meta">{{ recent_post.date | date: "%B %d, %Y" }}</div>
+    <h2 class="featured-post-title">
+      <a href="{{ recent_post.url | relative_url }}">{{ recent_post.title }}</a>
+    </h2>
+    <p class="featured-post-desc">{{ recent_post.description | default: recent_post.excerpt | strip_html }}</p>
+    <a class="featured-post-link" href="{{ recent_post.url | relative_url }}">Read the latest essay</a>
+  </article>
 </section>
+
+<section class="archive-section">
+  <div class="posts-head">
+    <div>
+      <p class="section-label">All blog posts</p>
+      <p class="posts-intro">A growing archive on reading, attention, and deliberate living.</p>
+    </div>
+  </div>
+
+  <div class="archive-grid">
+    {% for post in site.posts %}
+    <article class="archive-card">
+      <div class="archive-card-meta">{{ post.date | date: "%b %d, %Y" }}</div>
+      <h3 class="archive-card-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h3>
+      <p class="archive-card-desc">{{ post.description | default: post.excerpt | strip_html | truncate: 170 }}</p>
+      <a class="archive-card-link" href="{{ post.url | relative_url }}">Open post</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
