@@ -12,9 +12,17 @@
   var categoryButtons = Array.prototype.slice.call(document.querySelectorAll('[data-category-filter]'));
   var jumpButtons = Array.prototype.slice.call(document.querySelectorAll('[data-category-jump]'));
   var pageSize = 5;
+  var recentIndex = 0;
+  var swipeStartX = null;
+  var swipeStartY = null;
+  var swipeThreshold = 48;
 
   function setRecentSlide(index) {
     if (!recentSlides.length) return;
+
+    if (index < 0) index = recentSlides.length - 1;
+    if (index >= recentSlides.length) index = 0;
+    recentIndex = index;
 
     recentSlides.forEach(function (slide, slideIndex) {
       var active = slideIndex === index;
@@ -32,6 +40,47 @@
   recentDots.forEach(function (dot) {
     dot.addEventListener('click', function () {
       setRecentSlide(Number(dot.getAttribute('data-recent-dot') || 0));
+    });
+  });
+
+  function handleSwipeEnd(endX, endY) {
+    if (swipeStartX === null || swipeStartY === null) return;
+    var deltaX = endX - swipeStartX;
+    var deltaY = endY - swipeStartY;
+
+    swipeStartX = null;
+    swipeStartY = null;
+
+    if (Math.abs(deltaX) < swipeThreshold || Math.abs(deltaX) < Math.abs(deltaY)) return;
+    setRecentSlide(deltaX < 0 ? recentIndex + 1 : recentIndex - 1);
+  }
+
+  recentSlides.forEach(function (slide) {
+    slide.addEventListener('touchstart', function (event) {
+      if (!event.touches[0]) return;
+      swipeStartX = event.touches[0].clientX;
+      swipeStartY = event.touches[0].clientY;
+    }, { passive: true });
+
+    slide.addEventListener('touchend', function (event) {
+      if (!event.changedTouches[0]) return;
+      handleSwipeEnd(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+    }, { passive: true });
+
+    slide.addEventListener('pointerdown', function (event) {
+      if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
+      swipeStartX = event.clientX;
+      swipeStartY = event.clientY;
+    });
+
+    slide.addEventListener('pointerup', function (event) {
+      if (swipeStartX === null) return;
+      handleSwipeEnd(event.clientX, event.clientY);
+    });
+
+    slide.addEventListener('pointerleave', function () {
+      swipeStartX = null;
+      swipeStartY = null;
     });
   });
 

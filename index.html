@@ -94,11 +94,12 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       {% unless post_cover contains '://' %}
       {% if post_cover_first_char != '/' %}
       {% assign post_source_dir = post.path | replace: post.name, '' %}
+      {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
       {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
       {% endif %}
       {% endunless %}
       {% endif %}
-      {% assign post_category = post.categories | first | default: 'Reflections' %}
+      {% assign post_category = post.categories | first | default: 'Updates' %}
       <article class="featured-post-card featured-post-layout recent-slide{% if forloop.first %} is-active{% endif %}" data-recent-slide="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %}>
         <a class="featured-post-image-link" href="{{ post.url | relative_url }}" aria-label="Open recent post {{ post.title }}">
           <img class="featured-post-image" src="{{ post_cover | relative_url }}" alt="{{ post.cover_image_alt | default: post.title }}" />
@@ -238,13 +239,14 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 <script id="blog-posts-data" type="application/json">
 [
 {% for post in site.posts %}
-  {% assign post_category = post.categories | first | default: 'Reflections' %}
+  {% assign post_category = post.categories | first | default: 'Updates' %}
   {% assign post_cover = post.cover_image | default: '/assets/images/og_image.png' %}
   {% assign post_cover_first_char = post_cover | slice: 0 %}
   {% if post.cover_image %}
     {% unless post_cover contains '://' %}
       {% if post_cover_first_char != '/' %}
         {% assign post_source_dir = post.path | replace: post.name, '' %}
+        {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
         {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
       {% endif %}
     {% endunless %}

@@ -5,7 +5,6 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_FILE="$ROOT_DIR/_config.yml"
 CATEGORY_FILE="$ROOT_DIR/_data/blog_categories.yml"
-PUBLIC_ASSET_DIR="$ROOT_DIR/assets/post-assets"
 BEGIN_MARKER="  # BEGIN POST ASSET INCLUDES"
 END_MARKER="  # END POST ASSET INCLUDES"
 
@@ -68,16 +67,6 @@ info "Found $asset_count post asset file(s) and $allowed_count approved categor$
 if [[ "$asset_count" == "0" ]]; then
   warn "No post-local image assets were found under _posts/."
 fi
-
-rm -rf "$PUBLIC_ASSET_DIR"
-mkdir -p "$PUBLIC_ASSET_DIR"
-while IFS= read -r asset_path; do
-  [[ -z "$asset_path" ]] && continue
-  public_path="$PUBLIC_ASSET_DIR/${asset_path#_posts/}"
-  mkdir -p "$(dirname "$public_path")"
-  cp "$asset_path" "$public_path"
-done < "$TMP_ASSETS"
-info "Synced post assets into assets/post-assets/ for reliable GitHub Pages serving"
 
 awk -v begin="$BEGIN_MARKER" -v end="$END_MARKER" -v assets_file="$TMP_ASSETS" '
 BEGIN {
@@ -220,11 +209,6 @@ while IFS= read -r md_file; do
         if ! file_exists "$repo_path"; then
           error "$md_file has cover_image '$cover_image' but the file does not exist."
           errors=1
-        elif [[ "$repo_path" == _posts/* ]]; then
-          bundle_name="$(basename "$md_dir")"
-          file_name="$(basename "$repo_path")"
-          error "$md_file uses cover_image '$cover_image'. Use cover_image: '$file_name' and let the script publish it to /assets/post-assets/$bundle_name/ instead."
-          errors=1
         elif [[ "$repo_path" == _posts/* ]] && ! asset_included "$repo_path"; then
           error "$md_file has cover_image '$cover_image' but it is not included in _config.yml."
           errors=1
@@ -256,16 +240,13 @@ while IFS= read -r md_file; do
         if ! file_exists "$repo_path"; then
           error "$md_file references missing inline image '$ref'."
           errors=1
-        elif [[ "$repo_path" == _posts/* ]]; then
-          bundle_name="$(basename "$md_dir")"
-          file_name="$(basename "$repo_path")"
-          error "$md_file references '$ref'. Use {{ '/assets/post-assets/$bundle_name/$file_name' | relative_url }} instead for GitHub Pages compatibility."
+        elif [[ "$repo_path" == _posts/* ]] && ! asset_included "$repo_path"; then
+          error "$md_file references '$ref' but it is not included in _config.yml."
           errors=1
         fi
         ;;
       *)
-        bundle_name="$(basename "$md_dir")"
-        suggested="{{ '/assets/post-assets/$bundle_name/$ref' | relative_url }}"
+        suggested="{{ '/${md_dir#./}/$ref' | relative_url }}"
         if [[ -f "$md_dir/$ref" ]]; then
           error "$md_file uses relative inline image '$ref'. Use ![Alt]($suggested) instead."
         else
@@ -283,4 +264,4 @@ if [[ "$errors" -ne 0 ]]; then
 fi
 
 success "Post asset sync completed successfully. Included $asset_count image file(s)."
-warn "If jekyll serve is already running, restart it now so the updated post asset copies and _config.yml include list take effect."
+warn "If jekyll serve is already running, restart it now so the updated _config.yml include list takes effect."

@@ -22,6 +22,7 @@
     {% unless social_image contains '://' %}
       {% if social_image_first_char != '/' %}
         {% assign source_dir = page.path | replace: page.name, '' %}
+        {% assign source_dir = source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
         {% assign social_image = '/' | append: source_dir | append: social_image %}
       {% endif %}
     {% endunless %}
@@ -51,7 +52,7 @@
   {% if page.layout == 'post' %}
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
   <meta property="article:author" content="{{ site.author.name }}" />
-  <meta property="article:section" content="{{ page.categories | first | default: 'Reflections' }}" />
+  <meta property="article:section" content="{{ page.categories | first | default: 'Updates' }}" />
   {% endif %}
 
   <meta name="twitter:card" content="summary_large_image" />
@@ -92,7 +93,7 @@
     "datePublished": "{{ page.date | date_to_xmlschema }}",
     "dateModified": "{{ page.date | date_to_xmlschema }}",
     "isAccessibleForFree": true,
-    "articleSection": {{ page.categories | first | default: 'Reflections' | jsonify }},
+    "articleSection": {{ page.categories | first | default: 'Updates' | jsonify }},
     "author": {
       "@type": "Person",
       "name": {{ site.author.name | jsonify }}

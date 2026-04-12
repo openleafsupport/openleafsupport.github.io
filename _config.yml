@@ -8,7 +8,7 @@ url: "https://openleafsupport.github.io"
 markdown: kramdown
 
 include:
-  # AUTO-GENERATED POST ASSET INCLUDES. Run ./scripts/sync_post_assets.sh before commit.
+  # AUTO-GENERATED POST ASSET INCLUDES. Run ./scripts/sync_post.sh before commit.
   # BEGIN POST ASSET INCLUDES
   - _posts/2026-01-03-Kite-Runner-Book-Review/image.png
   - _posts/2026-04-11-Why-Reading-Matters-More-Than-Doomscrolling/image.png
@@ -42,6 +42,4 @@ defaults:
       path: ""
       type: "posts"
     values:
-      categories:
-        - Reflections
       cover_image: "/assets/images/og_image.png"

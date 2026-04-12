@@ -4,7 +4,7 @@ layout: default
 
 <article class="post-wrapper">
 
-  {% assign primary_category = page.categories | first | default: 'Reflections' %}
+  {% assign primary_category = page.categories | first | default: 'Updates' %}
 
   <a class="post-back" href="{{ '/' | relative_url }}">&#8592; All posts</a>
 
@@ -23,6 +23,7 @@ layout: default
     {% unless post_cover_image contains '://' %}
       {% if post_cover_first_char != '/' %}
         {% assign post_source_dir = page.path | replace: page.name, '' %}
+        {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
         {% assign post_cover_image = '/' | append: post_source_dir | append: post_cover_image %}
       {% endif %}
     {% endunless %}

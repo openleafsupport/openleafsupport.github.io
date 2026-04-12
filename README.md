@@ -49,25 +49,26 @@ cover_image: "image.png"
 
 ### Inline images inside the post body
 
-Use the published `/_posts/...` path with `relative_url`:
+Use the published `/assets/post-assets/...` path with `relative_url`:
 
 ```md
-![Quote card]({{ '/_posts/2026-05-01-my-new-post/quote-card.jpg' | relative_url }})
+![Quote card]({{ '/assets/post-assets/2026-05-01-my-new-post/quote-card.jpg' | relative_url }})
 ```
 
-Do not use a plain relative markdown image path like `![Alt](quote-card.jpg)`.
+Do not use a plain relative markdown image path like `![Alt](quote-card.jpg)` or a `/_posts/...` image URL in markdown.
 
 ### Sync and validate before commit
 
 Run:
 
 ```bash
-./scripts/sync_post_assets.sh
+./scripts/sync_post.sh
 ```
 
 This script will:
 
 - regenerate the `_config.yml` post asset `include:` block
+- copy post-local images into `assets/post-assets/` for reliable GitHub Pages serving
 - validate that every post has an explicit approved category
 - validate `cover_image` paths
 - validate inline image references
@@ -75,7 +76,3 @@ This script will:
 If the script exits with an error, fix the reported post before committing.
 
 If `jekyll serve` is already running, restart it after this script finishes. Jekyll does not hot-reload `_config.yml`, so post-local images will stay broken until the server is restarted.
-
-## Contact
-
-<openleaf.support@gmail.com>
