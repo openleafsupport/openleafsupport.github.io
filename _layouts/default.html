@@ -21,7 +21,13 @@
   {% if page.cover_image %}
     {% unless social_image contains '://' %}
       {% if social_image_first_char != '/' %}
-        {% assign source_dir = page.path | replace: page.name, '' %}
+        {% assign source_parts = page.path | split: '/' %}
+        {% assign source_dir = '' %}
+        {% for part in source_parts %}
+          {% unless forloop.last %}
+            {% assign source_dir = source_dir | append: part | append: '/' %}
+          {% endunless %}
+        {% endfor %}
         {% assign source_dir = source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
         {% assign social_image = '/' | append: source_dir | append: social_image %}
       {% endif %}

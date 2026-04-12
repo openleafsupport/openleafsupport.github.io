@@ -93,7 +93,13 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       {% if post.cover_image %}
       {% unless post_cover contains '://' %}
       {% if post_cover_first_char != '/' %}
-      {% assign post_source_dir = post.path | replace: post.name, '' %}
+      {% assign post_source_parts = post.path | split: '/' %}
+      {% assign post_source_dir = '' %}
+      {% for part in post_source_parts %}
+      {% unless forloop.last %}
+      {% assign post_source_dir = post_source_dir | append: part | append: '/' %}
+      {% endunless %}
+      {% endfor %}
       {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
       {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
       {% endif %}
@@ -249,7 +255,13 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   {% if post.cover_image %}
     {% unless post_cover contains '://' %}
       {% if post_cover_first_char != '/' %}
-        {% assign post_source_dir = post.path | replace: post.name, '' %}
+        {% assign post_source_parts = post.path | split: '/' %}
+        {% assign post_source_dir = '' %}
+        {% for part in post_source_parts %}
+          {% unless forloop.last %}
+            {% assign post_source_dir = post_source_dir | append: part | append: '/' %}
+          {% endunless %}
+        {% endfor %}
         {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
         {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
       {% endif %}

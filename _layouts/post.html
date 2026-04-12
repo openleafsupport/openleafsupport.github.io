@@ -22,7 +22,13 @@ layout: default
   {% if post_cover_image %}
     {% unless post_cover_image contains '://' %}
       {% if post_cover_first_char != '/' %}
-        {% assign post_source_dir = page.path | replace: page.name, '' %}
+        {% assign post_source_parts = page.path | split: '/' %}
+        {% assign post_source_dir = '' %}
+        {% for part in post_source_parts %}
+          {% unless forloop.last %}
+            {% assign post_source_dir = post_source_dir | append: part | append: '/' %}
+          {% endunless %}
+        {% endfor %}
         {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
         {% assign post_cover_image = '/' | append: post_source_dir | append: post_cover_image %}
       {% endif %}
