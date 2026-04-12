@@ -666,6 +666,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 .recent-carousel {
   display: grid;
   gap: 1rem;
+  touch-action: pan-y;
 }
 
 .recent-slide[hidden] {
@@ -701,6 +702,16 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 .featured-post-image-link,
 .blog-card-image-link {
   display: block;
+}
+
+.featured-post-layout.is-image-missing {
+  grid-template-columns: 1fr;
+}
+
+.featured-post-layout.is-image-missing .featured-post-image-link,
+.blog-card.is-image-missing .blog-card-image-link,
+.post-cover.is-image-missing {
+  display: none;
 }
 
 .featured-post-image,

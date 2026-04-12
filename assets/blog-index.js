@@ -1,4 +1,5 @@
 (function () {
+  var recentCarousel = document.querySelector('[data-recent-carousel]');
   var recentSlides = Array.prototype.slice.call(document.querySelectorAll('[data-recent-slide]'));
   var recentDots = Array.prototype.slice.call(document.querySelectorAll('[data-recent-dot]'));
   var dataEl = document.getElementById('blog-posts-data');
@@ -55,34 +56,34 @@
     setRecentSlide(deltaX < 0 ? recentIndex + 1 : recentIndex - 1);
   }
 
-  recentSlides.forEach(function (slide) {
-    slide.addEventListener('touchstart', function (event) {
+  if (recentCarousel) {
+    recentCarousel.addEventListener('touchstart', function (event) {
       if (!event.touches[0]) return;
       swipeStartX = event.touches[0].clientX;
       swipeStartY = event.touches[0].clientY;
     }, { passive: true });
 
-    slide.addEventListener('touchend', function (event) {
+    recentCarousel.addEventListener('touchend', function (event) {
       if (!event.changedTouches[0]) return;
       handleSwipeEnd(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
     }, { passive: true });
 
-    slide.addEventListener('pointerdown', function (event) {
+    recentCarousel.addEventListener('pointerdown', function (event) {
       if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
       swipeStartX = event.clientX;
       swipeStartY = event.clientY;
     });
 
-    slide.addEventListener('pointerup', function (event) {
+    recentCarousel.addEventListener('pointerup', function (event) {
       if (swipeStartX === null) return;
       handleSwipeEnd(event.clientX, event.clientY);
     });
 
-    slide.addEventListener('pointerleave', function () {
+    recentCarousel.addEventListener('pointerleave', function () {
       swipeStartX = null;
       swipeStartY = null;
     });
-  });
+  }
 
   if (recentSlides.length) {
     setRecentSlide(0);
@@ -186,6 +187,9 @@
     var matches = filteredPosts();
     var visiblePosts = matches.slice(0, state.visible);
     grid.innerHTML = visiblePosts.map(renderCard).join('');
+    if (window.applyImageFallbacks) {
+      window.applyImageFallbacks(grid);
+    }
     emptyState.hidden = matches.length !== 0;
     results.textContent = matches.length ? 'Showing ' + visiblePosts.length + ' of ' + matches.length + ' posts.' : 'No posts found for this filter.';
 

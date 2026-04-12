@@ -67,7 +67,7 @@ Do not use a plain relative markdown image path like `![Alt](quote-card.jpg)` or
 Run:
 
 ```bash
-./scripts/sync_post_assets.sh
+./scripts/validate_blog.sh
 ```
 
 This script will:
@@ -77,7 +77,28 @@ This script will:
 - validate that every post has an explicit approved category
 - validate `cover_image` paths
 - validate inline image references
+- run the required content checks for `Book Reviews` posts:
+  - front matter present
+  - `title`, `description`, `categories`, and `cover_image`
+  - `## Summary`
+  - `## My Thoughts`
+  - `## What Stayed With Me`
+  - `## Final Review`
+  - `Rating: X/10`
 
 If the script exits with an error, fix the reported post before committing.
 
 If `jekyll serve` is already running, restart it after this script finishes. Jekyll does not hot-reload `_config.yml`, so post-local images will stay broken until the server is restarted.
+
+## Git pre-commit hook
+
+This repo uses a repo-managed Git hook at `.githooks/pre-commit`.
+
+To enable it locally, run:
+
+```bash
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-commit scripts/validate_blog.sh scripts/sync_post_assets.sh
+```
+
+After that, any Git commit made from the terminal, VS Code, or another Git client that uses the local repository Git hooks will run `./scripts/validate_blog.sh` and block the commit if validation fails.
