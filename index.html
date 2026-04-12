@@ -167,8 +167,8 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 </section>
 {% endif %}
 
-{% assign featured_posts = site.posts | where: 'featured', true %}
 {% assign featured_posts_limit = site.featured_posts_limit | default: 5 %}
+{% assign featured_posts = site.posts | where: 'featured', true %}
 {% if featured_posts.size > 0 %}
 <section id="featured-articles" class="featured-section">
   <div class="posts-head">
@@ -179,7 +179,14 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   </div>
 
   <div class="blog-grid featured-articles-grid">
-    {% for post in featured_posts limit: featured_posts_limit %}
+    {% assign featured_posts_rendered = 0 %}
+    {% for post in site.posts %}
+      {% unless post.featured == true %}
+        {% continue %}
+      {% endunless %}
+      {% if featured_posts_rendered >= featured_posts_limit %}
+        {% break %}
+      {% endif %}
       {% assign post_cover = post.cover_image | default: '/assets/images/og_image.png' %}
       {% assign post_cover_first_char = post_cover | slice: 0 %}
       {% if post.cover_image %}
@@ -212,6 +219,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
           <a class="blog-card-link" href="{{ post.url | relative_url }}">Read article</a>
         </div>
       </article>
+      {% assign featured_posts_rendered = featured_posts_rendered | plus: 1 %}
     {% endfor %}
   </div>  
 </section>
