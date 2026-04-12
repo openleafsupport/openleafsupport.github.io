@@ -34,12 +34,17 @@ _posts/2026-05-01-my-new-post/quote-card.jpg
 
 ### Required front matter
 
-- Add an explicit category from the approved list:
-  - `Reflections`
-  - `Book Reviews`
-  - `Updates`
-  - `Announcements`
+- Add an explicit category from the approved list.
 - Use a relative cover image when the cover lives in the same post folder:
+
+### Allowed categories for blog posts
+
+Only these categories are valid:
+
+- `Reflections`
+- `Book Reviews`
+- `Updates`
+- `Announcements`
 
 ```yaml
 categories:
@@ -62,7 +67,7 @@ Do not use a plain relative markdown image path like `![Alt](quote-card.jpg)` or
 Run:
 
 ```bash
-./scripts/sync_post.sh
+./scripts/sync_post_assets.sh
 ```
 
 This script will:
