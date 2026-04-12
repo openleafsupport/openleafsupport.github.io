@@ -430,8 +430,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 }
 
 .external-link {
-  display: inline-flex;
-  margin-top:0.5rem;
+  display: inline-flex;  
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 1.1rem;

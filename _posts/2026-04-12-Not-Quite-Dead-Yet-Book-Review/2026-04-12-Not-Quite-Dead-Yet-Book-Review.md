@@ -17,10 +17,10 @@ cover_image_alt: "OpenLeaf cover image for Not Quite Dead Yet book review"
 # Not Quite Dead Yet - Where Survival Feels Like a Question
 
 > **Author:** Holly Jackson  
-> **Rating:** 7.5/10  
+> **Rating:** 7/10  
 > **Genre:** Thriller / Mystery / Young Adult  
-> **Reading Time:** ~7–8 hours  
-> **Verdict:** A gripping psychological premise that leans more on emotional tension than plot twists, though not all threads feel fully realized  
+> **Reading Time:** ~3-5 days  
+> **Verdict:** A gripping psychological premise that leans more on emotional tension than plot twists, though not all threads feel fully realized that how a patient with cronic brain injury can do many things. For me its a **one-time-read** book
 
 ## Summary
 
@@ -74,7 +74,7 @@ If you enjoy psychological thrillers that focus more on internal conflict than e
 
 It is the kind of book that does not end loudly. It stays with you in quieter ways.
 
-**Rating: 7.5/10**
+**Rating: 7/10**
 
 - **Page Turner:** Yes, but more for the psychological tension than plot twists  
 - **Genre:** Thriller, Mystery, Young Adult  
