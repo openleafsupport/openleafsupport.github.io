@@ -74,6 +74,11 @@ This script will:
 
 - regenerate the `_config.yml` post asset `include:` block
 - copy post-local images into `assets/post-assets/` for reliable GitHub Pages serving
+- validate post image standards:
+  - shortest side must be at least `800px`
+  - longest side must be at least `1000px`
+  - file size must be at most `2,500,000` bytes (about `2.5 MB`)
+- enforce the maximum number of featured posts from `_config.yml` via `featured_posts_limit`
 - validate that every post has an explicit approved category
 - validate `cover_image` paths
 - validate inline image references
@@ -81,4 +86,3 @@ This script will:
 If the script exits with an error, fix the reported post before committing.
 
 If `jekyll serve` is already running, restart it after this script finishes. Jekyll does not hot-reload `_config.yml`, so post-local images will stay broken until the server is restarted.
-

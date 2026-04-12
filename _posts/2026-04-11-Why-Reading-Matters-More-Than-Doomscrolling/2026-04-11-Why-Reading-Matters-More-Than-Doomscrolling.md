@@ -4,6 +4,11 @@ title: "Why Reading Matters More Than Doomscrolling"
 description: "We live in the most information-rich era in human history, yet feel perpetually uninformed. A case for reclaiming your attention through the one act that truly demands it."
 categories:
   - Reflections
+tags:
+  - reading
+  - attention
+  - doomscrolling
+  - digital wellbeing
 cover_image: "image.png"
 featured: true
 cover_image_alt: "OpenLeaf cover image for Why Reading Matters More Than Doomscrolling"

@@ -1,6 +1,6 @@
 - name: Reflections
   slug: reflections
-  description: Essays on attention, reading, and the inward life.
+  description: Blogs on personal life experiences.
 
 - name: Book Reviews
   slug: book-reviews
@@ -8,7 +8,7 @@
 
 - name: Updates
   slug: updates
-  description: Product notes, improvements, and work in progress.
+  description: Product notes, improvements.
 
 - name: Announcements
   slug: announcements

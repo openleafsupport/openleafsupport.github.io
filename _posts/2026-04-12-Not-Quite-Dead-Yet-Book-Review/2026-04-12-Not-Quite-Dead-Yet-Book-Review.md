@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Not Quite Dead Yet - Where Survival Feels Like a Question"
+title: "Not Quite Dead Yet - Book Review"
 description: "A psychological thriller that explores what it really means to survive, blending suspense with identity, memory, and emotional aftermath."
 categories:
   - Book Reviews

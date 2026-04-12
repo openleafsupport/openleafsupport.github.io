@@ -8,7 +8,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   <div class="hero-copy">
     <h1>Read deeply in an age<br>designed for distraction.</h1>
     <p class="hero-desc">
-      <span class="brand-name">OpenLeaf</span> is a free, ad-free, local-first reading app built for people who
+      <span class="brand-name">OpenLeaf</span> is a reading-first initiative built to encourage deeper attention, thoughtful book culture, and a healthier relationship with technology. This blog and the free, ad-free, local-first reading app are part of that mission for people who
       still believe books can sharpen the mind, steady attention, and open up an
       inner life that endless scrolling never can.
     </p>
@@ -16,9 +16,9 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 
   <aside class="promise-card promise-spotlight" aria-label="OpenLeaf promise">
     <p class="section-label">A promise</p>
-    <p class="promise-title"><span class="brand-name">OpenLeaf</span> will remain free and ad-free forever.</p>
+    <p class="promise-title"><span class="brand-name">OpenLeaf</span> mobile app for book reading will remain free and ad-free forever.</p>
     <p class="promise-text">
-      Built for readers who want quiet, uninterrupted access to knowledge, and a way to take back their attention from a distracted world.
+      Built for readers who want quiet, uninterrupted, and free access to knowledge, along with a calmer way to reclaim their attention, strengthen reading habits, and step back from the constant pull of a distracted world.
     </p>
   </aside>
 </section>
@@ -27,7 +27,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   <div class="launch-card">
     <div>
       <p class="section-label"><span class="brand-name">OpenLeaf</span> app</p>
-      <h2 class="launch-title"><span class="brand-name">OpenLeaf</span> is coming soon to the App Store and Google Play.</h2>
+      <h2 class="launch-title"><span class="brand-name">OpenLeaf</span> mobile app for reading book is coming soon.</h2>
       <p class="launch-text">
         The reading app is on its way. For now, this site is the public reading room, a home for essays, product notes, and the larger idea behind <span class="brand-name">OpenLeaf</span>.
       </p>
@@ -45,7 +45,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
     <article class="about-panel">
       <p class="about-panel-title">About <span class="brand-name">OpenLeaf</span></p>
       <p class="section-text">
-        <span class="brand-name">OpenLeaf</span> exists for readers who want depth in a digital world designed for distraction. It is a calm public reading room for essays, reviews, and ideas, free from algorithmic pressure, advertising noise, and the endless pull of scrolling.
+        <span class="brand-name">OpenLeaf</span> initiative exists for readers who want depth in a digital world designed for distraction. It is a calm public reading room for essays, reviews, and ideas, free from algorithmic pressure, advertising noise, and the endless pull of scrolling.
       </p>
       <p class="section-text">
         The goal is not only to publish thoughtful writing, but also to create a space where reading itself feels slow, generous, and restorative. <span class="brand-name">OpenLeaf</span> is meant for people who still believe books and reflective writing can sharpen the mind, deepen attention, and offer a healthier alternative to the restless habits of the modern web.
@@ -168,6 +168,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 {% endif %}
 
 {% assign featured_posts = site.posts | where: 'featured', true %}
+{% assign featured_posts_limit = site.featured_posts_limit | default: 5 %}
 {% if featured_posts.size > 0 %}
 <section id="featured-articles" class="featured-section">
   <div class="posts-head">
@@ -178,7 +179,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   </div>
 
   <div class="blog-grid featured-articles-grid">
-    {% for post in featured_posts limit:5 %}
+    {% for post in featured_posts limit: featured_posts_limit %}
       {% assign post_cover = post.cover_image | default: '/assets/images/og_image.png' %}
       {% assign post_cover_first_char = post_cover | slice: 0 %}
       {% if post.cover_image %}
@@ -212,30 +213,9 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
         </div>
       </article>
     {% endfor %}
-  </div>
+  </div>  
 </section>
 {% endif %}
-
-<section id="categories" class="category-section">
-  <div class="posts-head">
-    <div>
-      <p class="section-label">Categories</p>
-      <p class="posts-intro">Browse the <span class="brand-name">OpenLeaf</span> archive by editorial shelf, so every essay, review, update, and announcement is easy to locate and revisit.</p>
-    </div>
-  </div>
-
-  <div class="category-grid">
-    {% for category in site.data.blog_categories %}
-      {% assign category_posts = site.posts | where_exp: 'post', 'post.categories contains category.name' %}
-      <article class="category-card">
-        <p class="category-card-name">{{ category.name }}</p>
-        <p class="category-card-desc">{{ category.description }}</p>
-        <p class="category-card-meta">{{ category_posts | size }} post{% if category_posts.size != 1 %}s{% endif %}</p>
-        <button class="category-card-button" type="button" data-category-jump="{{ category.name }}">View {{ category.name }}</button>
-      </article>
-    {% endfor %}
-  </div>
-</section>
 
 <section id="explore" class="explorer-section">
   <div class="posts-head">
@@ -265,9 +245,18 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   </form>
 
   <div class="category-pills" role="group" aria-label="Filter by category">
-    <button class="category-pill is-active" type="button" data-category-filter="All" aria-pressed="true">All</button>
+    <button class="category-pill is-active" type="button" data-category-filter="All" aria-pressed="true">
+      <span class="category-pill-name">All</span>
+      <span class="category-pill-desc">Browse everything currently in the archive.</span>
+      <span class="category-pill-meta">{{ site.posts | size }} post{% if site.posts.size != 1 %}s{% endif %}</span>
+    </button>
     {% for category in site.data.blog_categories %}
-    <button class="category-pill" type="button" data-category-filter="{{ category.name }}" aria-pressed="false">{{ category.name }}</button>
+    {% assign category_posts = site.posts | where_exp: 'post', 'post.categories contains category.name' %}
+    <button class="category-pill" type="button" data-category-filter="{{ category.name }}" aria-pressed="false">
+      <span class="category-pill-name">{{ category.name }}</span>
+      <span class="category-pill-desc">{{ category.description }}</span>
+      <span class="category-pill-meta">{{ category_posts | size }} post{% if category_posts.size != 1 %}s{% endif %}</span>
+    </button>
     {% endfor %}
   </div>
 

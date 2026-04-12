@@ -8,6 +8,10 @@ CATEGORY_FILE="$ROOT_DIR/_data/blog_categories.yml"
 PUBLIC_ASSET_DIR="$ROOT_DIR/assets/post-assets"
 BEGIN_MARKER="  # BEGIN POST ASSET INCLUDES"
 END_MARKER="  # END POST ASSET INCLUDES"
+MIN_IMAGE_SHORT_SIDE=800
+MIN_IMAGE_LONG_SIDE=1000
+MAX_IMAGE_BYTES=2500000
+DEFAULT_FEATURED_POSTS_LIMIT=6
 
 if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
   RED="$(tput setaf 1)"; YELLOW="$(tput setaf 3)"; GREEN="$(tput setaf 2)"
@@ -23,6 +27,7 @@ ok() { printf '%b\n' "${GREEN}${BOLD}OK${RESET}    $*"; }
 step() { printf '%b\n' "${CYAN}${BOLD}STEP${RESET}  $*"; }
 
 CONTENT_SCAN_PATHS=(index.html 404.html README.md _posts _layouts _data _config.yml)
+IMAGE_EXT_REGEX='\.(png|jpg|jpeg|gif|webp|svg|avif)$'
 
 TMP_ASSETS="$(mktemp)"
 TMP_CONFIG="$(mktemp)"
@@ -44,6 +49,10 @@ extract_cover_image() {
 
 extract_featured() {
   awk '/^---[[:space:]]*$/ { dashes++; next } dashes == 1 && /^featured:[[:space:]]*/ { sub(/^featured:[[:space:]]*/, ""); gsub(/^"|"$/, ""); gsub(/^\047|\047$/, ""); print; exit } dashes >= 2 { exit }' "$1"
+}
+
+extract_featured_posts_limit() {
+  awk '/^featured_posts_limit:[[:space:]]*/ { sub(/^featured_posts_limit:[[:space:]]*/, ""); gsub(/[[:space:]]+$/, ""); print; exit }' "$CONFIG_FILE"
 }
 
 extract_categories() {
@@ -68,6 +77,55 @@ has_line() { grep -Fq "$2" "$1"; }
 file_exists() { [[ -f "$ROOT_DIR/$1" ]]; }
 category_allowed() { grep -Fxq "$1" "$TMP_ALLOWED"; }
 allowed_categories_list() { paste -sd ', ' "$TMP_ALLOWED"; }
+
+is_content_file() {
+  local path="$1"
+  [[ "$path" == "index.html" || "$path" == "404.html" || "$path" == "README.md" || "$path" == "_config.yml" || "$path" == _posts/* || "$path" == _layouts/* || "$path" == _data/* ]]
+}
+
+is_post_markdown() {
+  local path="$1"
+  [[ "$path" == _posts/*.md || "$path" == _posts/*/*.md || "$path" == _posts/*/*/*.md ]]
+}
+
+is_post_image() {
+  local path="$1"
+  [[ "$path" == _posts/* ]] && [[ "$path" =~ $IMAGE_EXT_REGEX ]]
+}
+
+validate_image_asset() {
+  local asset_path="$1"
+  local size_bytes width height short_side long_side
+
+  size_bytes="$(stat -f '%z' "$asset_path")"
+  read -r width height <<< "$(sips -g pixelWidth -g pixelHeight "$asset_path" 2>/dev/null | awk '/pixelWidth:/{w=$2}/pixelHeight:/{h=$2} END{print w, h}')"
+
+  if [[ -z "${width:-}" || -z "${height:-}" ]]; then
+    error "$asset_path could not be inspected for dimensions."
+    return 1
+  fi
+
+  if (( width < height )); then
+    short_side=$width
+    long_side=$height
+  else
+    short_side=$height
+    long_side=$width
+  fi
+
+  if (( short_side < MIN_IMAGE_SHORT_SIDE || long_side < MIN_IMAGE_LONG_SIDE )); then
+    error "$asset_path is too small (${width}x${height}). Minimum standard: shortest side >= ${MIN_IMAGE_SHORT_SIDE}px and longest side >= ${MIN_IMAGE_LONG_SIDE}px."
+    return 1
+  fi
+
+  if (( size_bytes > MAX_IMAGE_BYTES )); then
+    error "$asset_path is too large (${size_bytes} bytes). Maximum standard: ${MAX_IMAGE_BYTES} bytes (~2.5 MB)."
+    return 1
+  fi
+
+  ok "$asset_path meets image standards (${width}x${height}, ${size_bytes} bytes)"
+  return 0
+}
 
 sync_assets_and_config() {
   step "Syncing post-local assets"
@@ -250,26 +308,77 @@ validate_post_file() {
 
 sync_assets_and_config
 
+FEATURED_POSTS_LIMIT="$(trim "$(extract_featured_posts_limit)")"
+if [[ -z "$FEATURED_POSTS_LIMIT" ]]; then
+  FEATURED_POSTS_LIMIT="$DEFAULT_FEATURED_POSTS_LIMIT"
+elif ! [[ "$FEATURED_POSTS_LIMIT" =~ ^[0-9]+$ ]]; then
+  error "featured_posts_limit in _config.yml must be a whole number."
+  exit 1
+fi
+
+USE_STAGED_ONLY=0
+if [[ "${1:-}" == "--staged" ]]; then
+  USE_STAGED_ONLY=1
+  shift
+fi
+
 FILES=()
-if [[ "$#" -gt 0 ]]; then
+CONTENT_FILES=()
+IMAGE_FILES=()
+
+if (( USE_STAGED_ONLY == 1 )); then
+  while IFS= read -r path; do
+    [[ -z "$path" ]] && continue
+    [[ ! -e "$path" ]] && continue
+
+    if is_post_markdown "$path"; then
+      FILES+=("$path")
+    fi
+
+    if is_content_file "$path"; then
+      CONTENT_FILES+=("$path")
+    fi
+
+    if is_post_image "$path"; then
+      IMAGE_FILES+=("$path")
+    fi
+  done < <(git diff --cached --name-only --diff-filter=ACMR)
+elif [[ "$#" -gt 0 ]]; then
   for arg in "$@"; do
     if [[ ! -f "$arg" ]]; then
       error "File not found: $arg"
       exit 1
     fi
     FILES+=("$arg")
+    if is_content_file "$arg"; then
+      CONTENT_FILES+=("$arg")
+    fi
+    if is_post_image "$arg"; then
+      IMAGE_FILES+=("$arg")
+    fi
   done
 else
   while IFS= read -r md_file; do FILES+=("$md_file"); done < <(find _posts -type f -name '*.md' | LC_ALL=C sort)
+  while IFS= read -r content_file; do CONTENT_FILES+=("$content_file"); done < <(find index.html 404.html README.md _posts _layouts _data _config.yml -type f 2>/dev/null | LC_ALL=C sort)
+  while IFS= read -r image_file; do IMAGE_FILES+=("$image_file"); done < <(find _posts -type f | grep -E "$IMAGE_EXT_REGEX" | LC_ALL=C sort)
 fi
 
-if [[ "${#FILES[@]}" -eq 0 ]]; then
+if (( USE_STAGED_ONLY == 1 )) && [[ "${#FILES[@]}" -eq 0 && "${#CONTENT_FILES[@]}" -eq 0 && "${#IMAGE_FILES[@]}" -eq 0 ]]; then
+  info "No staged website/blog content changes detected. Skipping targeted validation."
+  exit 0
+fi
+
+if (( USE_STAGED_ONLY == 0 )) && [[ "${#FILES[@]}" -eq 0 ]]; then
   warn "No markdown files found to validate."
   exit 0
 fi
 
 overall_fail=0
-em_dash_matches="$(grep -RIn '—' "${CONTENT_SCAN_PATHS[@]}" 2>/dev/null || true)"
+if [[ "${#CONTENT_FILES[@]}" -gt 0 ]]; then
+  em_dash_matches="$(grep -In '—' "${CONTENT_FILES[@]}" 2>/dev/null || true)"
+else
+  em_dash_matches=""
+fi
 if [[ -n "$em_dash_matches" ]]; then
   error "Em dash characters (—) are not allowed in website or blog content. Replace them with a normal hyphen (-)."
   while IFS= read -r match; do
@@ -281,6 +390,18 @@ else
   info "No em dashes found in website or blog content."
 fi
 
+step "Validating post image standards"
+if [[ "${#IMAGE_FILES[@]}" -eq 0 ]]; then
+  info "No changed post images to validate."
+else
+  for asset_path in "${IMAGE_FILES[@]}"; do
+    [[ -z "$asset_path" ]] && continue
+    if ! validate_image_asset "$asset_path"; then
+      overall_fail=1
+    fi
+  done
+fi
+
 featured_count=0
 while IFS= read -r md_file; do
   featured_value="$(trim "$(extract_featured "$md_file")")"
@@ -290,11 +411,11 @@ while IFS= read -r md_file; do
   fi
 done < <(find _posts -type f -name '*.md' | LC_ALL=C sort)
 
-if [[ "$featured_count" -gt 5 ]]; then
-  error "No more than 5 blog posts can be featured at once. Current featured count: $featured_count."
+if [[ "$featured_count" -gt "$FEATURED_POSTS_LIMIT" ]]; then
+  error "No more than $FEATURED_POSTS_LIMIT blog posts can be featured at once. Current featured count: $featured_count."
   overall_fail=1
 else
-  info "Featured posts count: $featured_count/5"
+  info "Featured posts count: $featured_count/$FEATURED_POSTS_LIMIT"
 fi
 
 for md_file in "${FILES[@]}"; do
