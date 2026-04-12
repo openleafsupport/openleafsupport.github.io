@@ -6,7 +6,7 @@ Thoughts on reading, attention, and deliberate living.
 
 ## Site
 
-This repository powers [openleafsupport.github.io](https://openleafsupport.github.io) — the public home for OpenLeaf essays, product updates, and the ideas behind the app.
+This repository powers [openleafsupport.github.io](https://openleafsupport.github.io) - the public home for OpenLeaf essays, product updates, and the ideas behind the app.
 
 Built with [Jekyll](https://jekyllrb.com/) and hosted on GitHub Pages.
 

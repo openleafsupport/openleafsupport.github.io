@@ -5,10 +5,11 @@ description: "We live in the most information-rich era in human history, yet fee
 categories:
   - Reflections
 cover_image: "image.png"
+featured: true
 cover_image_alt: "OpenLeaf cover image for Why Reading Matters More Than Doomscrolling"
 ---
 
-We live in the most information-rich era in human history. And yet, many of us end the day feeling strangely empty — aware of a hundred things, clear about none of them.
+We live in the most information-rich era in human history. And yet, many of us end the day feeling strangely empty aware of a hundred things, clear about none of them.
 
 This is not an accident. It is the predictable result of how we spend our attention.
 
@@ -18,11 +19,11 @@ There is a word for this now: doomscrolling. But the word undersells the problem
 
 ## What Doomscrolling Actually Does to the Mind
 
-Attention is not a passive resource. It is a trained capacity — and like any capacity, it is shaped by how you use it.
+Attention is not a passive resource. It is a trained capacity, and like any capacity, it is shaped by how you use it.
 
 When you scroll through a feed, you are conditioning your mind to reward novelty over depth, reaction over reflection. Each swipe delivers a micro-stimulus. The brain releases a small hit of dopamine. The threshold for the next stimulus rises. Over time, anything that does not move fast enough begins to feel unbearable.
 
-Research from the American Psychological Association has linked heavy social media use to increased anxiety, decreased sustained focus, and a diminished ability to tolerate ambiguity. A study by Microsoft found that the average human attention span dropped from twelve to eight seconds between 2000 and 2015 — a period that maps almost exactly onto the rise of the smartphone.
+Research from the American Psychological Association has linked heavy social media use to increased anxiety, decreased sustained focus, and a diminished ability to tolerate ambiguity. A study by Microsoft found that the average human attention span dropped from twelve to eight seconds between 2000 and 2015, which is a period that maps almost exactly onto the rise of the smartphone.
 
 > The mind, trained on fragments, loses its taste for wholes.
 
@@ -32,17 +33,17 @@ This is not a moral failing. It is a neurological adaptation. The problem is tha
 
 It would be tempting to say: put down the phone, pick up a book, and everything improves. The reality is more interesting.
 
-Reading is not just the absence of distraction. It is an active practice of a different kind of attention — one that the psychologist Mihaly Csikszentmihalyi would recognise as a precondition for flow. To read well is to follow a sustained line of thought, to hold context across pages and chapters, to sit with an idea long enough for it to surprise you.
+Reading is not just the absence of distraction. It is an active practice of a different kind of attention, one that the psychologist Mihaly Csikszentmihalyi would recognise as a precondition for flow. To read well is to follow a sustained line of thought, to hold context across pages and chapters, to sit with an idea long enough for it to surprise you.
 
 Neuroscientists at Stanford found that close literary reading activates regions of the brain associated with both cognitive reasoning and sensory experience. You are not merely processing words. You are, in a measurable sense, inhabiting the text.
 
-This matters. Because comprehension, empathy, and critical thinking are not separate from reading — they are the result of the particular kind of attention that reading demands and develops.
+This matters. Because comprehension, empathy, and critical thinking are not separate from reading, they are the result of the particular kind of attention that reading demands and develops.
 
 ## The Stress That Nobody Talks About
 
 There is a quieter consequence of doomscrolling that rarely makes headlines: the chronic, low-grade stress of perpetual stimulation.
 
-A study from the University of Sussex found that reading for just six minutes reduced participants' heart rates and muscle tension by up to 68 percent — more effectively than a walk, a cup of tea, or listening to music. The researchers concluded that reading works because it requires the mind to fully enter a different narrative space, drawing it away from the anxious monologue of daily life.
+A study from the University of Sussex found that reading for just six minutes reduced participants' heart rates and muscle tension by up to 68 percent, which is more effectively than a walk, a cup of tea, or listening to music. The researchers concluded that reading works because it requires the mind to fully enter a different narrative space, drawing it away from the anxious monologue of daily life.
 
 Social media, by contrast, amplifies that monologue. It shows you a world in crisis, tells you that you should be angry or afraid, and then moves on before you have had time to process anything.
 
@@ -52,7 +53,7 @@ Reading does not resolve the world's problems. But it gives the mind a quality o
 
 The most common objection to reading more is time. And it deserves an honest answer.
 
-If you spend forty minutes a day on social media — which is below the global average — you already have the time. The question is not whether you have it. The question is what the habit of reading would cost you compared to what it would return.
+If you spend forty minutes a day on social media which is below the global average, you already have the time. The question is not whether you have it. The question is what the habit of reading would cost you compared to what it would return.
 
 At a modest pace of thirty pages an hour, forty minutes of daily reading yields roughly eighteen to twenty books a year. That is more than most people read in a decade.
 
@@ -80,7 +81,7 @@ Rabindranath Tagore wrote that the highest form of human freedom is not the free
 
 That kind of freedom has always required some form of protection. In Tagore's time, the threat was colonial erasure and cultural assimilation. In ours, the threat is subtler: a world that fills every silence before it can become thought.
 
-Reading is not a cure. It is a practice of resistance — small, quiet, and cumulative.
+Reading is not a cure. It is a practice of resistance, small, quiet, and cumulative.
 
 In a world that constantly asks for your attention, it is one of the few acts by which you choose, deliberately, where that attention goes.
 
@@ -88,7 +89,7 @@ That choice, made daily, is not trivial. Over time, it shapes the kind of mind y
 
 ## Sources and further reading
 
-- [American Psychological Association — Potential risks of content, features, and functions: The science of how social media affects youth](https://www.apa.org/topics/social-media-internet/youth-social-media-2024)
-- [Microsoft Canada — Attention Spans: Consumer Insights (2015 report PDF)](https://dl.motamem.org/microsoft-attention-spans-research-report.pdf)
-- [Stanford Arts — This is your brain on Jane Austen, and Stanford researchers are taking notes](https://arts.stanford.edu/this-is-your-brain-on-jane-austen-and-stanford-researchers-are-taking-notes/)
+- [American Psychological Association, Potential risks of content, features, and functions: The science of how social media affects youth](https://www.apa.org/topics/social-media-internet/youth-social-media-2024)
+- [Microsoft Canada, Attention Spans: Consumer Insights (2015 report PDF)](https://dl.motamem.org/microsoft-attention-spans-research-report.pdf)
+- [Stanford Arts, This is your brain on Jane Austen, and Stanford researchers are taking notes](https://arts.stanford.edu/this-is-your-brain-on-jane-austen-and-stanford-researchers-are-taking-notes/)
 - [Reading can help reduce stress, according to University of Sussex research](https://www.theargus.co.uk/news/4245076.Reading_can_help_reduce_stress__according_to_University_of_Sussex_research/)

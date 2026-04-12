@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenLeaf — Reading in the Age of Distraction
+title: OpenLeaf - Reading in the Age of Distraction
 description: OpenLeaf is a free, ad-free, local-first reading app inspired by Project Gutenberg and built for people who want to read deeply in a distracted age.
 ---
 
@@ -18,7 +18,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
     <p class="section-label">A promise</p>
     <p class="promise-title"><span class="brand-name">OpenLeaf</span> will remain free and ad-free forever.</p>
     <p class="promise-text">
-      Built for readers who want quiet, uninterrupted access to knowledge — and a way to take back their attention from a distracted world.
+      Built for readers who want quiet, uninterrupted access to knowledge, and a way to take back their attention from a distracted world.
     </p>
   </aside>
 </section>
@@ -29,7 +29,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       <p class="section-label"><span class="brand-name">OpenLeaf</span> app</p>
       <h2 class="launch-title"><span class="brand-name">OpenLeaf</span> is coming soon to the App Store and Google Play.</h2>
       <p class="launch-text">
-        The reading app is on its way. For now, this site is the public reading room — a home for essays, product notes, and the larger idea behind <span class="brand-name">OpenLeaf</span>.
+        The reading app is on its way. For now, this site is the public reading room, a home for essays, product notes, and the larger idea behind <span class="brand-name">OpenLeaf</span>.
       </p>
     </div>
     <div class="store-pills" aria-label="OpenLeaf app launch status">
@@ -41,20 +41,29 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 
 <section id="about" class="content-section">
   <p class="section-label">Why OpenLeaf exists - Motivations</p>
-  <div class="section-content">
-    <p class="section-lead">
-      We live in a time when attention is constantly interrupted, fragmented,
-      and sold. The modern internet is full of feeds that reward speed,
-      outrage, and repetition. Reading asks for something else. It asks us to
-      slow down, stay with a thought, and let the mind become deeper instead of
-      noisier.
-    </p>
-    <p class="section-text">
-      I built <span class="brand-name">OpenLeaf</span> because reading feels more necessary than ever. It is not merely a hobby in the age of doomscrolling; it is a way of recovering patience, inner stillness, and the ability to think in complete thoughts.
-    </p>
-    <p class="section-text">
-      During my school and college years, I borrowed books from friends and spent long hours in libraries because buying books was not always possible. That early dependence on shared access never left me. <span class="brand-name">OpenLeaf</span> comes from that memory and that gratitude.
-    </p>
+  <div class="about-grid section-content">
+    <article class="about-panel">
+      <p class="about-panel-title">About <span class="brand-name">OpenLeaf</span></p>
+      <p class="section-text">
+        <span class="brand-name">OpenLeaf</span> exists for readers who want depth in a digital world designed for distraction. It is a calm public reading room for essays, reviews, and ideas, free from algorithmic pressure, advertising noise, and the endless pull of scrolling. Its purpose is simple: to keep reading accessible, thoughtful, and inviting for anyone seeking patience, stillness, and complete thought.
+      </p>
+    </article>
+
+    <article class="about-panel about-panel-secondary">
+      <p class="about-panel-title">About Me</p>
+      <p class="section-text">
+        I am a software engineer with close to twenty years of experience as a successful IT professional, and I have been an avid reader since early childhood.
+      </p>
+      <p class="section-text">
+        Today we are a family of three: me, my wife, and my daughter. One of my greatest joys is seeing my daughter choose books over screen time and grow into a reader in her own right.
+      </p>
+      <p class="section-text">
+        I have always encouraged people, from children to older adults, to read more and step away from social media. That conviction is what led me to start <span class="brand-name">OpenLeaf</span>: a place to read without distraction, free and ad-free forever, and a small effort to help create a healthier reading culture for the generations growing up in an AI-dominated era.
+      </p>
+      <p class="section-text">
+        If this initiative resonates with you, give a shout out, tell your friends, and encourage them to read books. If you would like to collaborate, you are most welcome to <a class="external-link" href="#feedback">write me through the feedback section</a>
+      </p>
+    </article>
   </div>
 </section>
 
@@ -142,6 +151,55 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       </button>
     </div>
     {% endif %}
+  </div>
+</section>
+{% endif %}
+
+{% assign featured_posts = site.posts | where: 'featured', true %}
+{% if featured_posts.size > 0 %}
+<section id="featured-articles" class="featured-section">
+  <div class="posts-head">
+    <div>
+      <p class="section-label">Featured articles</p>
+      <p class="posts-intro">A curated shelf of highlighted essays and reviews worth starting with.</p>
+    </div>
+  </div>
+
+  <div class="blog-grid featured-articles-grid">
+    {% for post in featured_posts limit:5 %}
+      {% assign post_cover = post.cover_image | default: '/assets/images/og_image.png' %}
+      {% assign post_cover_first_char = post_cover | slice: 0 %}
+      {% if post.cover_image %}
+        {% unless post_cover contains '://' %}
+          {% if post_cover_first_char != '/' %}
+            {% assign post_source_parts = post.path | split: '/' %}
+            {% assign post_source_dir = '' %}
+            {% for part in post_source_parts %}
+              {% unless forloop.last %}
+                {% assign post_source_dir = post_source_dir | append: part | append: '/' %}
+              {% endunless %}
+            {% endfor %}
+            {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
+            {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
+          {% endif %}
+        {% endunless %}
+      {% endif %}
+      {% assign post_category = post.categories | first | default: 'Updates' %}
+      <article class="blog-card featured-article-card">
+        <a class="blog-card-image-link" href="{{ post.url | relative_url }}">
+          <img class="blog-card-image" src="{{ post_cover | relative_url }}" alt="{{ post.cover_image_alt | default: post.title }}" />
+        </a>
+        <div class="blog-card-body">
+          <div class="blog-card-top">
+            <span class="blog-card-category">{{ post_category }}</span>
+            <span class="blog-card-date">{{ post.date | date: "%B %d, %Y" }}</span>
+          </div>
+          <h3 class="blog-card-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p class="blog-card-desc">{{ post.description | default: post.excerpt | strip_html }}</p>
+          <a class="blog-card-link" href="{{ post.url | relative_url }}">Read article</a>
+        </div>
+      </article>
+    {% endfor %}
   </div>
 </section>
 {% endif %}

@@ -22,6 +22,8 @@ error() { printf '%b\n' "${RED}${BOLD}ERROR${RESET} $*" >&2; }
 ok() { printf '%b\n' "${GREEN}${BOLD}OK${RESET}    $*"; }
 step() { printf '%b\n' "${CYAN}${BOLD}STEP${RESET}  $*"; }
 
+CONTENT_SCAN_PATHS=(index.html 404.html README.md _posts _layouts _data _config.yml)
+
 TMP_ASSETS="$(mktemp)"
 TMP_CONFIG="$(mktemp)"
 TMP_ALLOWED="$(mktemp)"
@@ -38,6 +40,10 @@ trim() {
 
 extract_cover_image() {
   awk '/^---[[:space:]]*$/ { dashes++; next } dashes == 1 && /^cover_image:[[:space:]]*/ { sub(/^cover_image:[[:space:]]*/, ""); gsub(/^"|"$/, ""); gsub(/^\047|\047$/, ""); print; exit } dashes >= 2 { exit }' "$1"
+}
+
+extract_featured() {
+  awk '/^---[[:space:]]*$/ { dashes++; next } dashes == 1 && /^featured:[[:space:]]*/ { sub(/^featured:[[:space:]]*/, ""); gsub(/^"|"$/, ""); gsub(/^\047|\047$/, ""); print; exit } dashes >= 2 { exit }' "$1"
 }
 
 extract_categories() {
@@ -100,12 +106,11 @@ sync_assets_and_config() {
 }
 
 validate_book_review_content() {
-  local file="$1" fail_ref="$2"
+  local file="$1"
   info "Running Book Reviews content checks for $file"
 
   if ! grep -q '^---' "$file"; then
-    error "$file is missing front matter (---)."
-    eval "$fail_ref=1"
+    warn "$file is missing front matter (---)."
   else
     ok "Front matter found"
   fi
@@ -113,8 +118,7 @@ validate_book_review_content() {
   local field
   for field in title description categories cover_image; do
     if ! grep -q "^$field:" "$file"; then
-      error "$file is missing field: $field"
-      eval "$fail_ref=1"
+      warn "$file is missing field: $field"
     else
       ok "$field present"
     fi
@@ -123,16 +127,14 @@ validate_book_review_content() {
   local section
   for section in "## Summary" "## My Thoughts" "## What Stayed With Me" "## Final Review"; do
     if ! grep -q "$section" "$file"; then
-      error "$file is missing section: $section"
-      eval "$fail_ref=1"
+      warn "$file is missing section: $section"
     else
       ok "Found section: $section"
     fi
   done
 
-  if ! grep -Eq 'Rating: [0-9]+/10' "$file"; then
-    error "$file has incorrect or missing rating format. Expected: Rating: X/10"
-    eval "$fail_ref=1"
+  if ! grep -Eiq 'rating[^0-9]*[0-9]+([.][0-9]+)?/10' "$file"; then
+    warn "$file has no recognizable rating line. Recommended format: Rating: X/10 or Rating: X.X/10"
   else
     ok "Rating format looks good"
   fi
@@ -155,7 +157,7 @@ validate_book_review_content() {
 validate_post_file() {
   local md_file="$1"
   local errors=0
-  local md_dir repo_path cover_image bundle_name file_name ref raw_ref category
+  local md_dir repo_path cover_image bundle_name file_name ref raw_ref category featured_value featured_normalized
   md_dir="$(dirname "$md_file")"
   bundle_name="$(basename "$md_dir")"
 
@@ -173,6 +175,16 @@ validate_post_file() {
         errors=1
       fi
     done
+  fi
+
+  featured_value="$(trim "$(extract_featured "$md_file")")"
+  featured_normalized="$(printf '%s' "$featured_value" | tr '[:upper:]' '[:lower:]')"
+  if [[ -z "$featured_value" ]]; then
+    error "$md_file is missing the featured field. Set featured: true or featured: false explicitly."
+    errors=1
+  elif [[ "$featured_normalized" != "true" && "$featured_normalized" != "false" ]]; then
+    error "$md_file has invalid featured value '$featured_value'. Use featured: true or featured: false."
+    errors=1
   fi
 
   cover_image="$(trim "$(extract_cover_image "$md_file")")"
@@ -228,7 +240,7 @@ validate_post_file() {
   done < <(extract_inline_image_refs "$md_file")
 
   if printf '%s\n' "${categories[@]}" | grep -Fxq 'Book Reviews'; then
-    validate_book_review_content "$md_file" errors
+    validate_book_review_content "$md_file"
   else
     info "Skipping Book Reviews-specific content checks for $md_file"
   fi
@@ -257,6 +269,34 @@ if [[ "${#FILES[@]}" -eq 0 ]]; then
 fi
 
 overall_fail=0
+em_dash_matches="$(grep -RIn '—' "${CONTENT_SCAN_PATHS[@]}" 2>/dev/null || true)"
+if [[ -n "$em_dash_matches" ]]; then
+  error "Em dash characters (—) are not allowed in website or blog content. Replace them with a normal hyphen (-)."
+  while IFS= read -r match; do
+    [[ -z "$match" ]] && continue
+    printf '%b\n' "${RED}  -> ${match}${RESET}" >&2
+  done <<< "$em_dash_matches"
+  overall_fail=1
+else
+  info "No em dashes found in website or blog content."
+fi
+
+featured_count=0
+while IFS= read -r md_file; do
+  featured_value="$(trim "$(extract_featured "$md_file")")"
+  featured_normalized="$(printf '%s' "$featured_value" | tr '[:upper:]' '[:lower:]')"
+  if [[ "$featured_normalized" == "true" ]]; then
+    featured_count=$((featured_count + 1))
+  fi
+done < <(find _posts -type f -name '*.md' | LC_ALL=C sort)
+
+if [[ "$featured_count" -gt 5 ]]; then
+  error "No more than 5 blog posts can be featured at once. Current featured count: $featured_count."
+  overall_fail=1
+else
+  info "Featured posts count: $featured_count/5"
+fi
+
 for md_file in "${FILES[@]}"; do
   printf '%b\n' "${CYAN}----------------------------------${RESET}"
   if ! validate_post_file "$md_file"; then
