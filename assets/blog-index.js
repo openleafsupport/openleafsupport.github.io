@@ -2,6 +2,8 @@
   var recentCarousel = document.querySelector('[data-recent-carousel]');
   var recentSlides = Array.prototype.slice.call(document.querySelectorAll('[data-recent-slide]'));
   var recentDots = Array.prototype.slice.call(document.querySelectorAll('[data-recent-dot]'));
+  var recentPrev = document.querySelector('[data-recent-prev]');
+  var recentNext = document.querySelector('[data-recent-next]');
   var dataEl = document.getElementById('blog-posts-data');
   var grid = document.getElementById('blog-grid');
   var emptyState = document.getElementById('blog-empty');
@@ -43,6 +45,18 @@
       setRecentSlide(Number(dot.getAttribute('data-recent-dot') || 0));
     });
   });
+
+  if (recentPrev) {
+    recentPrev.addEventListener('click', function () {
+      setRecentSlide(recentIndex - 1);
+    });
+  }
+
+  if (recentNext) {
+    recentNext.addEventListener('click', function () {
+      setRecentSlide(recentIndex + 1);
+    });
+  }
 
   function handleSwipeEnd(endX, endY) {
     if (swipeStartX === null || swipeStartY === null) return;
