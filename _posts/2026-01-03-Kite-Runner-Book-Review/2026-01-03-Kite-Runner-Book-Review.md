@@ -19,7 +19,7 @@ cover_image_alt: "OpenLeaf cover image for The Kite Runner book review"
 > **Author:** Khaled Hosseini  
 > **Rating:** 8/10  
 > **Genre:** Historical Fiction / Drama  
-> **Reading Time:** ~3-5 days (depending on pace)  
+> **Reading Time:** ~5-7 days (depending on pace)  
 > **Verdict:** Emotionally powerful, not an easy read, but worth it. For me, its a **must-read** book  
 
 ## Summary

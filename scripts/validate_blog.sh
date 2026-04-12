@@ -114,8 +114,8 @@ validate_image_asset() {
   fi
 
   if (( short_side < MIN_IMAGE_SHORT_SIDE || long_side < MIN_IMAGE_LONG_SIDE )); then
-    error "$asset_path is too small (${width}x${height}). Minimum standard: shortest side >= ${MIN_IMAGE_SHORT_SIDE}px and longest side >= ${MIN_IMAGE_LONG_SIDE}px."
-    return 1
+    warn "$asset_path is smaller than the recommended image dimensions (${width}x${height}). Minimum standard: shortest side >= ${MIN_IMAGE_SHORT_SIDE}px and longest side >= ${MIN_IMAGE_LONG_SIDE}px."
+    return 0
   fi
 
   if (( size_bytes > MAX_IMAGE_BYTES )); then

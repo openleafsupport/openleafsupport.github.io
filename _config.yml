@@ -6,11 +6,12 @@ baseurl: ""
 url: "https://openleafsupport.github.io"
 
 markdown: kramdown
-featured_posts_limit: 5
+featured_posts_limit: 6
 
 include:
   # AUTO-GENERATED POST ASSET INCLUDES. Run ./scripts/sync_post.sh before commit.
   # BEGIN POST ASSET INCLUDES
+  - _posts/2025-03-17-Verity-Book-Review/image.png
   - _posts/2025-12-31-How-I-Nudged-My-4-Year-Old-Toward-Books-Instead-of-Screens/books.jpeg
   - _posts/2025-12-31-How-I-Nudged-My-4-Year-Old-Toward-Books-Instead-of-Screens/image.jpg
   - _posts/2026-01-03-Kite-Runner-Book-Review/image.png
