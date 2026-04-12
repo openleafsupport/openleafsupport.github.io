@@ -17,6 +17,15 @@
   {% assign social_image = page.cover_image | default: site.social.og_image | default: '/assets/images/og_image.png' %}
   {% assign social_image_alt = page.cover_image_alt | default: page_title | default: site.social.og_image_alt %}
   {% assign page_url = page.url | absolute_url %}
+  {% assign social_image_first_char = social_image | slice: 0 %}
+  {% if page.cover_image %}
+    {% unless social_image contains '://' %}
+      {% if social_image_first_char != '/' %}
+        {% assign source_dir = page.path | replace: page.name, '' %}
+        {% assign social_image = '/' | append: source_dir | append: social_image %}
+      {% endif %}
+    {% endunless %}
+  {% endif %}
 
   <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page_description }}" />

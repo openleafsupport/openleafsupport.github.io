@@ -376,8 +376,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   color: var(--text-tertiary);
 }
 
-.section-content {
-  max-width: 44rem;
+.section-content {  
   padding-top: 1.75rem;
 }
 

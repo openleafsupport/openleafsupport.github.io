@@ -17,9 +17,20 @@ layout: default
     <span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
   </div>
 
-  {% if page.cover_image %}
+  {% assign post_cover_image = page.cover_image %}
+  {% assign post_cover_first_char = post_cover_image | slice: 0 %}
+  {% if post_cover_image %}
+    {% unless post_cover_image contains '://' %}
+      {% if post_cover_first_char != '/' %}
+        {% assign post_source_dir = page.path | replace: page.name, '' %}
+        {% assign post_cover_image = '/' | append: post_source_dir | append: post_cover_image %}
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+
+  {% if post_cover_image %}
   <figure class="post-cover">
-    <img src="{{ page.cover_image | relative_url }}" alt="{{ page.cover_image_alt | default: page.title }}" />
+    <img src="{{ post_cover_image | relative_url }}" alt="{{ page.cover_image_alt | default: page.title }}" />
   </figure>
   {% endif %}
 

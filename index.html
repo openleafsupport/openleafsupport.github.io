@@ -40,7 +40,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 </section>
 
 <section id="about" class="content-section">
-  <p class="section-label">Why OpenLeaf exists</p>
+  <p class="section-label">Why OpenLeaf exists - Motivations</p>
   <div class="section-content">
     <p class="section-lead">
       We live in a time when attention is constantly interrupted, fragmented,
@@ -89,6 +89,15 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
     <div class="recent-slides">
       {% for post in site.posts limit:3 %}
       {% assign post_cover = post.cover_image | default: '/assets/images/og_image.png' %}
+      {% assign post_cover_first_char = post_cover | slice: 0 %}
+      {% if post.cover_image %}
+      {% unless post_cover contains '://' %}
+      {% if post_cover_first_char != '/' %}
+      {% assign post_source_dir = post.path | replace: post.name, '' %}
+      {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
+      {% endif %}
+      {% endunless %}
+      {% endif %}
       {% assign post_category = post.categories | first | default: 'Reflections' %}
       <article class="featured-post-card featured-post-layout recent-slide{% if forloop.first %} is-active{% endif %}" data-recent-slide="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %}>
         <a class="featured-post-image-link" href="{{ post.url | relative_url }}" aria-label="Open recent post {{ post.title }}">
@@ -231,6 +240,15 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 {% for post in site.posts %}
   {% assign post_category = post.categories | first | default: 'Reflections' %}
   {% assign post_cover = post.cover_image | default: '/assets/images/og_image.png' %}
+  {% assign post_cover_first_char = post_cover | slice: 0 %}
+  {% if post.cover_image %}
+    {% unless post_cover contains '://' %}
+      {% if post_cover_first_char != '/' %}
+        {% assign post_source_dir = post.path | replace: post.name, '' %}
+        {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
+      {% endif %}
+    {% endunless %}
+  {% endif %}
   {
     "title": {{ post.title | jsonify }},
     "url": {{ post.url | relative_url | jsonify }},
