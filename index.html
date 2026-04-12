@@ -125,13 +125,21 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
 
     {% if site.posts.size > 1 %}
     <div class="recent-controls">
-      <button class="recent-arrow" type="button" data-recent-prev aria-label="Show previous recent post">‹</button>
+      <button class="recent-arrow" type="button" data-recent-prev aria-label="Show previous recent post">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14.5 6.5 9 12l5.5 5.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+        </svg>
+      </button>
       <div class="recent-dots" role="tablist" aria-label="Recent posts carousel navigation">
         {% for post in site.posts limit:3 %}
         <button class="recent-dot{% if forloop.first %} is-active{% endif %}" type="button" data-recent-dot="{{ forloop.index0 }}" aria-label="Show recent post {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"></button>
         {% endfor %}
       </div>
-      <button class="recent-arrow" type="button" data-recent-next aria-label="Show next recent post">›</button>
+      <button class="recent-arrow" type="button" data-recent-next aria-label="Show next recent post">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9.5 6.5 15 12l-5.5 5.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+        </svg>
+      </button>
     </div>
     {% endif %}
   </div>
