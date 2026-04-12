@@ -182,7 +182,7 @@
     return [
       '<article class="blog-card">',
       '<a class="blog-card-image-link" href="', escapeHtml(post.url), '">',
-      '<img class="blog-card-image" src="', escapeHtml(post.coverImage), '" alt="', escapeHtml(post.coverImageAlt), '">',
+      '<img class="blog-card-image" src="', escapeHtml(post.coverImage), '" alt="', escapeHtml(post.coverImageAlt), '" width="640" height="400" loading="lazy" decoding="async">',
       '</a>',
       '<div class="blog-card-body">',
       '<div class="blog-card-top">',

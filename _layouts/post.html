@@ -37,7 +37,7 @@ layout: default
 
   {% if post_cover_image %}
   <figure class="post-cover">
-    <img src="{{ post_cover_image | relative_url }}" alt="{{ page.cover_image_alt | default: page.title }}" />
+    <img src="{{ post_cover_image | relative_url }}" alt="{{ page.cover_image_alt | default: page.title }}" width="1400" height="1000" decoding="async" fetchpriority="high" />
   </figure>
   {% endif %}
 

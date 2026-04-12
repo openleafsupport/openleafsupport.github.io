@@ -27,7 +27,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
   <div class="launch-card">
     <div>
       <p class="section-label"><span class="brand-name">OpenLeaf</span> app</p>
-      <h2 class="launch-title"><span class="brand-name">OpenLeaf</span> mobile app for reading book is coming soon.</h2>
+      <h2 class="launch-title"><span class="brand-name">OpenLeaf</span> mobile app for reading free book is coming soon.</h2>
       <p class="launch-text">
         The reading app is on its way. For now, this site is the public reading room, a home for essays, product notes, and the larger idea behind <span class="brand-name">OpenLeaf</span>.
       </p>
@@ -129,7 +129,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       {% assign post_category = post.categories | first | default: 'Updates' %}
       <article class="featured-post-card featured-post-layout recent-slide{% if forloop.first %} is-active{% endif %}" data-recent-slide="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %}>
         <a class="featured-post-image-link" href="{{ post.url | relative_url }}" aria-label="Open recent post {{ post.title }}">
-          <img class="featured-post-image" src="{{ post_cover | relative_url }}" alt="{{ post.cover_image_alt | default: post.title }}" />
+          <img class="featured-post-image" src="{{ post_cover | relative_url }}" alt="{{ post.cover_image_alt | default: post.title }}" width="640" height="400" decoding="async" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} />
         </a>
         <div class="featured-post-copy">
           <p class="featured-post-category">{{ post_category }}</p>
@@ -151,7 +151,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
           <path d="M14.5 6.5 9 12l5.5 5.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
         </svg>
       </button>
-      <div class="recent-dots" role="tablist" aria-label="Recent posts carousel navigation">
+      <div class="recent-dots" role="group" aria-label="Recent posts carousel navigation">
         {% for post in site.posts limit:3 %}
         <button class="recent-dot{% if forloop.first %} is-active{% endif %}" type="button" data-recent-dot="{{ forloop.index0 }}" aria-label="Show recent post {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"></button>
         {% endfor %}
@@ -200,7 +200,7 @@ description: OpenLeaf is a free, ad-free, local-first reading app inspired by Pr
       {% assign post_category = post.categories | first | default: 'Updates' %}
       <article class="blog-card featured-article-card">
         <a class="blog-card-image-link" href="{{ post.url | relative_url }}">
-          <img class="blog-card-image" src="{{ post_cover | relative_url }}" alt="{{ post.cover_image_alt | default: post.title }}" />
+          <img class="blog-card-image" src="{{ post_cover | relative_url }}" alt="{{ post.cover_image_alt | default: post.title }}" width="640" height="400" loading="lazy" decoding="async" />
         </a>
         <div class="blog-card-body">
           <div class="blog-card-top">
