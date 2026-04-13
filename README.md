@@ -79,6 +79,9 @@ This script will:
   - longest side must be at least `1000px`
   - file size must be at most `2,500,000` bytes (about `2.5 MB`)
 - enforce the maximum number of featured posts from `_config.yml` via `featured_posts_limit`
+- require `featured` to be numeric:
+  - `0` means the post is not featured
+  - positive integers define featured display order (`1` appears first)
 - validate that every post has an explicit approved category
 - validate `cover_image` paths
 - validate inline image references

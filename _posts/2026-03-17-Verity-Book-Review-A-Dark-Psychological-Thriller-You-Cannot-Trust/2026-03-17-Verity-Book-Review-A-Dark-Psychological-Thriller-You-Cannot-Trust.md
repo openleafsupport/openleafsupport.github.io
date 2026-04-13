@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Verity - Book Review"
-description: "A gripping psychological thriller that blurs truth and fiction, pulling you into a deeply unsettling narrative that lingers long after the last page."
+title: "Verity Book Review: A Dark Psychological Thriller You Cannot Trust"
+description: "A thoughtful review of Verity, exploring its psychological tension, unreliable storytelling, and the disturbing questions it leaves behind."
 categories:
   - Book Reviews
 tags:
@@ -10,11 +10,11 @@ tags:
   - colleen hoover
   - verity
 cover_image: "image.png"
-featured: true
+featured: 6
 cover_image_alt: "OpenLeaf cover image for Verity book review"
 ---
 
-# Verity - A Dark Story You Can’t Fully Trust
+# Verity Book Review: A Dark Psychological Thriller You Cannot Trust
 
 > **Author:** Colleen Hoover  
 > **Rating:** 9.5/10  

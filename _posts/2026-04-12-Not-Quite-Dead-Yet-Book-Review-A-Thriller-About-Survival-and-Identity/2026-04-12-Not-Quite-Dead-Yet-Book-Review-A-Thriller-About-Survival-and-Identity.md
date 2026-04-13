@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Not Quite Dead Yet - Book Review"
-description: "A psychological thriller that explores what it really means to survive, blending suspense with identity, memory, and emotional aftermath."
+title: "Not Quite Dead Yet Book Review: A Thriller About Survival and Identity"
+description: "A review of Not Quite Dead Yet, exploring how the novel blends suspense, identity, memory, and the emotional cost of survival."
 categories:
   - Book Reviews
 tags:
@@ -10,11 +10,11 @@ tags:
   - holly jackson
   - not quite dead yet
 cover_image: "image.jpeg"
-featured: true
+featured: 3
 cover_image_alt: "OpenLeaf cover image for Not Quite Dead Yet book review"
 ---
 
-# Not Quite Dead Yet - Where Survival Feels Like a Question
+# Not Quite Dead Yet Book Review: A Thriller About Survival and Identity
 
 > **Author:** Holly Jackson  
 > **Rating:** 7/10  

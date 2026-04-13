@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "The Kite Runner - Book Review"
-description: "A personal reflection on Khaled Hosseini’s The Kite Runner a story of friendship, guilt, and redemption that lingers long after the last page."
+title: "The Kite Runner Book Review: Friendship, Guilt, and Redemption"
+description: "A reflective review of The Kite Runner by Khaled Hosseini, exploring its emotional power, moral tension, and lasting themes of friendship and redemption."
 categories:
   - Book Reviews
 tags:
@@ -10,17 +10,18 @@ tags:
   - khaled hosseini
   - kite runner
 cover_image: "image.png"
-featured: true
+featured: 4
 cover_image_alt: "OpenLeaf cover image for The Kite Runner book review"
 ---
 
-# The Kite Runner - A Story That Stays With You
+# The Kite Runner Book Review: Friendship, Guilt, and Redemption
 
 > **Author:** Khaled Hosseini  
 > **Rating:** 8/10  
 > **Genre:** Historical Fiction / Drama  
 > **Reading Time:** ~5-7 days (depending on pace)  
 > **Verdict:** Emotionally powerful, not an easy read, but worth it. For me, its a **must-read** book  
+> [Buy *The Kite Runner* on Amazon (affiliate link)](https://amzn.to/3Olqv5h)
 
 ## Summary
 

@@ -11,6 +11,7 @@
   var search = document.getElementById('blog-search');
   var year = document.getElementById('blog-year');
   var month = document.getElementById('blog-month');
+  var toolbar = document.querySelector('.blog-toolbar');
   var sentinel = document.getElementById('blog-scroll-sentinel');
   var categoryButtons = Array.prototype.slice.call(document.querySelectorAll('[data-category-filter]'));
   var jumpButtons = Array.prototype.slice.call(document.querySelectorAll('[data-category-jump]'));
@@ -228,6 +229,12 @@
     search.addEventListener('input', function () {
       state.query = search.value.trim().toLowerCase();
       resetAndRender();
+    });
+  }
+
+  if (toolbar) {
+    toolbar.addEventListener('submit', function (event) {
+      event.preventDefault();
     });
   }
 

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "A Good Girl’s Guide to Murder - Book Review"
-description: "A sharp, modern thriller that blends true-crime obsession with teenage determination, uncovering how easily a town can live with the wrong story."
+title: "A Good Girl’s Guide to Murder Book Review: Smart, Addictive, and Dark"
+description: "A spoiler-light review of A Good Girl’s Guide to Murder, looking at its suspense, true-crime energy, teenage voice, and what makes it so compelling."
 categories:
   - Book Reviews
 tags:
@@ -10,11 +10,11 @@ tags:
   - holly jackson
   - a good girl's guide to murder
 cover_image: "image.jpeg"
-featured: true
+featured: 5
 cover_image_alt: "OpenLeaf cover image for A Good Girl’s Guide to Murder book review"
 ---
 
-# A Good Girl’s Guide to Murder - Truth, Lies, and the Cost of Curiosity
+# A Good Girl’s Guide to Murder Book Review: Smart, Addictive, and Dark
 
 > **Author:** Holly Jackson
 > **Rating:** 8.5/10  

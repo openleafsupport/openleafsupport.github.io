@@ -32,7 +32,8 @@ IMAGE_EXT_REGEX='\.(png|jpg|jpeg|gif|webp|svg|avif)$'
 TMP_ASSETS="$(mktemp)"
 TMP_CONFIG="$(mktemp)"
 TMP_ALLOWED="$(mktemp)"
-trap 'rm -f "$TMP_ASSETS" "$TMP_CONFIG" "$TMP_ALLOWED"' EXIT
+TMP_FEATURED_RANKS="$(mktemp)"
+trap 'rm -f "$TMP_ASSETS" "$TMP_CONFIG" "$TMP_ALLOWED" "$TMP_FEATURED_RANKS"' EXIT
 
 cd "$ROOT_DIR"
 
@@ -215,7 +216,7 @@ validate_book_review_content() {
 validate_post_file() {
   local md_file="$1"
   local errors=0
-  local md_dir repo_path cover_image bundle_name file_name ref raw_ref category featured_value featured_normalized
+  local md_dir repo_path cover_image bundle_name file_name ref raw_ref category featured_value
   md_dir="$(dirname "$md_file")"
   bundle_name="$(basename "$md_dir")"
 
@@ -236,12 +237,11 @@ validate_post_file() {
   fi
 
   featured_value="$(trim "$(extract_featured "$md_file")")"
-  featured_normalized="$(printf '%s' "$featured_value" | tr '[:upper:]' '[:lower:]')"
   if [[ -z "$featured_value" ]]; then
-    error "$md_file is missing the featured field. Set featured: true or featured: false explicitly."
+    error "$md_file is missing the featured field. Use featured: 0 to exclude a post or a positive integer rank to feature it."
     errors=1
-  elif [[ "$featured_normalized" != "true" && "$featured_normalized" != "false" ]]; then
-    error "$md_file has invalid featured value '$featured_value'. Use featured: true or featured: false."
+  elif ! [[ "$featured_value" =~ ^[0-9]+$ ]]; then
+    error "$md_file has invalid featured value '$featured_value'. Use a number only, where 0 means not featured and positive integers control featured order."
     errors=1
   fi
 
@@ -403,11 +403,12 @@ else
 fi
 
 featured_count=0
+: > "$TMP_FEATURED_RANKS"
 while IFS= read -r md_file; do
   featured_value="$(trim "$(extract_featured "$md_file")")"
-  featured_normalized="$(printf '%s' "$featured_value" | tr '[:upper:]' '[:lower:]')"
-  if [[ "$featured_normalized" == "true" ]]; then
+  if [[ "$featured_value" =~ ^[0-9]+$ ]] && [[ "$featured_value" -gt 0 ]]; then
     featured_count=$((featured_count + 1))
+    printf '%s|%s\n' "$featured_value" "$md_file" >> "$TMP_FEATURED_RANKS"
   fi
 done < <(find _posts -type f -name '*.md' | LC_ALL=C sort)
 
@@ -416,6 +417,12 @@ if [[ "$featured_count" -gt "$FEATURED_POSTS_LIMIT" ]]; then
   overall_fail=1
 else
   info "Featured posts count: $featured_count/$FEATURED_POSTS_LIMIT"
+fi
+
+duplicate_featured_ranks="$(cut -d'|' -f1 "$TMP_FEATURED_RANKS" | LC_ALL=C sort -n | uniq -d)"
+if [[ -n "$duplicate_featured_ranks" ]]; then
+  error "Featured ranks must be unique. Duplicate rank(s): $(echo "$duplicate_featured_ranks" | paste -sd ', ' -)"
+  overall_fail=1
 fi
 
 for md_file in "${FILES[@]}"; do

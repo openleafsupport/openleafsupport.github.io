@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "How I Nudged My 4-Year-Old Toward Books Instead of Screens"
-description: "A practical reflection on the small, consistent changes that helped my four-year-old choose books over screens and build an early love of reading."
+title: "How I Encouraged My 4-Year-Old to Choose Books Over Screens"
+description: "A practical reflection on the small, consistent changes that helped my four-year-old choose books over screens and build a lasting love of reading."
 categories:
   - Reflections
 tags:
@@ -10,11 +10,11 @@ tags:
   - screen time
   - reading habits
 cover_image: "image.jpg"
-featured: true
+featured: 2
 cover_image_alt: "OpenLeaf cover image for How I Nudged My 4-Year-Old Toward Books Instead of Screens"
 ---
 
-# How I Nudged My 4-Year-Old Toward Books Instead of Screens
+# How I Encouraged My 4-Year-Old to Choose Books Over Screens
 
 There was a time when turning on TV felt like the easiest way to keep my daughter engaged. Cocomelon, Pepa Pigs, and other YouTube channels became her go-to companions. Bright colors, quick sounds, instant gratification. It works. That’s exactly the problem.
 
@@ -37,7 +37,7 @@ She began picking up books on her own and bringing them to us:
 
 That moment matters more than any rule you can enforce.
 
-![Children's books that helped make reading feel more inviting]({{ '/assets/post-assets/2025-12-31-How-I-Nudged-My-4-Year-Old-Toward-Books-Instead-of-Screens/books.jpeg' | relative_url }})
+![Children's books that helped make reading feel more inviting]({{ '/assets/post-assets/2025-12-31-How-I-Encouraged-My-4-Year-Old-to-Choose-Books-Over-Screens/books.jpeg' | relative_url }})
 
 ---
 

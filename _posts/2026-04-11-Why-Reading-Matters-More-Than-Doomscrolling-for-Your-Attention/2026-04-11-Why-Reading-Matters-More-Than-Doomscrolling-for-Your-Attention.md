@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Why Reading Matters More Than Doomscrolling"
-description: "We live in the most information-rich era in human history, yet feel perpetually uninformed. A case for reclaiming your attention through the one act that truly demands it."
+title: "Why Reading Matters More Than Doomscrolling for Your Attention"
+description: "A reflection on why deep reading helps restore attention, patience, and mental clarity in a culture shaped by doomscrolling and digital overload."
 categories:
   - Reflections
 tags:
@@ -10,9 +10,11 @@ tags:
   - doomscrolling
   - digital wellbeing
 cover_image: "image.png"
-featured: true
+featured: 1
 cover_image_alt: "OpenLeaf cover image for Why Reading Matters More Than Doomscrolling"
 ---
+
+# Why Reading Matters More Than Doomscrolling for Your Attention
 
 We live in the most information-rich era in human history. And yet, many of us end the day feeling strangely empty aware of a hundred things, clear about none of them.
 
