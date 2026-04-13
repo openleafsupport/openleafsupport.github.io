@@ -626,6 +626,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 #about,
 #recent-posts,
 #explore,
+#sponsor,
 #feedback {
   scroll-margin-top: 10rem;
 }
