@@ -30,12 +30,22 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-          bundler-cache: true
+          bundler-cache: false
+
+      - name: Install Bundler
+        run: gem install bundler -v 2.5.23
+
+      - name: Install dependencies
+        env:
+          BUNDLE_FORCE_RUBY_PLATFORM: 'true'
+        run: |
+          bundle _2.5.23_ config set path vendor/bundle
+          bundle _2.5.23_ install
 
       - name: Build site
         env:
           BUNDLE_FORCE_RUBY_PLATFORM: 'true'
-        run: bundle exec jekyll build
+        run: bundle _2.5.23_ exec jekyll build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
