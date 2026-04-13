@@ -21,6 +21,7 @@ cover_image_alt: "OpenLeaf cover image for Verity book review"
 > **Genre:** Psychological Thriller, Romance  
 > **Reading Time:** ~3-4 days  
 > **Verdict:** Unsettling, addictive, and quietly disturbing - For me its an unputdownable and **must-read** book 
+> [Buy *Verity* on Amazon (affiliate link)](https://amzn.to/428qWmx)
 
 ## Summary
 

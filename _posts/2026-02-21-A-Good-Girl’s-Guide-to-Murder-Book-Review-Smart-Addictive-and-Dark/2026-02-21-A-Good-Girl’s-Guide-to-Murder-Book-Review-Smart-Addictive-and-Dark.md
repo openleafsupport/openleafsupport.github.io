@@ -20,7 +20,8 @@ cover_image_alt: "OpenLeaf cover image for A Good Girl’s Guide to Murder book 
 > **Rating:** 8.5/10  
 > **Genre:** Young Adult, Mystery, Thriller  
 > **Reading Time:** ~3-5 days
-> **Verdict:** A gripping, cleverly structured mystery that keeps you hooked, even if it leans a bit on coincidence at times. I like it!!  
+> **Verdict:** A gripping, cleverly structured mystery that keeps you hooked, even if it leans a bit on coincidence at times. I like it!! 
+> [Buy *A Good Girl’s Guide to Murder* on Amazon (affiliate link)](https://amzn.to/4cndBvq) 
 
 ## Summary
 

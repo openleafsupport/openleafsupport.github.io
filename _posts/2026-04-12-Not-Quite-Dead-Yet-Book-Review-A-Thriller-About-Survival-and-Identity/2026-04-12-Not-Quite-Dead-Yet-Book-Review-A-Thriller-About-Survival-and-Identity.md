@@ -21,6 +21,7 @@ cover_image_alt: "OpenLeaf cover image for Not Quite Dead Yet book review"
 > **Genre:** Thriller / Mystery / Young Adult  
 > **Reading Time:** ~3-5 days  
 > **Verdict:** A gripping psychological premise that leans more on emotional tension than plot twists, though not all threads feel fully realized that how a patient with cronic brain injury can do many things. For me its a **one-time-read** book
+> [Buy *Not Quite Dead Yet* on Amazon (affiliate link)](https://amzn.to/4syLiA9)
 
 ## Summary
 
