@@ -4,15 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  {% if site.analytics and site.analytics.ga4_measurement_id %}
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNTGQYR26P"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.ga4_measurement_id }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
-    gtag('config', 'G-KNTGQYR26P');
+    gtag('config', '{{ site.analytics.ga4_measurement_id }}');
   </script>
+  {% endif %}
 
   {% assign page_title = page.title | default: site.title %}
   {% assign page_description = page.description | default: site.description %}

@@ -8,8 +8,11 @@ url: "https://openleafsupport.github.io"
 markdown: kramdown
 featured_posts_limit: 6
 
+analytics:
+  ga4_measurement_id: "G-KNTQGYRZ6P"
+
 include:
-  # AUTO-GENERATED POST ASSET INCLUDES. Run ./scripts/sync_post.sh before commit.
+  # AUTO-GENERATED POST ASSET INCLUDES. Run ./scripts/validate_blog.sh before commit.
   # BEGIN POST ASSET INCLUDES
   - _posts/2025-12-31-How-I-Encouraged-My-4-Year-Old-to-Choose-Books-Over-Screens/books.jpeg
   - _posts/2025-12-31-How-I-Encouraged-My-4-Year-Old-to-Choose-Books-Over-Screens/image.jpg
