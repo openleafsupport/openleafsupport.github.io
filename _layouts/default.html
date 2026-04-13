@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  {% if site.analytics and site.analytics.ga4_measurement_id %}
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.ga4_measurement_id }}"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W7N9BMLK6Z"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '{{ site.analytics.ga4_measurement_id }}');
+
+    gtag('config', 'G-W7N9BMLK6Z');
   </script>
-  {% endif %}
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   {% assign page_title = page.title | default: site.title %}
   {% assign page_description = page.description | default: site.description %}
