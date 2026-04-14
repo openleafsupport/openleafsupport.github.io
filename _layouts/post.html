@@ -4,11 +4,12 @@ layout: default
 
 <article class="post-wrapper">
 
-  {% assign primary_category = page.categories | first | default: 'Updates' %}
+  {% assign primary_category = page.categories | first | default: 'updates' %}
+  {% assign primary_category_label = primary_category | replace: 'book-reviews', 'Book Reviews' | replace: 'reflections', 'Reflections' | replace: 'updates', 'Updates' | replace: 'announcements', 'Announcements' %}
 
   <a class="post-back" href="{{ '/' | relative_url }}">&#8592; All posts</a>
 
-  <div class="post-eyebrow">{{ primary_category }}</div>
+  <div class="post-eyebrow">{{ primary_category_label }}</div>
 
   <h1 class="post-title">{{ page.title }}</h1>
 
@@ -17,6 +18,15 @@ layout: default
     <span>{{ page.date | date: "%B %d, %Y" }}</span>
     <span>{{ post_word_count | divided_by: 200 | plus: 1 }} min read</span>
   </div>
+
+  {% if page.tags.size > 0 %}
+  <div class="post-tags" aria-label="Post tags">
+    {% for tag in page.tags %}
+      {% assign tag_slug = tag | slugify %}
+      <a class="post-tag" href="{{ '/tags/' | append: tag_slug | append: '/' | relative_url }}">{{ tag }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
 
   {% assign post_cover_image = page.cover_image %}
   {% assign post_cover_first_char = post_cover_image | slice: 0 %}
@@ -42,10 +52,118 @@ layout: default
   </figure>
   {% endif %}
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ page.title | default: site.title | jsonify }},
+    "description": {{ page.description | default: site.description | jsonify }},
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+    "author": {
+      "@type": "Person",
+      "name": {{ site.author.name | jsonify }}
+    },
+    "image": {{ post_cover_image | default: site.social.og_image | absolute_url | jsonify }},
+    "url": {{ page.url | absolute_url | jsonify }},
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ site.title | jsonify }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ '/assets/images/icon.jpeg' | absolute_url | jsonify }}
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ page.url | absolute_url | jsonify }}
+    }
+  }
+  </script>
+
   <hr class="post-divider" />
 
   <div class="post-body">
     {{ content }}
   </div>
+
+  <hr class="post-divider post-divider-secondary" />
+
+  {% include author-bio.html %}
+
+  {% assign related_posts = "" | split: "" %}
+  {% for post in site.posts %}
+    {% if post.url == page.url %}{% continue %}{% endif %}
+    {% assign shared = 0 %}
+    {% for tag in page.tags %}
+      {% if post.tags contains tag %}{% assign shared = shared | plus: 1 %}{% endif %}
+    {% endfor %}
+    {% if shared == 0 %}
+      {% assign page_cat = page.categories | first %}
+      {% if post.categories contains page_cat %}{% assign shared = 1 %}{% endif %}
+    {% endif %}
+    {% if shared > 0 %}
+      {% assign related_posts = related_posts | push: post %}
+    {% endif %}
+    {% if related_posts.size >= 3 %}{% break %}{% endif %}
+  {% endfor %}
+
+  {% if related_posts.size > 0 %}
+  <hr class="post-divider post-divider-secondary" />
+
+  <section class="related-posts" aria-label="Related posts">
+    <p class="section-label">You might also like</p>
+    <div class="related-posts-list">
+      {% for rpost in related_posts %}
+        {% assign rpost_category = rpost.categories | first | default: 'Reflections' %}
+      <article class="related-post-item">
+        <a class="related-post-link" href="{{ rpost.url | relative_url }}">
+          <span class="related-post-title">{{ rpost.title }}</span>
+          <span class="related-post-meta">{{ rpost_category }} &middot; {{ rpost.date | date: "%B %d, %Y" }}</span>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <hr class="post-divider post-divider-secondary" />
+
+  <section class="post-feedback" aria-label="Post feedback">
+    <p class="post-feedback-kicker">Feedback</p>
+    <h2 class="post-feedback-title">Share your thoughts on this piece.</h2>
+    <p class="post-feedback-text">If this post resonated with you, send a note by email or leave a public comment through GitHub Discussions.</p>
+    <a class="contact-email" href="mailto:openleaf.support@gmail.com">openleaf.support@gmail.com</a>
+    <div class="post-feedback-actions">
+      <a class="cta-button cta-button-secondary" href="mailto:openleaf.support@gmail.com?subject=OpenLeaf%20post%20feedback">Send feedback by email</a>
+      <a class="cta-button cta-button-secondary" href="https://github.com/{{ site.comments.repo }}/discussions" target="_blank" rel="noopener noreferrer">Open GitHub Discussions</a>
+    </div>
+
+    <div class="comments-block">
+      <p class="comments-title">Public comments</p>
+      <p class="comments-text">Prefer to leave a public note here? You can comment below using GitHub Discussions via Giscus.</p>
+      {% if site.comments.repo and site.comments.repo_id != '' and site.comments.category_id != '' %}
+      <div class="comments-embed">
+        <script src="https://giscus.app/client.js"
+          data-repo="{{ site.comments.repo }}"
+          data-repo-id="{{ site.comments.repo_id }}"
+          data-category="{{ site.comments.category }}"
+          data-category-id="{{ site.comments.category_id }}"
+          data-mapping="{{ site.comments.mapping }}"
+          data-strict="{{ site.comments.strict }}"
+          data-reactions-enabled="{{ site.comments.reactions_enabled }}"
+          data-emit-metadata="{{ site.comments.emit_metadata }}"
+          data-input-position="{{ site.comments.input_position }}"
+          data-theme="preferred_color_scheme"
+          data-lang="{{ site.comments.lang }}"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
+      {% else %}
+      <p class="comments-text comments-note">Giscus is ready in the site code, but it still needs your GitHub Discussions repository ID and category ID in <code>_config.yml</code> before the comment box can appear.</p>
+      {% endif %}
+    </div>
+  </section>
 
 </article>

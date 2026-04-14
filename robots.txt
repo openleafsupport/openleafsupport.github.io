@@ -7,5 +7,3 @@ User-agent: *
 Allow: /
 
 Sitemap: {{ '/sitemap.xml' | absolute_url }}
-
-Disallow: /404.html

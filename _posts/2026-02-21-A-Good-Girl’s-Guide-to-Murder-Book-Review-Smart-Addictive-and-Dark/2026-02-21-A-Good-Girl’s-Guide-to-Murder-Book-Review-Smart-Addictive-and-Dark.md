@@ -3,7 +3,7 @@ layout: post
 title: "A Good Girl’s Guide to Murder Book Review: Smart, Addictive, and Dark"
 description: "A spoiler-light review of A Good Girl’s Guide to Murder, looking at its suspense, true-crime energy, teenage voice, and what makes it so compelling."
 categories:
-  - Book Reviews
+  - book-reviews
 tags:
   - books
   - book review

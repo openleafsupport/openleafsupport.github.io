@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<section class="tag-archive">
+  <a class="post-back" href="{{ '/' | relative_url }}#topics">&#8592; All topics</a>
+
+  <div class="post-eyebrow">Topic</div>
+  <h1 class="post-title">{{ page.tag }}</h1>
+
+  {% assign tagged_posts = site.posts | where_exp: 'post', 'post.tags contains page.tag' %}
+
+  <p class="tag-archive-count">{{ tagged_posts.size }} post{% if tagged_posts.size != 1 %}s{% endif %}</p>
+
+  <div class="tag-archive-list">
+    {% for post in tagged_posts %}
+      {% assign post_category = post.categories | first | default: 'Reflections' %}
+      <article class="tag-archive-item">
+        <a class="tag-archive-item-link" href="{{ post.url | relative_url }}">
+          <span class="tag-archive-item-title">{{ post.title }}</span>
+          <span class="tag-archive-item-meta">{{ post_category }} &middot; {{ post.date | date: "%B %d, %Y" }}</span>
+        </a>
+      </article>
+    {% endfor %}
+  </div>
+</section>

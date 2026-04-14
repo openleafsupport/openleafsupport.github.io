@@ -42,7 +42,7 @@ _posts/2026-05-01-my-new-post/quote-card.jpg
 Only these categories are valid:
 
 - `Reflections`
-- `Book Reviews`
+- `book-reviews`
 - `Updates`
 - `Announcements`
 

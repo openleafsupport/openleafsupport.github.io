@@ -3,7 +3,7 @@ layout: post
 title: "The Kite Runner Book Review: Friendship, Guilt, and Redemption"
 description: "A reflective review of The Kite Runner by Khaled Hosseini, exploring its emotional power, moral tension, and lasting themes of friendship and redemption."
 categories:
-  - Book Reviews
+  - book-reviews
 tags:
   - books
   - book review

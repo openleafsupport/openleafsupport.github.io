@@ -3,7 +3,7 @@ layout: post
 title: "Verity Book Review: A Dark Psychological Thriller You Cannot Trust"
 description: "A thoughtful review of Verity, exploring its psychological tension, unreliable storytelling, and the disturbing questions it leaves behind."
 categories:
-  - Book Reviews
+  - book-reviews
 tags:
   - books
   - book review

@@ -16,11 +16,11 @@
 
   {% assign page_title = page.title | default: site.title %}
   {% assign page_description = page.description | default: site.description %}
-  {% assign social_image = page.cover_image | default: site.social.og_image | default: '/assets/images/og_image.png' %}
-  {% assign social_image_alt = page.cover_image_alt | default: page_title | default: site.social.og_image_alt %}
+  {% assign social_image = page.image | default: page.cover_image | default: site.social.og_image | default: '/assets/images/og_image.png' %}
+  {% assign social_image_alt = page.image_alt | default: page.cover_image_alt | default: page_title | default: site.social.og_image_alt %}
   {% assign page_url = page.url | absolute_url %}
   {% assign social_image_first_char = social_image | slice: 0 %}
-  {% if page.cover_image %}
+  {% if page.image or page.cover_image %}
   {% unless social_image contains '://' %}
   {% if social_image_first_char != '/' %}
   {% assign source_parts = page.path | split: '/' %}
@@ -39,8 +39,7 @@
   <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page_description }}" />
   <meta name="author" content="{{ site.author.name }}" />
-  <meta name="robots"
-    content="{% if page.noindex %}noindex, nofollow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}" />
+  <meta name="robots" content="{% if page.noindex %}noindex, nofollow{% else %}index, follow{% endif %}" />
   <meta name="theme-color" content="#f7f5f0" />  
 
   <link rel="canonical" href="{{ page_url }}" />
@@ -93,39 +92,7 @@
     })();
   </script>
 
-  {% if page.layout == 'post' %}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": {{ page_title | jsonify }},
-    "description": {{ page_description | jsonify }},
-    "datePublished": "{{ page.date | date_to_xmlschema }}",
-    "dateModified": "{{ page.date | date_to_xmlschema }}",
-    "isAccessibleForFree": true,
-    "articleSection": {{ page.categories | first | default: 'Updates' | jsonify }},
-    "author": {
-      "@type": "Person",
-      "name": {{ site.author.name | jsonify }}
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": {{ site.title | jsonify }},
-      "url": {{ site.url | jsonify }},
-      "logo": {
-        "@type": "ImageObject",
-        "url": {{ '/assets/images/icon.jpeg' | absolute_url | jsonify }}
-      }
-    },
-    "url": {{ page_url | jsonify }},
-    "image": {{ social_image | absolute_url | jsonify }},
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": {{ page_url | jsonify }}
-    }
-  }
-  </script>
-  {% else %}
+  {% unless page.layout == 'post' %}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -147,7 +114,7 @@
     ]
   }
   </script>
-  {% endif %}
+  {% endunless %}
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -177,6 +144,7 @@
           <a href="{{ '/' | relative_url }}#launch">Announcement</a>
           <a href="{{ '/' | relative_url }}#about">About</a>
           <a href="{{ '/' | relative_url }}#recent-posts">What's New</a>
+          <a href="{{ '/' | relative_url }}#topics">Topics</a>
           <a href="{{ '/' | relative_url }}#explore">Articles</a>
           <a href="{{ '/' | relative_url }}#sponsor">Sponsor</a>
           <a href="{{ '/' | relative_url }}#feedback">Feedback</a>
@@ -193,7 +161,8 @@
             <a href="{{ '/' | relative_url }}#launch">Announcement</a>
             <a href="{{ '/' | relative_url }}#about">About</a>
             <a href="{{ '/' | relative_url }}#recent-posts">What's New</a>
-            <a href="{{ '/' | relative_url }}#explore">Articles</a>
+            <a href="{{ '/' | relative_url }}#topics">Topics</a>
+          <a href="{{ '/' | relative_url }}#explore">Articles</a>
             <a href="{{ '/' | relative_url }}#sponsor">Sponsor</a>
             <a href="{{ '/' | relative_url }}#feedback">Feedback</a>
           </div>
@@ -225,6 +194,14 @@
   <footer class="site-footer">
     <div class="wrap">
       <p><span class="brand-name">OpenLeaf</span> &mdash; Writing on reading, attention, and deliberate living.</p>
+      <a class="footer-feed-link" href="{{ '/feed.xml' | relative_url }}" aria-label="Subscribe to the OpenLeaf RSS feed">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="6.5" cy="17.5" r="1.8" fill="currentColor"></circle>
+          <path d="M4.5 10.5a9 9 0 0 1 9 9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+          <path d="M4.5 5.5c7.73 0 14 6.27 14 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+        </svg>
+        <span>RSS Feed</span>
+      </a>
     </div>
   </footer>
 

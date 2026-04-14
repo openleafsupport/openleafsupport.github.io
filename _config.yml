@@ -4,12 +4,17 @@ email: openleaf.support@gmail.com
 
 baseurl: ""
 url: "https://openleafsupport.github.io"
+permalink: /:categories/:year/:month/:day/:title:output_ext
 
 markdown: kramdown
 featured_posts_limit: 6
 
 analytics:
   ga4_measurement_id: "G-KNTQGYRZ6P"
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
 
 include:
   # AUTO-GENERATED POST ASSET INCLUDES. Run ./scripts/validate_blog.sh before commit.
@@ -25,8 +30,22 @@ include:
   # END POST ASSET INCLUDES
 
 author:
-  name: Amit
+  name: "OpenLeaf"
   email: openleaf.support@gmail.com
+  avatar: "/assets/images/icon.jpeg"
+  about_url: "/#about"
+  bio: >
+    An IT professional close to 20 years of experience and a reader since childhood -
+    somewhere around age eight or nine, when books quietly became a
+    lifelong companion. Never counted it for sure but it has to be over 1,500 books read across a life. A proud owner of a personal
+    library of 500 books and counting.
+
+    Favourite shelves: mystery, thriller, literary fiction, world
+    mythology, history, and the classics.
+
+    Built OpenLeaf anonymously to help more people find their way
+    back to books, away from the noise, and toward something quieter and
+    more lasting.
 
 social:
   og_image: "/assets/images/og_image.png"

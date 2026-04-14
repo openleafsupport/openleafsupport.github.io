@@ -11,6 +11,7 @@
   var search = document.getElementById('blog-search');
   var year = document.getElementById('blog-year');
   var month = document.getElementById('blog-month');
+  var tag = document.getElementById('blog-tag');
   var toolbar = document.querySelector('.blog-toolbar');
   var sentinel = document.getElementById('blog-scroll-sentinel');
   var categoryButtons = Array.prototype.slice.call(document.querySelectorAll('[data-category-filter]'));
@@ -110,16 +111,17 @@
     return new Date(b.date) - new Date(a.date);
   });
 
-  var state = { query: '', year: '', month: '', category: 'All', visible: pageSize };
+  var state = { query: '', year: '', month: '', tag: '', category: 'All', visible: pageSize };
 
   function filteredPosts() {
     return posts.filter(function (post) {
-      var haystack = [post.title, post.description, post.category].join(' ').toLowerCase();
+      var haystack = [post.title, post.description, post.category, post.categoryLabel || ''].join(' ').toLowerCase();
       var matchesQuery = !state.query || haystack.indexOf(state.query) !== -1;
       var matchesYear = !state.year || post.year === state.year;
       var matchesMonth = !state.month || post.month === state.month;
       var matchesCategory = state.category === 'All' || post.category === state.category;
-      return matchesQuery && matchesYear && matchesMonth && matchesCategory;
+      var matchesTag = !state.tag || (post.tags && post.tags.indexOf(state.tag) !== -1);
+      return matchesQuery && matchesYear && matchesMonth && matchesCategory && matchesTag;
     });
   }
 
@@ -162,6 +164,29 @@
     }
   }
 
+  function populateTags() {
+    var tags = [];
+    posts.forEach(function (post) {
+      if (!post.tags) return;
+      post.tags.forEach(function (t) {
+        if (tags.indexOf(t) === -1) tags.push(t);
+      });
+    });
+    tags.sort(function (a, b) { return a.toLowerCase().localeCompare(b.toLowerCase()); });
+    tag.innerHTML = '<option value="">All topics</option>';
+    tags.forEach(function (t) {
+      var option = document.createElement('option');
+      option.value = t;
+      option.textContent = t;
+      tag.appendChild(option);
+    });
+
+    if (state.tag && tags.indexOf(state.tag) === -1) {
+      state.tag = '';
+      tag.value = '';
+    }
+  }
+
   function updateCategoryButtons() {
     categoryButtons.forEach(function (button) {
       var active = button.getAttribute('data-category-filter') === state.category;
@@ -187,7 +212,7 @@
       '</a>',
       '<div class="blog-card-body">',
       '<div class="blog-card-top">',
-      '<span class="blog-card-category">', escapeHtml(post.category), '</span>',
+      '<span class="blog-card-category">', escapeHtml(post.categoryLabel || post.category), '</span>',
       '<span class="blog-card-date">', escapeHtml(post.displayDate), '</span>',
       '</div>',
       '<h3 class="blog-card-title"><a href="', escapeHtml(post.url), '">', escapeHtml(post.title), '</a></h3>',
@@ -253,6 +278,13 @@
     });
   }
 
+  if (tag) {
+    tag.addEventListener('change', function () {
+      state.tag = tag.value;
+      resetAndRender();
+    });
+  }
+
   categoryButtons.forEach(function (button) {
     button.addEventListener('click', function () {
       state.category = button.getAttribute('data-category-filter') || 'All';
@@ -289,6 +321,7 @@
 
   populateYears();
   populateMonths();
+  populateTags();
   updateCategoryButtons();
   render();
 })();

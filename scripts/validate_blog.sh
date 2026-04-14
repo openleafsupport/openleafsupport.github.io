@@ -131,7 +131,7 @@ validate_image_asset() {
 sync_assets_and_config() {
   step "Syncing post-local assets"
   find _posts -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.svg' -o -iname '*.avif' \) | LC_ALL=C sort > "$TMP_ASSETS"
-  awk '/^- name:[[:space:]]*/ { sub(/^- name:[[:space:]]*/, ""); print }' "$CATEGORY_FILE" | LC_ALL=C sort > "$TMP_ALLOWED"
+  awk '/^- name:[[:space:]]*/ { sub(/^- name:[[:space:]]*/, ""); print } /^  slug:[[:space:]]*/ { sub(/^  slug:[[:space:]]*/, ""); print }' "$CATEGORY_FILE" | LC_ALL=C sort -u > "$TMP_ALLOWED"
 
   if ! has_line "$CONFIG_FILE" "$BEGIN_MARKER" || ! has_line "$CONFIG_FILE" "$END_MARKER"; then
     error "_config.yml is missing the post asset include markers."
@@ -295,7 +295,7 @@ validate_post_file() {
     esac
   done < <(extract_inline_image_refs "$md_file")
 
-  if printf '%s\n' "${categories[@]}" | grep -Fxq 'Book Reviews'; then
+  if printf '%s\n' "${categories[@]}" | grep -Eixq 'Book Reviews|book-reviews'; then
     validate_book_review_content "$md_file"
   else
     info "Skipping Book Reviews-specific content checks for $md_file"

@@ -3,7 +3,7 @@ layout: post
 title: "Not Quite Dead Yet Book Review: A Thriller About Survival and Identity"
 description: "A review of Not Quite Dead Yet, exploring how the novel blends suspense, identity, memory, and the emotional cost of survival."
 categories:
-  - Book Reviews
+  - book-reviews
 tags:
   - books
   - book review

@@ -1,0 +1,14 @@
+{% assign author_name = site.author.name | default: 'OpenLeaf' %}
+{% assign author_avatar = site.author.avatar | default: '/assets/images/icon.jpeg' %}
+{% assign author_about_url = site.author.about_url | default: '/#about' %}
+{% assign author_bio = site.author.bio | strip %}
+
+<section class="author-bio" aria-label="About the author">
+  <img class="author-bio-avatar" src="{{ author_avatar | relative_url }}" alt="{{ author_name }} avatar" width="72" height="72" loading="lazy" decoding="async" />
+  <div class="author-bio-content">
+    <p class="author-bio-name">{{ author_name }}</p>
+    <p class="author-bio-text">{{ author_bio }}</p>
+    <p class="author-bio-note"><em>This blog is written anonymously, by design.</em></p>
+    <a class="author-bio-link" href="{{ author_about_url | relative_url }}">About this initiative &#8594;</a>
+  </div>
+</section>
