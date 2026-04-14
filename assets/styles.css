@@ -430,6 +430,12 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   margin-top: 1.5rem;
 }
 
+.side-by-side {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
 .external-link {
   display: inline-flex;  
   align-items: center;

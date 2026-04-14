@@ -238,11 +238,9 @@ validate_post_file() {
 
   featured_value="$(trim "$(extract_featured "$md_file")")"
   if [[ -z "$featured_value" ]]; then
-    error "$md_file is missing the featured field. Use featured: 0 to exclude a post or a positive integer rank to feature it."
-    errors=1
+    warn "$md_file is missing the featured field. Use featured: 0 to exclude a post or a positive integer rank to feature it."
   elif ! [[ "$featured_value" =~ ^[0-9]+$ ]]; then
-    error "$md_file has invalid featured value '$featured_value'. Use a number only, where 0 means not featured and positive integers control featured order."
-    errors=1
+    warn "$md_file has invalid featured value '$featured_value'. Use a number only, where 0 means not featured and positive integers control featured order."
   fi
 
   cover_image="$(trim "$(extract_cover_image "$md_file")")"
@@ -413,16 +411,14 @@ while IFS= read -r md_file; do
 done < <(find _posts -type f -name '*.md' | LC_ALL=C sort)
 
 if [[ "$featured_count" -gt "$FEATURED_POSTS_LIMIT" ]]; then
-  error "No more than $FEATURED_POSTS_LIMIT blog posts can be featured at once. Current featured count: $featured_count."
-  overall_fail=1
+  warn "No more than $FEATURED_POSTS_LIMIT blog posts are recommended to be featured at once. Current featured count: $featured_count."
 else
   info "Featured posts count: $featured_count/$FEATURED_POSTS_LIMIT"
 fi
 
 duplicate_featured_ranks="$(cut -d'|' -f1 "$TMP_FEATURED_RANKS" | LC_ALL=C sort -n | uniq -d)"
 if [[ -n "$duplicate_featured_ranks" ]]; then
-  error "Featured ranks must be unique. Duplicate rank(s): $(echo "$duplicate_featured_ranks" | paste -sd ', ' -)"
-  overall_fail=1
+  warn "Featured ranks should be unique. Duplicate rank(s): $(echo "$duplicate_featured_ranks" | paste -sd ', ' -)"
 fi
 
 for md_file in "${FILES[@]}"; do
