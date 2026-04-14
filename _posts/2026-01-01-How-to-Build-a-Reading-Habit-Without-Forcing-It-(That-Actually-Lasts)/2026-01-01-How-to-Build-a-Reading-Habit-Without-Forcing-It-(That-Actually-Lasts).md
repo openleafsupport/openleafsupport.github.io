@@ -15,7 +15,6 @@ featured: 1
 cover_image_alt: "Cozy reading setup with a book and warm light"
 ---
 
-# How to Build a Reading Habit Without Forcing It (That Actually Lasts)
 
 If you’ve ever told yourself, *“I should read more”* but never followed through, you’re not alone.
 

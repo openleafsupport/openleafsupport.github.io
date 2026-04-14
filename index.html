@@ -14,7 +14,7 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
 
   <aside class="promise-card promise-spotlight" aria-label="OpenLeaf promise">
     <p class="section-label">A promise</p>
-    <p class="promise-title"><span class="brand-name">OpenLeaf</span> mobile app for book reading will remain free and ad-free forever.</p>
+    <h2 class="promise-title"><span class="brand-name">OpenLeaf</span> mobile app for book reading will remain free and ad-free forever.</h2>
     <p class="promise-text">
       Built for readers who want quiet, uninterrupted, and free access to knowledge, along with a calmer way to reclaim their attention, strengthen reading habits, and step back from the constant pull of a distracted world.
     </p>
@@ -38,10 +38,10 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
 </section>
 
 <section id="about" class="content-section">
-  <p class="section-label">Why OpenLeaf exists - Motivations</p>
+  <h2 class="section-label">Why OpenLeaf exists - Motivations</h2>
   <div class="about-grid section-content">
     <article class="about-panel">
-      <p class="about-panel-title">About <span class="brand-name">OpenLeaf</span></p>
+      <h3 class="about-panel-title">About <span class="brand-name">OpenLeaf</span></h3>
       <p class="section-text">
         Welcome! Glad you found your way here!
         <span class="brand-name">OpenLeaf</span> is a social initiative built to strengthen book-reading culture in a time of fragmented attention through a thoughtful blog, reflective essays, honest book reviews, and a forever free, ad-free reading app coming soon. The commitment is simple and long term: keep everything free, ad-free, and welcoming while helping build a healthier reading culture for future generations.
@@ -60,7 +60,7 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
     </article>
 
     <article class="about-panel about-panel-secondary">
-      <p class="about-panel-title">About Me</p>
+      <h3 class="about-panel-title">About Me</h3>
       <p class="section-text">
         I am a software engineer with close to twenty years of experience as an IT professional, and I have been an avid reader since early childhood.
       </p>
@@ -81,7 +81,7 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
 </section>
 
 <section class="content-section">
-  <p class="section-label">Why Project Gutenberg mattered</p>
+  <h2 class="section-label">Why Project Gutenberg mattered</h2>
   <div class="section-content">
     <p class="section-lead">
       Project Gutenberg showed that free access to books can be generous, durable, and global.
@@ -102,7 +102,7 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
 <section id="recent-posts" class="featured-section">
   <div class="posts-head">
     <div>
-      <p class="section-label">Recent posts</p>
+      <h2 class="section-label">Recent posts</h2>
       <p class="posts-intro">Start with the newest writing, then continue through the archive at your own pace.</p>
     </div>
   </div>
@@ -136,7 +136,7 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
         <div class="featured-post-copy">
           <p class="featured-post-category">{{ post_category_label }}</p>
           <div class="featured-post-meta">{{ post.date | date: "%B %d, %Y" }}</div>
-          <h2 class="featured-post-title">
+          <h3 class="featured-post-title">
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
           </h2>
           <p class="featured-post-desc">{{ post.description | default: post.excerpt | strip_html }}</p>
@@ -179,7 +179,7 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
 <section id="featured-articles" class="featured-section">
   <div class="posts-head">
     <div>
-      <p class="section-label">Featured articles</p>
+      <h2 class="section-label">Featured articles</h2>
       <p class="posts-intro">A curated shelf of highlighted essays and reviews worth starting with.</p>
     </div>
   </div>
@@ -249,7 +249,7 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
 <section id="topics" class="topics-section">
   <div class="posts-head">
     <div>
-      <p class="section-label">Browse by topic</p>
+      <h2 class="section-label">Browse by topic</h2>
       <p class="posts-intro">Find posts through the ideas and themes that connect them.</p>
     </div>
   </div>
@@ -348,7 +348,7 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
         <a class="cta-button cta-button-secondary" href="https://github.com/openleafsupport/openleaf/issues" target="_blank" rel="noopener noreferrer">Open a GitHub issue</a>
       </div>
       <div class="comments-block">
-        <p class="comments-title">Public comments</p>
+        <h3 class="comments-title">Public comments</h3>
         <p class="comments-text">Prefer to leave a public note? You can comment here using GitHub Discussions via Giscus.</p>
         {% if site.comments.repo and site.comments.repo_id != '' and site.comments.category_id != '' %}
         <div class="comments-embed">

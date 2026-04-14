@@ -14,7 +14,6 @@ featured: 2
 cover_image_alt: "OpenLeaf cover image for How I Nudged My 4-Year-Old Toward Books Instead of Screens"
 ---
 
-# How I Encouraged My 4-Year-Old to Choose Books Over Screens
 
 There was a time when turning on TV felt like the easiest way to keep my daughter engaged. Cocomelon, Pepa Pigs, and other YouTube channels became her go-to companions. Bright colors, quick sounds, instant gratification. It works. That’s exactly the problem.
 

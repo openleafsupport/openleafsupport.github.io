@@ -15,7 +15,6 @@ featured: 6
 cover_image_alt: "OpenLeaf cover image for Verity book review"
 ---
 
-# Verity Book Review: A Dark Psychological Thriller You Cannot Trust
 
 > **Author:** Colleen Hoover  
 > **Rating:** 9.5/10  

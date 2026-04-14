@@ -116,7 +116,7 @@ layout: default
   <hr class="post-divider post-divider-secondary" />
 
   <section class="related-posts" aria-label="Related posts">
-    <p class="section-label">You might also like</p>
+    <h2 class="section-label">You might also like</h2>
     <div class="related-posts-list">
       {% for rpost in related_posts %}
         {% assign rpost_category = rpost.categories | first | default: 'Reflections' %}
@@ -144,7 +144,7 @@ layout: default
     </div>
 
     <div class="comments-block">
-      <p class="comments-title">Public comments</p>
+      <h3 class="comments-title">Public comments</h3>
       <p class="comments-text">Prefer to leave a public note here? You can comment below using GitHub Discussions via Giscus.</p>
       {% if site.comments.repo and site.comments.repo_id != '' and site.comments.category_id != '' %}
       <div class="comments-embed">

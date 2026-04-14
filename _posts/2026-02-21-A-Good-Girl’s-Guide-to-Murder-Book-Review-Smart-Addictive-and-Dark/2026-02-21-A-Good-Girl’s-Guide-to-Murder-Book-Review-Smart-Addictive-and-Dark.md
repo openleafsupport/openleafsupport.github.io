@@ -15,7 +15,6 @@ featured: 5
 cover_image_alt: "OpenLeaf cover image for A Good Girl’s Guide to Murder book review"
 ---
 
-# A Good Girl’s Guide to Murder Book Review: Smart, Addictive, and Dark
 
 > **Author:** Holly Jackson
 > **Rating:** 8.5/10  

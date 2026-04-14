@@ -14,7 +14,6 @@ featured: 4
 cover_image_alt: "OpenLeaf cover image for The Kite Runner book review"
 ---
 
-# The Kite Runner Book Review: Friendship, Guilt, and Redemption
 
 > **Author:** Khaled Hosseini  
 > **Rating:** 8/10  

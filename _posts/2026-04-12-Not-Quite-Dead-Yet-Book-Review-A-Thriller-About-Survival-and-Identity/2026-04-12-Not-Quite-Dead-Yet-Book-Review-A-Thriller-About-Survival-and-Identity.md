@@ -14,7 +14,6 @@ cover_image: "image.jpeg"
 cover_image_alt: "OpenLeaf cover image for Not Quite Dead Yet book review"
 ---
 
-# Not Quite Dead Yet Book Review: A Thriller About Survival and Identity
 
 > **Author:** Holly Jackson  
 > **Rating:** 7/10  
