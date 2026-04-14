@@ -87,6 +87,27 @@ layout: default
     {{ content }}
   </div>
 
+  {% if page.previous or page.next %}
+  <nav class="post-nav" aria-label="Read next">
+    {% if page.previous %}
+    <a class="post-nav-link post-nav-prev" href="{{ page.previous.url | relative_url }}">
+      <span class="post-nav-label">&#8592; Previous</span>
+      <span class="post-nav-title">{{ page.previous.title }}</span>
+    </a>
+    {% else %}
+    <span class="post-nav-link post-nav-placeholder"></span>
+    {% endif %}
+    {% if page.next %}
+    <a class="post-nav-link post-nav-next" href="{{ page.next.url | relative_url }}">
+      <span class="post-nav-label">Next &#8594;</span>
+      <span class="post-nav-title">{{ page.next.title }}</span>
+    </a>
+    {% else %}
+    <span class="post-nav-link post-nav-placeholder"></span>
+    {% endif %}
+  </nav>
+  {% endif %}
+
   <hr class="post-divider post-divider-secondary" />
 
   {% include subscribe-form.html id="post" %}

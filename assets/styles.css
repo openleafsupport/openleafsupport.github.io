@@ -1191,6 +1191,54 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   margin-bottom: 2rem;
 }
 
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2.75rem;
+}
+
+.post-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-secondary);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.post-nav-link:hover {
+  border-color: var(--accent);
+  background: var(--bg-secondary);
+  text-decoration: none;
+}
+
+.post-nav-placeholder {
+  border: none;
+}
+
+.post-nav-next {
+  text-align: right;
+}
+
+.post-nav-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.post-nav-title {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+
 .post-cover {
   margin-bottom: 2rem;
   aspect-ratio: 1.4 / 1;
@@ -1533,6 +1581,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   .post-item-meta { white-space: normal; }
   .author-bio { grid-template-columns: 1fr; }
   .subscribe-form { flex-direction: column; }
+  .post-nav { grid-template-columns: 1fr; }
   .footer-subscribe { max-width: 100%; }
   .post-feedback-title { margin-bottom: 0.5rem; }
   .post-feedback-text { margin-bottom: 0.6rem; line-height: 1.7; }

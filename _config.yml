@@ -4,6 +4,10 @@ email: openleaf.support@gmail.com
 
 baseurl: ""
 url: "https://openleafsupport.github.io"
+
+# Google Search Console — paste your verification code here
+# Get it from: Search Console → Settings → Ownership verification → HTML tag
+google_site_verification: ""
 permalink: /:categories/:year/:month/:day/:title:output_ext
 
 markdown: kramdown
