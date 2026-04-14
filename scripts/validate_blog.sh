@@ -6,8 +6,9 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_FILE="$ROOT_DIR/_config.yml"
 CATEGORY_FILE="$ROOT_DIR/_data/blog_categories.yml"
 PUBLIC_ASSET_DIR="$ROOT_DIR/assets/post-assets"
-BEGIN_MARKER="  # BEGIN POST ASSET INCLUDES"
-END_MARKER="  # END POST ASSET INCLUDES"
+# Config include markers removed — GitHub Pages Jekyll 3.10 cannot read binary
+# files listed under include: and fails with "invalid byte sequence in UTF-8".
+# Images are served from assets/post-assets/ instead.
 MIN_IMAGE_SHORT_SIDE=800
 MIN_IMAGE_LONG_SIDE=1000
 MAX_IMAGE_BYTES=2500000
@@ -133,11 +134,6 @@ sync_assets_and_config() {
   find _posts -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.svg' -o -iname '*.avif' \) | LC_ALL=C sort > "$TMP_ASSETS"
   awk '/^- name:[[:space:]]*/ { sub(/^- name:[[:space:]]*/, ""); print } /^  slug:[[:space:]]*/ { sub(/^  slug:[[:space:]]*/, ""); print }' "$CATEGORY_FILE" | LC_ALL=C sort -u > "$TMP_ALLOWED"
 
-  if ! has_line "$CONFIG_FILE" "$BEGIN_MARKER" || ! has_line "$CONFIG_FILE" "$END_MARKER"; then
-    error "_config.yml is missing the post asset include markers."
-    exit 1
-  fi
-
   local asset_count allowed_count
   asset_count="$(wc -l < "$TMP_ASSETS" | tr -d ' ')"
   allowed_count="$(wc -l < "$TMP_ALLOWED" | tr -d ' ')"
@@ -153,15 +149,6 @@ sync_assets_and_config() {
     cp "$asset_path" "$public_path"
   done < "$TMP_ASSETS"
   info "Synced post assets into assets/post-assets/"
-
-  awk -v begin="$BEGIN_MARKER" -v end="$END_MARKER" -v assets_file="$TMP_ASSETS" '
-    BEGIN { while ((getline line < assets_file) > 0) { assets[++count] = line } }
-    { if ($0 == begin) { print; for (i=1;i<=count;i++) print "  - " assets[i]; skip=1; next }
-      if ($0 == end) { skip=0; print; next }
-      if (!skip) print }
-  ' "$CONFIG_FILE" > "$TMP_CONFIG"
-  cp "$TMP_CONFIG" "$CONFIG_FILE"
-  info "Updated the generated post asset include block in _config.yml"
 }
 
 validate_book_review_content() {

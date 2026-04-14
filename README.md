@@ -72,7 +72,6 @@ Run:
 
 This script will:
 
-- regenerate the `_config.yml` post asset `include:` block
 - copy post-local images into `assets/post-assets/` for reliable GitHub Pages serving
 - validate post image standards:
   - shortest side must be at least `800px`

@@ -298,7 +298,9 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
       <span class="category-pill-meta">{{ site.posts | size }} post{% if site.posts.size != 1 %}s{% endif %}</span>
     </button>
     {% for category in site.data.blog_categories %}
-    {% assign category_posts = site.posts | where_exp: 'post', 'post.categories contains category.slug or post.categories contains category.name' %}
+    {% assign category_posts_by_slug = site.posts | where_exp: 'post', 'post.categories contains category.slug' %}
+    {% assign category_posts_by_name = site.posts | where_exp: 'post', 'post.categories contains category.name' %}
+    {% assign category_posts = category_posts_by_slug | concat: category_posts_by_name | uniq %}
     <button class="category-pill" type="button" data-category-filter="{{ category.slug }}" aria-pressed="false">
       <span class="category-pill-name">{{ category.name }}</span>
       <span class="category-pill-desc">{{ category.description }}</span>
