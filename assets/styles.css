@@ -1337,8 +1337,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 }
 
 .subscribe-section {
-  padding: 3rem 0;
-  padding-top: 0;
+  padding: 3rem 0;  
 }
 
 .subscribe-section .subscribe-block {
