@@ -167,6 +167,10 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
 </section>
 {% endif %}
 
+<section class="subscribe-section">
+  {% include subscribe-form.html id="home" %}
+</section>
+
 {% assign featured_posts_limit = site.featured_posts_limit | default: 5 %}
 {% assign featured_posts = site.posts | where_exp: 'post', 'post.featured and post.featured > 0' | sort: 'featured' %}
 {% if featured_posts.size > 0 %}
@@ -227,7 +231,19 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
   {% endfor %}
 {% endfor %}
 
-{% if all_tags.size > 0 %}
+{% assign counted_tags = "" | split: "" %}
+{% for tag in all_tags %}
+  {% assign tag_count = 0 %}
+  {% for post in site.posts %}
+    {% if post.tags contains tag %}{% assign tag_count = tag_count | plus: 1 %}{% endif %}
+  {% endfor %}
+  {% assign padded_count = 1000 | minus: tag_count %}
+  {% assign entry = padded_count | append: "|" | append: tag %}
+  {% assign counted_tags = counted_tags | push: entry %}
+{% endfor %}
+{% assign sorted_entries = counted_tags | sort %}
+
+{% if sorted_entries.size > 0 %}
 <section id="topics" class="topics-section">
   <div class="posts-head">
     <div>
@@ -237,27 +253,15 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
   </div>
 
   <div class="topics-cloud" aria-label="Browse posts by topic">
-    {% assign sorted_tags = all_tags | sort_natural %}
-    {% for tag in sorted_tags %}
+    {% for entry in sorted_entries limit: 10 %}
+      {% assign parts = entry | split: "|" %}
+      {% assign tag = parts[1] %}
+      {% assign tag_count = 1000 | minus: parts[0] %}
       {% assign tag_slug = tag | slugify %}
-      {% assign tag_count = 0 %}
-      {% for post in site.posts %}
-        {% if post.tags contains tag %}{% assign tag_count = tag_count | plus: 1 %}{% endif %}
-      {% endfor %}
       <a class="topic-pill" href="{{ '/tags/' | append: tag_slug | append: '/' | relative_url }}">
         {{ tag }}<span class="topic-pill-count">{{ tag_count }}</span>
       </a>
     {% endfor %}
-  </div>
-</section>
-{% endif %}
-
-<section id="explore" class="explorer-section">
-  <div class="posts-head">
-    <div>
-      <p class="section-label">Explore the archive</p>
-      <p class="posts-intro">Search by title or idea, filter by category, then narrow by year and month.</p>
-    </div>
   </div>
 
   <form class="blog-toolbar" role="search" aria-label="Search blog posts">
@@ -311,6 +315,12 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
   </div>
 
   <div id="blog-scroll-sentinel" class="blog-scroll-sentinel" aria-hidden="true"></div>
+</section>
+{% endif %}
+
+<section id="explore" class="explorer-section">
+  
+  
 </section>
 
 <section class="cta-section">

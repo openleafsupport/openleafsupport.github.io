@@ -8,7 +8,7 @@ tags:
   - parenting
   - children and books
   - screen time
-  - reading habits
+  - reading habit
 cover_image: "image.jpg"
 featured: 2
 cover_image_alt: "OpenLeaf cover image for How I Nudged My 4-Year-Old Toward Books Instead of Screens"

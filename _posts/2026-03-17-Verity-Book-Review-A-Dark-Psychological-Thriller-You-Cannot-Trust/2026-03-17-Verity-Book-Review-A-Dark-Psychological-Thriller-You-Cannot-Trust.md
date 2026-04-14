@@ -5,10 +5,11 @@ description: "A thoughtful review of Verity, exploring its psychological tension
 categories:
   - book-reviews
 tags:
-  - books
+  - psychological
   - book review
-  - colleen hoover
-  - verity
+  - romance
+  - thriller
+  - Colleen Hoover
 cover_image: "image.png"
 featured: 6
 cover_image_alt: "OpenLeaf cover image for Verity book review"

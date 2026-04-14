@@ -5,7 +5,7 @@ description: "A reflective review of The Kite Runner by Khaled Hosseini, explori
 categories:
   - book-reviews
 tags:
-  - books
+  - drama
   - book review
   - khaled hosseini
   - kite runner

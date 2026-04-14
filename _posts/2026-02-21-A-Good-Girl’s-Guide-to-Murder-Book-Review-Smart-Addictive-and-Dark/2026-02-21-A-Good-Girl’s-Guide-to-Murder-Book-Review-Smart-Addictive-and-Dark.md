@@ -5,10 +5,11 @@ description: "A spoiler-light review of A Good Girl’s Guide to Murder, looking
 categories:
   - book-reviews
 tags:
-  - books
   - book review
-  - holly jackson
-  - a good girl's guide to murder
+  - young adult
+  - mystery
+  - thriller
+  - Holly Jackson
 cover_image: "image.jpeg"
 featured: 5
 cover_image_alt: "OpenLeaf cover image for A Good Girl’s Guide to Murder book review"

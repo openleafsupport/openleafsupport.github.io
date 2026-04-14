@@ -886,6 +886,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   grid-template-columns: minmax(0, 2fr) repeat(3, minmax(130px, 0.7fr));
   gap: 1rem;
   align-items: end;
+  margin-top: 2rem;
 }
 
 .filter-field {
@@ -1330,6 +1331,105 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   gap: 0.8rem;
 }
 
+/* Subscribe form */
+.subscribe-block {
+  margin-bottom: 0.5rem;
+}
+
+.subscribe-section {
+  padding: 3rem 0;
+  padding-top: 0;
+}
+
+.subscribe-section .subscribe-block {
+  max-width: 540px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.subscribe-title {
+  margin-top: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.subscribe-note {
+  margin-bottom: 1.25rem;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.subscribe-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.92rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.15s ease;
+}
+
+.subscribe-input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.subscribe-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.subscribe-button {
+  flex-shrink: 0;
+}
+
+.subscribe-powered {
+  margin-top: 0.65rem;
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+}
+
+.subscribe-powered a {
+  color: var(--text-tertiary);
+}
+
+.subscribe-powered a:hover {
+  color: var(--accent);
+}
+
+/* Footer subscribe */
+.footer-subscribe {
+  width: 100%;
+  max-width: 420px;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.footer-subscribe .subscribe-title {
+  font-size: 1.1rem;
+}
+
+.footer-subscribe .subscribe-note {
+  font-size: 0.82rem;
+  margin-bottom: 0.85rem;
+}
+
+.footer-subscribe .subscribe-input {
+  padding: 0.55rem 0.75rem;
+  font-size: 0.85rem;
+}
+
 .site-footer {
   padding: 2rem 0;
   border-top: 1px solid var(--border-secondary);
@@ -1433,6 +1533,8 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   .post-item { flex-direction: column; gap: 0.25rem; }
   .post-item-meta { white-space: normal; }
   .author-bio { grid-template-columns: 1fr; }
+  .subscribe-form { flex-direction: column; }
+  .footer-subscribe { max-width: 100%; }
   .post-feedback-title { margin-bottom: 0.5rem; }
   .post-feedback-text { margin-bottom: 0.6rem; line-height: 1.7; }
   .post-feedback-actions { gap: 0.65rem; }

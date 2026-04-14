@@ -1,7 +1,7 @@
 ---
 layout: tag
-tag: "colleen hoover"
-title: "Posts tagged 'colleen hoover'"
-description: "All OpenLeaf posts tagged with 'colleen hoover'."
+tag: "Colleen Hoover"
+title: "Posts tagged 'Colleen Hoover'"
+description: "All OpenLeaf posts tagged with 'Colleen Hoover'."
 permalink: /tags/colleen-hoover/
 ---

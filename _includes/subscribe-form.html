@@ -1,0 +1,24 @@
+<aside class="subscribe-block" aria-label="Newsletter signup">
+  <p class="section-label">Newsletter</p>
+  <h2 class="subscribe-title">Stay in the reading loop.</h2>
+  <p class="subscribe-note">New essays and book notes, no more than twice a month.</p>
+  <form
+    class="subscribe-form"
+    action="https://buttondown.com/api/emails/embed-subscribe/openleaf"
+    method="post"
+  >
+    <input
+      class="subscribe-input"
+      type="email"
+      name="email"
+      id="bd-email-{{ include.id | default: 'default' }}"
+      placeholder="you@example.com"
+      required
+      aria-label="Email address"
+    />
+    <button class="subscribe-button cta-button" type="submit">Subscribe</button>
+  </form>
+  <p class="subscribe-powered">
+    <a href="https://buttondown.com/refer/openleaf" target="_blank" rel="noopener noreferrer">Powered by Buttondown.</a>
+  </p>
+</aside>

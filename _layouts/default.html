@@ -140,12 +140,10 @@
       </a>
       <div class="nav-meta">
         <div class="nav-links nav-links-desktop">
-          <a href="{{ '/' | relative_url }}">Home</a>
-          <a href="{{ '/' | relative_url }}#launch">Announcement</a>
+          <a href="{{ '/' | relative_url }}">Home</a>          
           <a href="{{ '/' | relative_url }}#about">About</a>
-          <a href="{{ '/' | relative_url }}#recent-posts">What's New</a>
-          <a href="{{ '/' | relative_url }}#topics">Topics</a>
-          <a href="{{ '/' | relative_url }}#explore">Articles</a>
+          <a href="{{ '/' | relative_url }}#recent-posts">What's New</a>          
+          <a href="{{ '/' | relative_url }}#topics">Articles</a>
           <a href="{{ '/' | relative_url }}#sponsor">Sponsor</a>
           <a href="{{ '/' | relative_url }}#feedback">Feedback</a>
         </div>
@@ -157,12 +155,10 @@
             </svg>
           </summary>
           <div class="nav-dropdown-panel">
-            <a href="{{ '/' | relative_url }}">Home</a>
-            <a href="{{ '/' | relative_url }}#launch">Announcement</a>
+            <a href="{{ '/' | relative_url }}">Home</a>            
             <a href="{{ '/' | relative_url }}#about">About</a>
-            <a href="{{ '/' | relative_url }}#recent-posts">What's New</a>
-            <a href="{{ '/' | relative_url }}#topics">Topics</a>
-          <a href="{{ '/' | relative_url }}#explore">Articles</a>
+            <a href="{{ '/' | relative_url }}#recent-posts">What's New</a>            
+            <a href="{{ '/' | relative_url }}#topics">Articles</a>
             <a href="{{ '/' | relative_url }}#sponsor">Sponsor</a>
             <a href="{{ '/' | relative_url }}#feedback">Feedback</a>
           </div>
@@ -193,6 +189,9 @@
 
   <footer class="site-footer">
     <div class="wrap">
+      <div class="footer-subscribe">
+        {% include subscribe-form.html id="footer" %}
+      </div>
       <p><span class="brand-name">OpenLeaf</span> &mdash; Writing on reading, attention, and deliberate living.</p>
       <a class="footer-feed-link" href="{{ '/feed.xml' | relative_url }}" aria-label="Subscribe to the OpenLeaf RSS feed">
         <svg viewBox="0 0 24 24" aria-hidden="true">

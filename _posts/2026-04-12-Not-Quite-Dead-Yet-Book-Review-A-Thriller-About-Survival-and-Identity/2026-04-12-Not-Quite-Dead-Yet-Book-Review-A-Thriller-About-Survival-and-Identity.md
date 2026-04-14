@@ -5,10 +5,11 @@ description: "A review of Not Quite Dead Yet, exploring how the novel blends sus
 categories:
   - book-reviews
 tags:
-  - books
+  - thriller
   - book review
-  - holly jackson
-  - not quite dead yet
+  - mystery
+  - young adult
+  - Holly Jackson
 cover_image: "image.jpeg"
 cover_image_alt: "OpenLeaf cover image for Not Quite Dead Yet book review"
 ---

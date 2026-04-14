@@ -89,6 +89,10 @@ layout: default
 
   <hr class="post-divider post-divider-secondary" />
 
+  {% include subscribe-form.html id="post" %}
+
+  <hr class="post-divider post-divider-secondary" />
+
   {% include author-bio.html %}
 
   {% assign related_posts = "" | split: "" %}
