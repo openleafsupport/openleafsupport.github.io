@@ -20,10 +20,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# Post images are served from assets/post-assets/ (copied by validate_blog.sh).
-# Do NOT add raw _posts/ images to include: - Jekyll 3.10 on GitHub Pages
-# tries to read them as text and fails with "invalid byte sequence in UTF-8".
-
 author:
   name: "OpenLeaf"
   email: openleaf.support@gmail.com

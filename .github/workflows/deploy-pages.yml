@@ -42,6 +42,16 @@ jobs:
           bundle _2.5.23_ config set path vendor/bundle
           bundle _2.5.23_ install
 
+      - name: Sync post images to assets
+        run: |
+          mkdir -p assets/post-assets
+          find _posts -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.avif' \) | while read -r img; do
+            dest="assets/post-assets/${img#_posts/}"
+            mkdir -p "$(dirname "$dest")"
+            cp "$img" "$dest"
+            rm "$img"
+          done
+
       - name: Build site
         env:
           BUNDLE_FORCE_RUBY_PLATFORM: 'true'
