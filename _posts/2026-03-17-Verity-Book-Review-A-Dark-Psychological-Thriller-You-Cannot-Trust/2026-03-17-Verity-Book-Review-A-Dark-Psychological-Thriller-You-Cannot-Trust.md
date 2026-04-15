@@ -13,6 +13,9 @@ tags:
 cover_image: "image.png"
 featured: 6
 cover_image_alt: "OpenLeaf cover image for Verity book review"
+book_title: "Verity"
+book_author: "Colleen Hoover"
+rating: 9
 ---
 
 

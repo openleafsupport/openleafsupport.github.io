@@ -21,12 +21,13 @@ plugins:
   - jekyll-sitemap
 
 author:
-  name: "OpenLeaf"
+  name: "OpenLeaf (Anonymous)"
   email: openleaf.support@gmail.com
   avatar: "/assets/images/icon.jpeg"
   about_url: "/#about"
+  short_bio: Book lover by heart, IT professional by work · Immersive reader · On a mission to grow a stronger reading community for the future
   bio: >
-    An IT professional close to 20 years of experience and a reader since childhood -
+    An IT professional close to 20 years of experience and an immersive reader since childhood -
     somewhere around age eight or nine, when books quietly became a
     lifelong companion. Never counted it for sure but it has to be over 1,500 books read across a life. A proud owner of a personal
     library of 500 books and counting.

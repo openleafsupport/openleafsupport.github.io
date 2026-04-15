@@ -12,6 +12,9 @@ tags:
   - Holly Jackson
 cover_image: "image.jpeg"
 cover_image_alt: "OpenLeaf cover image for Not Quite Dead Yet book review"
+book_title: "Not Quite Dead Yet"
+book_author: "Holly Jackson"
+rating: 7
 ---
 
 

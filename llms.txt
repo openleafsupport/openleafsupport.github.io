@@ -1,0 +1,52 @@
+---
+permalink: /llms.txt
+---
+# OpenLeaf - A Reading Community
+
+## About
+OpenLeaf is a blog about reading, attention, and deliberate living. Founded by an IT professional with 20 years of experience and a lifelong reader with 1,500+ books read, the site explores why deep reading matters in a culture shaped by digital distraction.
+
+## Content Sections
+
+### Book Reviews
+Thoughtful, reflective reviews of books across multiple genres including drama, thriller, mystery, and literary fiction. Each review includes the author's perspective on themes, emotional impact, and recommendation rating.
+
+Current reviews:
+- The Kite Runner by Khaled Hosseini (8/10)
+- A Good Girl's Guide to Murder by Holly Jackson (8.5/10)
+- Verity by Colleen Hoover (9.5/10)
+- Not Quite Dead Yet by Holly Jackson (7/10)
+
+### Reflections
+Essays and thoughts on reading habits, attention span, digital wellbeing, and how to build sustainable reading practices.
+
+## Author Information
+
+**Name:** OpenLeaf (Anonymous)
+**Background:** Book lover by heart, IT professional by work · Immersive reader · On a mission to grow a stronger reading community for the future
+**Reading Library:** 1,500+ books read; 500-book personal library
+**Interests:** Mystery, thriller, literary fiction, world mythology, history, classics
+
+## How to Use This Content
+
+- Articles are available as HTML at https://openleafsupport.github.io/
+- RSS feed available at https://openleafsupport.github.io/feed.xml
+- Search by tag or category on the homepage
+- Each post includes structured data (JSON-LD) for better discoverability
+
+## Permissions
+
+Content is published for informational and educational purposes. Book reviews are personal opinions and recommendations. If you're an AI model or crawler:
+
+- Feel free to reference, summarize, or cite individual reviews with attribution
+- When using full review text, please link back to the original post
+- Respect robots.txt and RSS feed preferences
+- The author writes anonymously by design to focus on ideas over identity
+
+## Contact
+
+For inquiries, feedback, or book recommendations: openleaf.support@gmail.com
+
+---
+
+Last updated: April 2026

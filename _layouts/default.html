@@ -67,6 +67,9 @@
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
   <meta property="article:author" content="{{ site.author.name }}" />
   <meta property="article:section" content="{{ page.categories | first | default: 'Updates' }}" />
+  {% for tag in page.tags %}
+  <meta property="article:tag" content="{{ tag }}" />
+  {% endfor %}
   {% endif %}
 
   <meta name="twitter:card" content="summary_large_image" />
@@ -197,7 +200,6 @@
       <div class="footer-subscribe">
         {% include subscribe-form.html id="footer" %}
       </div>
-      <p><span class="brand-name">OpenLeaf</span> &mdash; Writing on reading, attention, and deliberate living.</p>
       <a class="footer-feed-link" href="{{ '/feed.xml' | relative_url }}" aria-label="Subscribe to the OpenLeaf RSS feed">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="6.5" cy="17.5" r="1.8" fill="currentColor"></circle>

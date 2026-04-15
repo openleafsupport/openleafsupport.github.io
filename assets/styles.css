@@ -1193,6 +1193,55 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 
 .post-meta span { margin-right: 1.25rem; }
 
+.post-author-byline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.post-author-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.post-author-info {
+  flex: 1;
+}
+
+.post-author-name {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.post-author-credentials {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.post-category-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
 .post-divider {
   margin-bottom: 2.5rem;
   border: none;
@@ -1336,8 +1385,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 }
 
 .author-bio-name {
-  margin-bottom: 0.5rem;
-  font-family: var(--serif);
+  margin-bottom: 0.5rem;  
   font-size: 1.15rem;
   color: var(--text);
 }
@@ -1586,6 +1634,14 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .archive-grid { grid-template-columns: 1fr; }
+  .launch-section {
+    flex-direction: column;
+  }
+  .launch-section > :first-child,
+  .launch-section > :last-child {
+    margin-right: 0;
+    margin-left: 0;
+  }
   .tag-archive-item-link,
   .related-post-link { flex-direction: column; gap: 0.25rem; }
   .tag-archive-item-meta,
@@ -1593,6 +1649,13 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   .post-item { flex-direction: column; gap: 0.25rem; }
   .post-item-meta { white-space: normal; }
   .author-bio { grid-template-columns: 1fr; }
+  .post-author-byline {
+    flex-direction: column;
+    text-align: center;
+  }
+  .post-author-info {
+    flex: none;
+  }
   .subscribe-form { flex-direction: column; }
   .post-nav { grid-template-columns: 1fr; }
   .footer-subscribe { max-width: 100%; }

@@ -12,6 +12,9 @@ tags:
 cover_image: "image.png"
 featured: 4
 cover_image_alt: "OpenLeaf cover image for The Kite Runner book review"
+book_title: "The Kite Runner"
+book_author: "Khaled Hosseini"
+rating: 8
 ---
 
 

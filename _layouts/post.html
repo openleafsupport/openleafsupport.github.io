@@ -3,6 +3,9 @@ layout: default
 ---
 
 <article class="post-wrapper">
+  <!-- NOTE: The post title below is the only H1 on this page.
+       Do not use # (H1) headings in your post markdown - use ## (H2) instead.
+       Only one H1 per page is best for SEO and accessibility. -->
 
   {% assign primary_category = page.categories | first | default: 'updates' %}
   {% assign primary_category_label = primary_category | replace: 'book-reviews', 'Book Reviews' | replace: 'reflections', 'Reflections' | replace: 'updates', 'Updates' | replace: 'announcements', 'Announcements' %}
@@ -17,6 +20,17 @@ layout: default
   <div class="post-meta">
     <span>{{ page.date | date: "%B %d, %Y" }}</span>
     <span>{{ post_word_count | divided_by: 200 | plus: 1 }} min read</span>
+  </div>
+
+  <div class="post-author-byline">
+    <img class="post-author-avatar" src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" />
+    <div class="post-author-info">
+      <div class="post-author-name">Authored By {{ site.author.name }}</div>
+      <div class="post-author-credentials">{{ site.author.short_bio }}</div>
+    </div>
+    {% if page.categories contains 'book-reviews' %}
+    <span class="post-category-badge">Book Reviewer</span>
+    {% endif %}
   </div>
 
   {% if page.tags.size > 0 %}
@@ -80,6 +94,36 @@ layout: default
     }
   }
   </script>
+
+  {% if page.categories contains 'book-reviews' %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "name": {{ page.title | jsonify }},
+    "reviewBody": {{ page.description | jsonify }},
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": {{ page.rating | jsonify }},
+      "bestRating": "10",
+      "worstRating": "1"
+    },
+    "itemReviewed": {
+      "@type": "Book",
+      "name": {{ page.book_title | default: page.title | jsonify }},
+      "author": {
+        "@type": "Person",
+        "name": {{ page.book_author | jsonify }}
+      }
+    },
+    "author": {
+      "@type": "Person",
+      "name": {{ site.author.name | jsonify }}
+    },
+    "datePublished": "{{ page.date | date_to_xmlschema }}"
+  }
+  </script>
+  {% endif %}
 
   <hr class="post-divider" />
 
