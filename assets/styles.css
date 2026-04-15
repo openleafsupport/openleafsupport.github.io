@@ -248,9 +248,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 
 .hero { padding: 4.5rem 0 2rem; }
 
-.hero-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+.hero-layout {  
   gap: 1.5rem;
   align-items: start;
 }
@@ -300,8 +298,7 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   margin-top: 0;
 }
 
-.hero-desc {
-  max-width: 38rem;
+.hero-desc {  
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--text-secondary);
@@ -619,6 +616,22 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
 .archive-card-link {
   margin-top: auto;
   padding-top: 1rem;
+}
+
+.launch-section {
+  display: flex;
+}
+
+.launch-section > * {
+  flex: 1;
+}
+
+.launch-section > :first-child {
+  margin-right: 1rem;
+}
+
+.launch-section > :last-child {
+  margin-left: 1rem;
 }
 
 .launch-section,
