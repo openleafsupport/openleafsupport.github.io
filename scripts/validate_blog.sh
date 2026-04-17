@@ -131,20 +131,30 @@ validate_image_asset() {
 
 sync_assets_and_config() {
   step "Syncing post-local assets"
-  find _posts -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.svg' -o -iname '*.avif' \) | LC_ALL=C sort > "$TMP_ASSETS"
+  # Collect images from both _posts/ (published) and _published-articles/ (source)
+  (find _posts -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.svg' -o -iname '*.avif' \) 2>/dev/null
+   find _published-articles -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.svg' -o -iname '*.avif' \) 2>/dev/null) | LC_ALL=C sort -u > "$TMP_ASSETS"
+
   awk '/^- name:[[:space:]]*/ { sub(/^- name:[[:space:]]*/, ""); print } /^  slug:[[:space:]]*/ { sub(/^  slug:[[:space:]]*/, ""); print }' "$CATEGORY_FILE" | LC_ALL=C sort -u > "$TMP_ALLOWED"
 
   local asset_count allowed_count
   asset_count="$(wc -l < "$TMP_ASSETS" | tr -d ' ')"
   allowed_count="$(wc -l < "$TMP_ALLOWED" | tr -d ' ')"
   info "Found $asset_count post asset file(s) and $allowed_count approved categor$( [[ "$allowed_count" == "1" ]] && echo 'y' || echo 'ies' )."
-  [[ "$asset_count" == "0" ]] && warn "No post-local image assets were found under _posts/."
+  [[ "$asset_count" == "0" ]] && warn "No post-local image assets were found under _posts/ or _published-articles/."
 
   rm -rf "$PUBLIC_ASSET_DIR"
   mkdir -p "$PUBLIC_ASSET_DIR"
   while IFS= read -r asset_path; do
     [[ -z "$asset_path" ]] && continue
-    public_path="$PUBLIC_ASSET_DIR/${asset_path#_posts/}"
+    # Handle both _posts/ and _published-articles/ paths
+    if [[ "$asset_path" == _posts/* ]]; then
+      public_path="$PUBLIC_ASSET_DIR/${asset_path#_posts/}"
+    elif [[ "$asset_path" == _published-articles/* ]]; then
+      public_path="$PUBLIC_ASSET_DIR/${asset_path#_published-articles/}"
+    else
+      continue
+    fi
     mkdir -p "$(dirname "$public_path")"
     cp "$asset_path" "$public_path"
   done < "$TMP_ASSETS"
@@ -204,6 +214,7 @@ validate_post_file() {
   local md_file="$1"
   local errors=0
   local md_dir repo_path cover_image bundle_name file_name ref raw_ref category featured_value
+  local post_year post_month
   md_dir="$(dirname "$md_file")"
   bundle_name="$(basename "$md_dir")"
 
@@ -239,30 +250,42 @@ validate_post_file() {
         if ! file_exists "$repo_path"; then
           error "$md_file has cover_image '$cover_image' but the file does not exist."
           errors=1
-        elif [[ "$repo_path" == _posts/* ]]; then
+        elif [[ "$repo_path" == _posts/* ]] || [[ "$repo_path" == _published-articles/* ]]; then
           file_name="$(basename "$repo_path")"
-          error "$md_file uses cover_image '$cover_image'. Use cover_image: '$file_name' and let the script publish it to /assets/post-assets/$bundle_name/."
+          error "$md_file uses cover_image '$cover_image'. Use cover_image: '$file_name' and let the script publish it to /assets/post-assets/YYYY/MM/."
           errors=1
         fi
         ;;
       *)
-        # Check if cover_image exists in the nested _posts/YYYY/MM/ folders
-        # Extract date from filename (format: YYYY-MM-DD-title.md)
-        filename=$(basename "$md_file")
-        post_year="${filename:0:4}"
-        post_month="${filename:5:2}"
+        # Determine the year/month based on file location
+        # For _posts/YYYY-MM-DD-title.md: extract from filename
+        # For _published-articles/YYYY/MM/DD-title.md: extract from directory path
+        if [[ "$md_file" == _posts/* ]]; then
+          filename=$(basename "$md_file")
+          post_year="${filename:0:4}"
+          post_month="${filename:5:2}"
+        elif [[ "$md_file" == _published-articles/* ]]; then
+          # Extract from nested path: _published-articles/YYYY/MM/DD-title.md
+          post_year=$(echo "$md_file" | cut -d'/' -f2)
+          post_month=$(echo "$md_file" | cut -d'/' -f3)
+        fi
 
-        # Try nested folder first
-        nested_path="_posts/$post_year/$post_month/$cover_image"
-
-        if file_exists "$nested_path" 2>/dev/null; then
+        # Check in both _posts/ and _published-articles/ nested folders
+        local found=0
+        if [[ -f "_posts/$post_year/$post_month/$cover_image" ]]; then
           ok "$md_file cover_image '$cover_image' found in _posts/$post_year/$post_month/"
-        else
-          repo_path="$md_dir/$cover_image"
-          if ! file_exists "$repo_path"; then
-            error "$md_file has relative cover_image '$cover_image' but not found in '_posts/$post_year/$post_month/' or in post directory."
-            errors=1
-          fi
+          found=1
+        elif [[ -f "_published-articles/$post_year/$post_month/$cover_image" ]]; then
+          ok "$md_file cover_image '$cover_image' found in _published-articles/$post_year/$post_month/"
+          found=1
+        elif [[ -f "$md_dir/$cover_image" ]]; then
+          ok "$md_file cover_image '$cover_image' found in post directory"
+          found=1
+        fi
+
+        if [[ $found -eq 0 ]]; then
+          error "$md_file has relative cover_image '$cover_image' but not found in expected locations."
+          errors=1
         fi
         ;;
     esac
@@ -285,17 +308,33 @@ validate_post_file() {
         ;;
       simple)
         # Simplified format: image-1.jpeg (will be processed by Jekyll plugin)
-        # Check if image exists in the nested _posts/YYYY/MM/ folders
-        filename=$(basename "$md_file")
-        post_year="${filename:0:4}"
-        post_month="${filename:5:2}"
-        nested_image_path="_posts/$post_year/$post_month/$ref"
+        # Check if image exists in the nested YYYY/MM/ folders
+        local found=0
 
-        if [[ -f "$nested_image_path" ]]; then
+        # Determine the year/month based on file location
+        if [[ "$md_file" == _posts/* ]]; then
+          filename=$(basename "$md_file")
+          post_year="${filename:0:4}"
+          post_month="${filename:5:2}"
+        elif [[ "$md_file" == _published-articles/* ]]; then
+          # Extract from nested path: _published-articles/YYYY/MM/DD-title.md
+          post_year=$(echo "$md_file" | cut -d'/' -f2)
+          post_month=$(echo "$md_file" | cut -d'/' -f3)
+        fi
+
+        # Check in both _posts/ and _published-articles/ nested folders
+        if [[ -f "_posts/$post_year/$post_month/$ref" ]]; then
           ok "$md_file uses simplified image reference '$ref' (will be auto-resolved by Jekyll plugin)"
+          found=1
+        elif [[ -f "_published-articles/$post_year/$post_month/$ref" ]]; then
+          ok "$md_file uses simplified image reference '$ref' (will be auto-resolved by Jekyll plugin)"
+          found=1
         elif [[ -f "$md_dir/$ref" ]]; then
           ok "$md_file uses simplified image reference '$ref' (will be auto-resolved by Jekyll plugin)"
-        else
+          found=1
+        fi
+
+        if [[ $found -eq 0 ]]; then
           error "$md_file references missing inline image '$ref'."
           errors=1
         fi
@@ -364,9 +403,10 @@ elif [[ "$#" -gt 0 ]]; then
     fi
   done
 else
-  while IFS= read -r md_file; do FILES+=("$md_file"); done < <(find _posts -type f -name '*.md' | LC_ALL=C sort)
-  while IFS= read -r content_file; do CONTENT_FILES+=("$content_file"); done < <(find index.html 404.html README.md _posts _layouts _data _config.yml -type f 2>/dev/null | LC_ALL=C sort)
-  while IFS= read -r image_file; do IMAGE_FILES+=("$image_file"); done < <(find _posts -type f | grep -E "$IMAGE_EXT_REGEX" | LC_ALL=C sort)
+  # Validate posts from both _posts/ (published) and _published-articles/ (source)
+  while IFS= read -r md_file; do FILES+=("$md_file"); done < <(find _posts _published-articles -type f -name '*.md' 2>/dev/null | LC_ALL=C sort)
+  while IFS= read -r content_file; do CONTENT_FILES+=("$content_file"); done < <(find index.html 404.html README.md _posts _published-articles _layouts _data _config.yml -type f 2>/dev/null | LC_ALL=C sort)
+  while IFS= read -r image_file; do IMAGE_FILES+=("$image_file"); done < <(find _posts _published-articles -type f | grep -E "$IMAGE_EXT_REGEX" 2>/dev/null | LC_ALL=C sort)
 fi
 
 if (( USE_STAGED_ONLY == 1 )) && [[ "${#FILES[@]}" -eq 0 && "${#CONTENT_FILES[@]}" -eq 0 && "${#IMAGE_FILES[@]}" -eq 0 ]]; then
