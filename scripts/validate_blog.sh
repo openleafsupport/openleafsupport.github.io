@@ -147,9 +147,10 @@ validate_featured_articles() {
   local ranks_seen=""
   local errors=0
 
-  # Extract and validate each featured entry
+  # Extract and validate each featured entry (only check entries that have a rank)
   while IFS= read -r rank; do
-    [[ -z "$rank" ]] && continue
+    # Skip empty lines and null values
+    [[ -z "$rank" || "$rank" == "null" ]] && continue
 
     # Check if rank is a valid number between 1-6
     if ! [[ "$rank" =~ ^[1-6]$ ]]; then
@@ -164,12 +165,15 @@ validate_featured_articles() {
     fi
 
     ranks_seen="$ranks_seen$rank"$'\n'
-  done < <(jq -r '.featured[]?.rank' "$FEATURED_FILE" 2>/dev/null)
+  done < <(jq -r '.featured[] | select(has("rank")) | .rank' "$FEATURED_FILE" 2>/dev/null)
 
   if [[ $errors -eq 0 ]]; then
-    local featured_count
+    local featured_count with_rank without_rank
     featured_count=$(jq '.featured | length' "$FEATURED_FILE" 2>/dev/null)
-    ok "Featured articles configuration is valid ($featured_count featured article(s))"
+    with_rank=$(jq '[.featured[] | select(has("rank"))] | length' "$FEATURED_FILE" 2>/dev/null)
+    without_rank=$((featured_count - with_rank))
+
+    ok "Featured articles configuration is valid ($featured_count total, $with_rank featured, $without_rank unranked)"
   fi
 
   return $errors

@@ -74,10 +74,14 @@ def sync_featured
   # Find all markdown files in _published-articles
   all_files = Dir.glob("#{SOURCE_DIR}/**/[0-9][0-9]-*.md")
 
-  # Update files that are in the featured list
+  # Update files that are in the featured list AND have a rank
   featured_files.each do |file_path|
+    rank = featured_ranks[file_path]
+
+    # Only update if rank is present (not nil/null)
+    next unless rank
+
     if File.exist?(file_path)
-      rank = featured_ranks[file_path]
       update_featured_in_file(file_path, rank)
     else
       puts "⚠ Warning: Featured file not found: #{file_path}"

@@ -1,24 +1,30 @@
 {
   "featured": [
     {
-      "rank": 1,
-      "file": "_published-articles/2025/07/11-Why-Reading-Matters-More-Than-Doomscrolling-for-Your-Attention.md"
+      "file": "_published-articles/2025/07/11-Why-Reading-Matters-More-Than-Doomscrolling-for-Your-Attention.md",
+      "rank": 1
     },
     {
-      "rank": 2,
-      "file": "_published-articles/2026/01/01-How-to-Build-a-Reading-Habit-Without-Forcing-It-(That-Actually-Lasts).md"
+      "file": "_published-articles/2025/12/31-How-I-Encouraged-My-4-Year-Old-to-Choose-Books-Over-Screens.md",
+      "rank": 3
     },
     {
-      "rank": 3,
-      "file": "_published-articles/2025/12/31-How-I-Encouraged-My-4-Year-Old-to-Choose-Books-Over-Screens.md"
+      "file": "_published-articles/2026/01/01-How-to-Build-a-Reading-Habit-Without-Forcing-It-(That-Actually-Lasts).md",
+      "rank": 2
     },
     {
-      "rank": 5,
-      "file": "_published-articles/2026/02/21-A-Good-Girl's-Guide-to-Murder-Book-Review-Smart-Addictive-and-Dark.md"
+      "file": "_published-articles/2026/01/03-The-Kite-Runner-Book-Review-Friendship-Guilt-and-Redemption.md"
     },
     {
-      "rank": 6,
-      "file": "_published-articles/2026/03/17-Verity-Book-Review-A-Dark-Psychological-Thriller-You-Cannot-Trust.md"
+      "file": "_published-articles/2026/02/21-A-Good-Girl's-Guide-to-Murder-Book-Review-Smart-Addictive-and-Dark.md",
+      "rank": 5
+    },
+    {
+      "file": "_published-articles/2026/03/17-Verity-Book-Review-A-Dark-Psychological-Thriller-You-Cannot-Trust.md",
+      "rank": 6
+    },
+    {
+      "file": "_published-articles/2026/04/12-Not-Quite-Dead-Yet-Book-Review-A-Thriller-About-Survival-and-Identity.md"
     }
   ]
 }
