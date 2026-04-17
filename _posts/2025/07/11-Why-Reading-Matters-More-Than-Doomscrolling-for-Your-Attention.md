@@ -9,7 +9,7 @@ tags:
   - attention
   - doomscrolling
   - digital wellbeing
-cover_image: "image.png"
+cover_image: "image-1.png"
 featured: 1
 cover_image_alt: "OpenLeaf cover image for Why Reading Matters More Than Doomscrolling"
 ---

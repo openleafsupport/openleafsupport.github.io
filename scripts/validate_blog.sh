@@ -72,7 +72,7 @@ extract_categories() {
 }
 
 extract_inline_image_refs() {
-  perl -ne 'while(/!\[[^\]]*\]\(\{\{\s*["\047]([^"\047]+)["\047]\s*\|\s*relative_url\s*\}\}\)/g){print "$1\n"} while(/!\[[^\]]*\]\(([^)]+)\)/g){$r=$1; next if $r =~ /\{\{/; print "$r\n"}' "$1"
+  perl -ne 'while(/!\[[^\]]*\]\(\{\{\s*["\047]([^"\047]+)["\047]\s*\|\s*relative_url\s*\}\}\)/g){print "full:$1\n"} while(/!\[[^\]]*\]\(([^)]+)\)/g){$r=$1; next if $r =~ /\{\{/; next if $r =~ /^https?:|^data:|^mailto:|^#/; print "simple:$r\n"}' "$1"
 }
 
 has_line() { grep -Fq "$2" "$1"; }
@@ -255,29 +255,29 @@ validate_post_file() {
     esac
   fi
 
-  while IFS= read -r raw_ref; do
-    ref="$(trim "$raw_ref")"
+  while IFS= read -r raw_ref_line; do
+    ref_type="${raw_ref_line%%:*}"  # Extract type (full or simple)
+    ref="${raw_ref_line#*:}"        # Extract reference path
+    ref="$(trim "$ref")"
     [[ -z "$ref" ]] && continue
-    case "$ref" in
-      http://*|https://*|data:*|mailto:*|\#*) continue ;;
-      /*)
+
+    case "$ref_type" in
+      full)
+        # Full path format: /assets/post-assets/YYYY/MM/image.ext
         repo_path="${ref#/}"
         if ! file_exists "$repo_path"; then
           error "$md_file references missing inline image '$ref'."
           errors=1
-        elif [[ "$repo_path" == _posts/* ]]; then
-          file_name="$(basename "$repo_path")"
-          error "$md_file references '$ref'. Use {{ '/assets/post-assets/$bundle_name/$file_name' | relative_url }} instead."
-          errors=1
         fi
         ;;
-      *)
+      simple)
+        # Simplified format: image-1.jpeg (will be processed by Jekyll plugin)
         if [[ -f "$md_dir/$ref" ]]; then
-          error "$md_file uses relative inline image '$ref'. Use ![Alt]({{ '/assets/post-assets/$bundle_name/$ref' | relative_url }}) instead."
+          ok "$md_file uses simplified image reference '$ref' (will be auto-resolved by Jekyll plugin)"
         else
           error "$md_file references missing inline image '$ref'."
+          errors=1
         fi
-        errors=1
         ;;
     esac
   done < <(extract_inline_image_refs "$md_file")

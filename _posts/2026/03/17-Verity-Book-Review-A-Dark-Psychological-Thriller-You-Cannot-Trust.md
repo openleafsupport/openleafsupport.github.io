@@ -10,7 +10,7 @@ tags:
   - romance
   - thriller
   - Colleen Hoover
-cover_image: "image.png"
+cover_image: "image-1.png"
 featured: 6
 cover_image_alt: "OpenLeaf cover image for Verity book review"
 book_title: "Verity"

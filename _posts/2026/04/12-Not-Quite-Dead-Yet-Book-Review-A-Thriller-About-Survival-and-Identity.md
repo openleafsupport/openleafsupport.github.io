@@ -10,7 +10,7 @@ tags:
   - mystery
   - young adult
   - Holly Jackson
-cover_image: "image.jpeg"
+cover_image: "image-1.jpeg"
 cover_image_alt: "OpenLeaf cover image for Not Quite Dead Yet book review"
 book_title: "Not Quite Dead Yet"
 book_author: "Holly Jackson"

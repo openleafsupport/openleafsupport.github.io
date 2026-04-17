@@ -9,7 +9,7 @@ tags:
   - children and books
   - screen time
   - reading habit
-cover_image: "image.jpg"
+cover_image: "image-2.jpg"
 featured: 2
 cover_image_alt: "OpenLeaf cover image for How I Nudged My 4-Year-Old Toward Books Instead of Screens"
 ---
@@ -36,7 +36,7 @@ She began picking up books on her own and bringing them to us:
 
 That moment matters more than any rule you can enforce.
 
-![Children's books that helped make reading feel more inviting]({{ '/assets/post-assets/2025-12-31-How-I-Encouraged-My-4-Year-Old-to-Choose-Books-Over-Screens/books.jpeg' | relative_url }})
+![Children's books that helped make reading feel more inviting](image-1.jpeg)
 
 ---
 
