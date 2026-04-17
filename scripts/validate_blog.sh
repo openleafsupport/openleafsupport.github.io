@@ -5,6 +5,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_FILE="$ROOT_DIR/_config.yml"
 CATEGORY_FILE="$ROOT_DIR/_data/blog_categories.yml"
+FEATURED_FILE="$ROOT_DIR/_data/featured_articles.json"
 PUBLIC_ASSET_DIR="$ROOT_DIR/assets/post-assets"
 # Config include markers removed — GitHub Pages Jekyll 3.10 cannot read binary
 # files listed under include: and fails with "invalid byte sequence in UTF-8".
@@ -127,6 +128,51 @@ validate_image_asset() {
 
   ok "$asset_path meets image standards (${width}x${height}, ${size_bytes} bytes)"
   return 0
+}
+
+validate_featured_articles() {
+  step "Validating featured articles configuration"
+
+  if [[ ! -f "$FEATURED_FILE" ]]; then
+    warn "Featured articles file not found: $FEATURED_FILE"
+    return 0
+  fi
+
+  # Validate JSON syntax
+  if ! jq empty "$FEATURED_FILE" 2>/dev/null; then
+    error "Invalid JSON in $FEATURED_FILE"
+    return 1
+  fi
+
+  local ranks_seen=""
+  local errors=0
+
+  # Extract and validate each featured entry
+  while IFS= read -r rank; do
+    [[ -z "$rank" ]] && continue
+
+    # Check if rank is a valid number between 1-6
+    if ! [[ "$rank" =~ ^[1-6]$ ]]; then
+      error "Invalid featured rank: $rank. Must be between 1-6."
+      errors=1
+    fi
+
+    # Check for duplicate ranks
+    if echo "$ranks_seen" | grep -q "^$rank$"; then
+      error "Duplicate featured rank: $rank. Each featured article must have a unique rank (1-6)."
+      errors=1
+    fi
+
+    ranks_seen="$ranks_seen$rank"$'\n'
+  done < <(jq -r '.featured[]?.rank' "$FEATURED_FILE" 2>/dev/null)
+
+  if [[ $errors -eq 0 ]]; then
+    local featured_count
+    featured_count=$(jq '.featured | length' "$FEATURED_FILE" 2>/dev/null)
+    ok "Featured articles configuration is valid ($featured_count featured article(s))"
+  fi
+
+  return $errors
 }
 
 sync_assets_and_config() {
@@ -352,6 +398,7 @@ validate_post_file() {
 }
 
 sync_assets_and_config
+validate_featured_articles
 
 FEATURED_POSTS_LIMIT="$(trim "$(extract_featured_posts_limit)")"
 if [[ -z "$FEATURED_POSTS_LIMIT" ]]; then
