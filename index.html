@@ -110,15 +110,9 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
       {% if post.cover_image %}
       {% unless post_cover contains '://' %}
       {% if post_cover_first_char != '/' %}
-      {% assign post_source_parts = post.path | split: '/' %}
-      {% assign post_source_dir = '' %}
-      {% for part in post_source_parts %}
-      {% unless forloop.last %}
-      {% assign post_source_dir = post_source_dir | append: part | append: '/' %}
-      {% endunless %}
-      {% endfor %}
-      {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
-      {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
+      {% assign post_year = post.date | date: "%Y" %}
+      {% assign post_month = post.date | date: "%m" %}
+      {% assign post_cover = '/assets/post-assets/' | append: post_year | append: '/' | append: post_month | append: '/' | append: post_cover %}
       {% endif %}
       {% endunless %}
       {% endif %}
@@ -186,15 +180,9 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
       {% if post.cover_image %}
         {% unless post_cover contains '://' %}
           {% if post_cover_first_char != '/' %}
-            {% assign post_source_parts = post.path | split: '/' %}
-            {% assign post_source_dir = '' %}
-            {% for part in post_source_parts %}
-              {% unless forloop.last %}
-                {% assign post_source_dir = post_source_dir | append: part | append: '/' %}
-              {% endunless %}
-            {% endfor %}
-            {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
-            {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
+            {% assign post_year = post.date | date: "%Y" %}
+            {% assign post_month = post.date | date: "%m" %}
+            {% assign post_cover = '/assets/post-assets/' | append: post_year | append: '/' | append: post_month | append: '/' | append: post_cover %}
           {% endif %}
         {% endunless %}
       {% endif %}
@@ -387,15 +375,9 @@ description: OpenLeaf is an initiative dedicated to encouraging more people to r
   {% if post.cover_image %}
     {% unless post_cover contains '://' %}
       {% if post_cover_first_char != '/' %}
-        {% assign post_source_parts = post.path | split: '/' %}
-        {% assign post_source_dir = '' %}
-        {% for part in post_source_parts %}
-          {% unless forloop.last %}
-            {% assign post_source_dir = post_source_dir | append: part | append: '/' %}
-          {% endunless %}
-        {% endfor %}
-        {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
-        {% assign post_cover = '/' | append: post_source_dir | append: post_cover %}
+        {% assign post_year = post.date | date: "%Y" %}
+        {% assign post_month = post.date | date: "%m" %}
+        {% assign post_cover = '/assets/post-assets/' | append: post_year | append: '/' | append: post_month | append: '/' | append: post_cover %}
       {% endif %}
     {% endunless %}
   {% endif %}

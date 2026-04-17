@@ -24,15 +24,9 @@
   {% if page.image or page.cover_image %}
   {% unless social_image contains '://' %}
   {% if social_image_first_char != '/' %}
-  {% assign source_parts = page.path | split: '/' %}
-  {% assign source_dir = '' %}
-  {% for part in source_parts %}
-  {% unless forloop.last %}
-  {% assign source_dir = source_dir | append: part | append: '/' %}
-  {% endunless %}
-  {% endfor %}
-  {% assign source_dir = source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
-  {% assign social_image = '/' | append: source_dir | append: social_image %}
+  {% assign post_year = page.date | date: "%Y" %}
+  {% assign post_month = page.date | date: "%m" %}
+  {% assign social_image = '/assets/post-assets/' | append: post_year | append: '/' | append: post_month | append: '/' | append: social_image %}
   {% endif %}
   {% endunless %}
   {% endif %}

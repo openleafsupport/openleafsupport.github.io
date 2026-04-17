@@ -47,15 +47,10 @@ layout: default
   {% if post_cover_image %}
     {% unless post_cover_image contains '://' %}
       {% if post_cover_first_char != '/' %}
-        {% assign post_source_parts = page.path | split: '/' %}
-        {% assign post_source_dir = '' %}
-        {% for part in post_source_parts %}
-          {% unless forloop.last %}
-            {% assign post_source_dir = post_source_dir | append: part | append: '/' %}
-          {% endunless %}
-        {% endfor %}
-        {% assign post_source_dir = post_source_dir | replace_first: '_posts/', 'assets/post-assets/' %}
-        {% assign post_cover_image = '/' | append: post_source_dir | append: post_cover_image %}
+        <!-- Extract year and month from post date for asset path -->
+        {% assign post_year = page.date | date: "%Y" %}
+        {% assign post_month = page.date | date: "%m" %}
+        {% assign post_cover_image = '/assets/post-assets/' | append: post_year | append: '/' | append: post_month | append: '/' | append: post_cover_image %}
       {% endif %}
     {% endunless %}
   {% endif %}

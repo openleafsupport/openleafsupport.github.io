@@ -246,10 +246,23 @@ validate_post_file() {
         fi
         ;;
       *)
-        repo_path="$md_dir/$cover_image"
-        if ! file_exists "$repo_path"; then
-          error "$md_file has relative cover_image '$cover_image' but '$repo_path' does not exist."
-          errors=1
+        # Check if cover_image exists in the nested _posts/YYYY/MM/ folders
+        # Extract date from filename (format: YYYY-MM-DD-title.md)
+        filename=$(basename "$md_file")
+        post_year="${filename:0:4}"
+        post_month="${filename:5:2}"
+
+        # Try nested folder first
+        nested_path="_posts/$post_year/$post_month/$cover_image"
+
+        if file_exists "$nested_path" 2>/dev/null; then
+          ok "$md_file cover_image '$cover_image' found in _posts/$post_year/$post_month/"
+        else
+          repo_path="$md_dir/$cover_image"
+          if ! file_exists "$repo_path"; then
+            error "$md_file has relative cover_image '$cover_image' but not found in '_posts/$post_year/$post_month/' or in post directory."
+            errors=1
+          fi
         fi
         ;;
     esac
@@ -272,7 +285,15 @@ validate_post_file() {
         ;;
       simple)
         # Simplified format: image-1.jpeg (will be processed by Jekyll plugin)
-        if [[ -f "$md_dir/$ref" ]]; then
+        # Check if image exists in the nested _posts/YYYY/MM/ folders
+        filename=$(basename "$md_file")
+        post_year="${filename:0:4}"
+        post_month="${filename:5:2}"
+        nested_image_path="_posts/$post_year/$post_month/$ref"
+
+        if [[ -f "$nested_image_path" ]]; then
+          ok "$md_file uses simplified image reference '$ref' (will be auto-resolved by Jekyll plugin)"
+        elif [[ -f "$md_dir/$ref" ]]; then
           ok "$md_file uses simplified image reference '$ref' (will be auto-resolved by Jekyll plugin)"
         else
           error "$md_file references missing inline image '$ref'."
