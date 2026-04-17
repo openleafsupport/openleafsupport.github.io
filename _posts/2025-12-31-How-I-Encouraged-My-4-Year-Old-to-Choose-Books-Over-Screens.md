@@ -10,7 +10,7 @@ tags:
   - screen time
   - reading habit
 cover_image: "image-2.jpg"
-featured: 2
+featured: 3
 cover_image_alt: "OpenLeaf cover image for How I Nudged My 4-Year-Old Toward Books Instead of Screens"
 ---
 

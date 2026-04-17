@@ -11,7 +11,7 @@ tags:
   - habit building
   - books
 cover_image: "image-1.jpg"
-featured: 1
+featured: 2
 cover_image_alt: "Cozy reading setup with a book and warm light"
 ---
 

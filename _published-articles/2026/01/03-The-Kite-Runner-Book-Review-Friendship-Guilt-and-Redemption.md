@@ -10,7 +10,6 @@ tags:
   - khaled hosseini
   - kite runner
 cover_image: "image-2.png"
-featured: 4
 cover_image_alt: "OpenLeaf cover image for The Kite Runner book review"
 book_title: "The Kite Runner"
 book_author: "Khaled Hosseini"
