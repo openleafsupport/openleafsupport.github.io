@@ -11,12 +11,14 @@ tags:
   - thriller
   - Holly Jackson
 cover_image: "image-1.jpeg"
-featured: 5
 cover_image_alt: "OpenLeaf cover image for A Good Girl’s Guide to Murder book review"
 book_title: "A Good Girl's Guide to Murder"
 book_author: "Holly Jackson"
 rating: 8
+featured: 5
 ---
+---
+
 
 
 > **Author:** Holly Jackson

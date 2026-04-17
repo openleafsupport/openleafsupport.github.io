@@ -11,9 +11,10 @@ tags:
   - habit building
   - books
 cover_image: "image-1.jpg"
-featured: 2
 cover_image_alt: "Cozy reading setup with a book and warm light"
+featured: 2
 ---
+
 
 
 If you’ve ever told yourself, *“I should read more”* but never followed through, you’re not alone.

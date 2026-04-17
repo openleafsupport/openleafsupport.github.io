@@ -10,9 +10,11 @@ tags:
   - doomscrolling
   - digital wellbeing
 cover_image: "image-1.png"
-featured: 1
 cover_image_alt: "OpenLeaf cover image for Why Reading Matters More Than Doomscrolling"
+featured: 1
 ---
+---
+
 
 
 We live in the most information-rich era in human history. And yet, many of us end the day feeling strangely empty aware of a hundred things, clear about none of them.

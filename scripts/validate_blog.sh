@@ -284,11 +284,15 @@ validate_post_file() {
     done
   fi
 
-  featured_value="$(trim "$(extract_featured "$md_file")")"
-  if [[ -z "$featured_value" ]]; then
-    warn "$md_file is missing the featured field. Use featured: 0 to exclude a post or a positive integer rank to feature it."
-  elif ! [[ "$featured_value" =~ ^[0-9]+$ ]]; then
-    warn "$md_file has invalid featured value '$featured_value'. Use a number only, where 0 means not featured and positive integers control featured order."
+  # Only warn about missing featured field in _posts/ (published).
+  # _published-articles/ files have featured: managed by sync_featured_articles.rb.
+  if [[ "$md_file" == _posts/* ]]; then
+    featured_value="$(trim "$(extract_featured "$md_file")")"
+    if [[ -z "$featured_value" ]]; then
+      warn "$md_file is missing the featured field. Run: ruby scripts/sync_featured_articles.rb && ruby scripts/build_posts.rb"
+    elif ! [[ "$featured_value" =~ ^[0-9]+$ ]]; then
+      warn "$md_file has invalid featured value '$featured_value'. Use a number only."
+    fi
   fi
 
   cover_image="$(trim "$(extract_cover_image "$md_file")")"
@@ -320,13 +324,13 @@ validate_post_file() {
           post_month=$(echo "$md_file" | cut -d'/' -f3)
         fi
 
-        # Check in both _posts/ and _published-articles/ nested folders
+        # Check source-first: for _published-articles/ check there first, then _posts/
         local found=0
-        if [[ -f "_posts/$post_year/$post_month/$cover_image" ]]; then
-          ok "$md_file cover_image '$cover_image' found in _posts/$post_year/$post_month/"
-          found=1
-        elif [[ -f "_published-articles/$post_year/$post_month/$cover_image" ]]; then
+        if [[ -f "_published-articles/$post_year/$post_month/$cover_image" ]]; then
           ok "$md_file cover_image '$cover_image' found in _published-articles/$post_year/$post_month/"
+          found=1
+        elif [[ -f "_posts/$post_year/$post_month/$cover_image" ]]; then
+          ok "$md_file cover_image '$cover_image' found in _posts/$post_year/$post_month/"
           found=1
         elif [[ -f "$md_dir/$cover_image" ]]; then
           ok "$md_file cover_image '$cover_image' found in post directory"
@@ -372,11 +376,11 @@ validate_post_file() {
           post_month=$(echo "$md_file" | cut -d'/' -f3)
         fi
 
-        # Check in both _posts/ and _published-articles/ nested folders
-        if [[ -f "_posts/$post_year/$post_month/$ref" ]]; then
+        # Check source-first: for _published-articles/ check there first, then _posts/
+        if [[ -f "_published-articles/$post_year/$post_month/$ref" ]]; then
           ok "$md_file uses simplified image reference '$ref' (will be auto-resolved by Jekyll plugin)"
           found=1
-        elif [[ -f "_published-articles/$post_year/$post_month/$ref" ]]; then
+        elif [[ -f "_posts/$post_year/$post_month/$ref" ]]; then
           ok "$md_file uses simplified image reference '$ref' (will be auto-resolved by Jekyll plugin)"
           found=1
         elif [[ -f "$md_dir/$ref" ]]; then

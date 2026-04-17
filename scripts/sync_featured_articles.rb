@@ -37,7 +37,7 @@ def update_featured_in_file(file_path, rank)
       # Only add if not already present
       unless frontmatter.include?('featured:')
         new_frontmatter = "#{frontmatter}\nfeatured: #{rank}"
-        updated = "---\n#{new_frontmatter}\n#{rest}"
+        updated = "---\n#{new_frontmatter}\n---#{rest}"
         File.write(file_path, updated)
         puts "✓ Added: #{file_path} → featured: #{rank}"
       end
@@ -88,9 +88,12 @@ def sync_featured
     end
   end
 
-  # Remove featured field from files that are NOT in the featured list
+  # Remove featured field from:
+  # 1. Files not in the featured list at all
+  # 2. Files in the featured list but with no rank (unranked articles)
   all_files.each do |file_path|
-    unless featured_files.include?(file_path)
+    no_rank = !featured_ranks[file_path]
+    if no_rank
       if File.read(file_path).match?(/^---.*?^featured:/m)
         remove_featured_from_file(file_path)
       end

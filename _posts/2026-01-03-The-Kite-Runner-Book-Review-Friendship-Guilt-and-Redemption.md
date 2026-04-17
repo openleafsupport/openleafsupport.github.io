@@ -16,7 +16,6 @@ book_author: "Khaled Hosseini"
 rating: 8
 ---
 
-
 > **Author:** Khaled Hosseini  
 > **Rating:** 8/10  
 > **Genre:** Historical Fiction / Drama  
