@@ -144,34 +144,10 @@ Over time, my process has become quite simple:
 
 1. I keep a loose list of books that *sound interesting*  
 2. When I finish a book, I don’t rush to the next one  
-3. I scan that list based on my current mood  
-4. I pick one that feels easy to start  
-5. I give it 20–30 pages  
-6. I continue only if it pulls me in  
-
-No pressure. No fixed plan.
+3. I scan that list based on my current mood. For example, if I’ve just finished a love story, I might want to switch things up with a thriller or a mystery. At other times, if I really enjoyed a book, I feel like picking up another bestseller book by the same author. It completely depends on my mood after finishing a book.
+4. I give it 20–50 pages. If I like it, I continue reading. If not, I stop.
 
 This approach has worked better than any structured system I tried earlier.
-
----
-
-## It’s Okay to Get It Wrong
-
-You will pick the wrong book sometimes.
-
-It will feel slow. Or disconnected. Or simply not for you.
-
-That’s part of the process.
-
-The mistake is not picking the wrong book.  
-The mistake is *forcing yourself to finish it anyway.*
-
-Every wrong pick teaches you something:
-- What you enjoy  
-- What you don’t  
-- What works for your current phase  
-
-Over time, your choices get better naturally.
 
 ---
 
