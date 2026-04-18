@@ -21,6 +21,26 @@ def build_posts
     return
   end
 
+  # Compute the full set of expected _posts/ filenames from current source
+  expected_targets = posts.map do |source_file|
+    path_parts = Pathname.new(source_file).each_filename.to_a
+    next unless path_parts.length >= 4
+    year = path_parts[-3]
+    month = path_parts[-2]
+    filename = path_parts[-1]
+    next unless year.match?(/^\d{4}$/) && month.match?(/^\d{2}$/)
+    File.join(TARGET_DIR, "#{year}-#{month}-#{filename}")
+  end.compact
+
+  # Delete stale _posts/*.md files that no longer have a source
+  existing_posts = Dir.glob("#{TARGET_DIR}/[0-9][0-9][0-9][0-9]-[0-9][0-9]-*.md")
+  existing_posts.each do |stale_file|
+    unless expected_targets.include?(stale_file)
+      FileUtils.rm(stale_file)
+      puts "✗ Deleted stale: #{stale_file}"
+    end
+  end
+
   posts.each do |source_file|
     # Extract date components from the file path (e.g., _published-articles/2025/12/31-title.md)
     path_parts = Pathname.new(source_file).each_filename.to_a
@@ -59,6 +79,22 @@ def copy_images
   # Find all image files in _published-articles with nested structure (YYYY/MM/image.ext)
   images = Dir.glob("#{SOURCE_DIR}/**/*").select do |f|
     File.file?(f) && IMAGE_EXTENSIONS.include?(File.extname(f).downcase)
+  end
+
+  # Build the set of expected image paths in _posts/
+  expected_images = images.map do |source_image|
+    relative_path = source_image.sub(/^#{Regexp.escape(SOURCE_DIR)}\//, '')
+    File.join(TARGET_DIR, relative_path)
+  end
+
+  # Delete stale images in _posts/YYYY/MM/ that no longer have a source
+  Dir.glob("#{TARGET_DIR}/*/*/**/*").each do |existing_image|
+    next unless File.file?(existing_image)
+    next unless IMAGE_EXTENSIONS.include?(File.extname(existing_image).downcase)
+    unless expected_images.include?(existing_image)
+      FileUtils.rm(existing_image)
+      puts "✗ Deleted stale image: #{existing_image}"
+    end
   end
 
   if images.empty?

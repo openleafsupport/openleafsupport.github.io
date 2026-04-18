@@ -405,7 +405,25 @@ validate_post_file() {
   return "$errors"
 }
 
+USE_STAGED_ONLY=0
+if [[ "${1:-}" == "--staged" ]]; then
+  USE_STAGED_ONLY=1
+  shift
+fi
+
 sync_assets_and_config
+
+if (( USE_STAGED_ONLY == 0 )); then
+  step "Syncing featured articles index"
+  ruby "$ROOT_DIR/scripts/update_featured_articles_json.rb"
+
+  step "Syncing featured ranks into markdown"
+  ruby "$ROOT_DIR/scripts/sync_featured_articles.rb"
+
+  step "Building posts from source"
+  ruby "$ROOT_DIR/scripts/build_posts.rb"
+fi
+
 validate_featured_articles
 
 FEATURED_POSTS_LIMIT="$(trim "$(extract_featured_posts_limit)")"
@@ -414,12 +432,6 @@ if [[ -z "$FEATURED_POSTS_LIMIT" ]]; then
 elif ! [[ "$FEATURED_POSTS_LIMIT" =~ ^[0-9]+$ ]]; then
   error "featured_posts_limit in _config.yml must be a whole number."
   exit 1
-fi
-
-USE_STAGED_ONLY=0
-if [[ "${1:-}" == "--staged" ]]; then
-  USE_STAGED_ONLY=1
-  shift
 fi
 
 FILES=()

@@ -1696,6 +1696,13 @@ html[data-theme="dark"] .theme-icon-moon { display: none; }
   text-decoration: none;
 }
 
+.post-tag-unlinked {
+  color: var(--text-tertiary);
+  background: transparent;
+  border: 1px solid var(--text-tertiary);
+  cursor: default;
+}
+
 /* Browse by topic (homepage) */
 .topics-section {
   padding: 4rem 0;

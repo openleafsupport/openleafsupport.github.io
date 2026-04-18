@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 
 # Script to update featured_articles.json with all articles from _published-articles/
-# Adds missing articles without a rank property
-# Preserves existing rank values for articles that already have them
+# - Adds new articles without a rank (rank must be assigned manually in the JSON)
+# - Preserves existing ranks from the JSON (never reads 'featured:' from markdown files)
+# - Transfers rank automatically when a file is renamed (same day prefix in same YYYY/MM/)
+# - Removes stale entries whose files no longer exist and have no rename candidate
 # Usage: ruby scripts/update_featured_articles_json.rb
 
 require 'json'
@@ -40,19 +42,49 @@ def update_featured_json
   config = load_featured_config
   all_articles = get_all_articles
 
-  # Create a map of existing articles with their ranks
+  # Create a map of existing articles with their ranks (absolute path -> rank)
   existing_map = {}
   config['featured'].each do |entry|
     file_path = entry['file']
     existing_map[File.expand_path(file_path)] = entry['rank']
   end
 
+  # Transfer ranks from renamed files:
+  # If a path in existing_map no longer exists on disk, try to find a file
+  # in the same YYYY/MM/ directory with the same DD- day prefix and transfer the rank.
+  to_add = {}
+  to_remove = []
+
+  existing_map.each do |old_path, rank|
+    next unless rank                  # only care about ranked entries
+    next if File.exist?(old_path)     # file still exists, no rename happened
+
+    dir = File.dirname(old_path)
+    day_prefix = File.basename(old_path).split('-').first  # e.g. "02"
+
+    candidates = Dir.glob("#{dir}/#{day_prefix}-*.md").map { |f| File.expand_path(f) }
+    candidates.reject! { |c| existing_map.key?(c) }  # skip files already tracked
+
+    if candidates.length == 1
+      new_path = candidates.first
+      to_add[new_path] = rank
+      puts "  Transferred rank #{rank}: #{File.basename(old_path)} -> #{File.basename(new_path)}"
+    elsif candidates.length > 1
+      puts "  WARNING: Multiple rename candidates for #{File.basename(old_path)}, rank #{rank} not transferred automatically"
+    end
+    to_remove << old_path
+  end
+
+  # Apply changes outside the iteration
+  to_remove.each { |path| existing_map.delete(path) }
+  to_add.each { |path, rank| existing_map[path] = rank }
+
   # Build new featured array
   new_featured = []
   all_articles.each do |article_path|
     entry = { 'file' => article_path.sub("#{Dir.pwd}/", '') }
 
-    # Preserve existing rank if it exists
+    # Preserve existing rank if it exists (including transferred ranks)
     if existing_map[article_path]
       entry['rank'] = existing_map[article_path]
     end

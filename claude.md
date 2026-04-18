@@ -29,7 +29,7 @@
 ```bash
 ruby scripts/sync_featured_articles.rb
 ruby scripts/build_posts.rb
-bash scripts/validate_blog.sh
+bash scripts/validate-and-sync.sh
 ```
 
 5. Preview: `bundle exec jekyll serve --port 4000`
@@ -48,7 +48,7 @@ Jekyll plugin auto-converts simple names to full paths.
 
 - `build_posts.rb`: Copy posts to `_posts/`, images to `_posts/YYYY/MM/`
 - `sync_featured_articles.rb`: Sync `featured: X` from JSON to markdown
-- `validate_blog.sh`: Validate, auto-add missing articles, sync images
+- `validate-and-sync.sh`: Validate, auto-add missing articles, sync images, rebuild posts
 
 ## Quick Tasks
 
